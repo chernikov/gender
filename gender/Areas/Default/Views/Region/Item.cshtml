@@ -1,0 +1,172 @@
+﻿@model gender.Model.Region
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header"><i class="icon-map-marker"></i>&nbsp;<a href="@Url.Action("Index", "Region")">Страны
+                и регионы</a>
+            </h3>
+        </div>
+        <div class="span8">
+            <div class="single-post-w">
+                <h2 class="post-title">@Model.Name
+                </h2>
+                
+                @if (Model.SubModeratedDocuments.Any())
+                {
+                    <h3 class="section-header"><i class="icon-file"></i>&nbsp;Документы
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubModeratedDocuments)
+                        {
+                            <li>
+                                <i class="icon-file"></i><a href="@Url.Action("Item", "Document", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubModeratedPublications.Any())
+                {
+                    <h3 class="section-header"><i class="icon-book"></i>&nbsp;Публикации
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubModeratedPublications)
+                        {
+                            <li>
+                                <i class="icon-book"></i><a href="@Url.Action("Item", "Publication", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubModeratedPersons.Any())
+                {
+                    <h3 class="section-header"><i class="icon-user"></i>&nbsp;Люди
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubModeratedPersons)
+                        {
+                            <li>
+                                <i class="icon-user"></i><a href="@Url.Action("Item", "Person", new { url = item.Url })">@item.FullName</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubOrganizations.Any())
+                {
+                    <h3 class="section-header"><i class="icon-group"></i>&nbsp;Организации
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubOrganizations)
+                        {
+                            <li>
+                                <i class="icon-group"></i><a href="@Url.Action("Item", "Organization", new { url = item.Url })">@item.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubModeratedStudyMaterials.Any())
+                {
+                    <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;Учебные материалы
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubModeratedStudyMaterials)
+                        {
+                            <li>
+                                <i class="icon-briefcase"></i><a href="@Url.Action("Item", "StudyMaterial", new { url = item.Url })">@item.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubModeratedEvents.Any())
+                {
+                    <h3 class="section-header"><i class="icon-flag"></i>&nbsp;События
+                    </h3>
+                    <ul class="icons-gree">
+                        @{
+                    var currentYear = 0;
+                        }
+                        @foreach (var item in Model.SubModeratedEvents)
+                        {
+                            var year = item.EventDate.HasValue ? item.EventDate.Value.Year : (item.Year.HasValue ? item.Year.Value : 0);
+                            if (year != currentYear)
+                            {
+                            <li>@year</li>
+                                currentYear = year;
+                            }
+                            <li><i class="icon-flag"></i><a href="@Url.Action("Item", "Event", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubModeratedWebLinks.Any())
+                {
+                    <h3 class="section-header"><i class="icon-globe"></i>&nbsp;Веб-ресурсы
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubModeratedWebLinks)
+                        {
+                            <li>
+                                <i class="icon-globe"></i><a href="@Url.Action("Item", "WebLink", new { url = item.SiteUrl })">@item.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubModeratedImages.Any())
+                {
+                    <h3 class="section-header"><i class="icon-picture"></i>&nbsp;Изображения</h3>
+                    <ul class="section-img-list thumbnails">
+                        @foreach (var item in Model.SubModeratedImages)
+                        {
+                            <li class="span1">
+                                <a class="thumbnail" href="@Url.Action("Item", "Image", new { url = item.Url })">
+                                    <img src="@item.Path?width=100&height=100&mode=crop" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubBlogPosts.Any())
+                {
+                    <h3 class="section-header"><i class="icon-comment-alt"></i>&nbsp;Блоги
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubBlogPosts)
+                        {
+                            <li>
+                                <i class="icon-comment-alt"></i><a href="@Url.Action("Item", "Blog", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+        <div class="span4">
+            <div class="blog-side-bar clearfix">
+                <div class="blog-categories widget-tp">
+                    <h5 class="section-header"><i class="icon-map-marker"></i>&nbsp;@Model.Name
+                    </h5>
+                    <div class="white-card">
+                        @Html.Raw(Model.Map)
+
+                        @Html.Raw(Model.Description.NlToP())
+
+                        @if (!string.IsNullOrWhiteSpace(Model.Link))
+                        {
+                            <a href="@Model.Link">Страница на Википедии</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+</div>

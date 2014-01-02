@@ -1,0 +1,397 @@
+﻿@model gender.Models.ViewModels.User.UserView
+
+@{
+    ViewBag.Title = "Редактирование профиля " + Model.FullName;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+@section styles {
+    @Styles.Render("~/Content/css/chosen")
+    @Styles.Render("~/Content/css/jquery-ui")
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/default/edit-user.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-region.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-organization.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-contact.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-link.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            selectLink.type = "url";
+            selectLink.prefix = "";
+        });
+    </script>
+    <script type="text/javascript" src="/Scripts/default/import-blog.js"></script>
+    <script type="text/javascript" src="/Scripts/default/settings.js"></script>
+}
+
+<div id="importResultWrapper" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" style="display: none;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>
+            Результат импорта
+        </h3>
+    </div>
+    <div class="modal-body" id="ModalBody">
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="single-post-w">
+            @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <fieldset>
+                    <legend>Редактирование профиля @Model.FullName</legend>
+                    @Html.Hidden("ID", Model.ID)
+                    @Html.Hidden("Photo", Model.Photo)
+                    @Html.Hidden("HasEmail", Model.HasEmail)
+                    <div class="control-group">
+                        <label class="control-label" for="LastName">
+                            Фамилия <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("LastName")
+                            @Html.TextBox("LastName", Model.LastName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="FirstName">
+                            Имя <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("FirstName")
+                            @Html.TextBox("FirstName", Model.FirstName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Patronymic">
+                            Отчество
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Patronymic")
+                            @Html.TextBox("Patronymic", Model.Patronymic)
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">
+                            Фото
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Logo")
+                            <img src="@Model.Photo?width=200" alt="avatar" id="PreviewImage" class="@(string.IsNullOrEmpty(Model.Photo) ? "hidden" : "")" />
+                            <br />
+                            <div class="btn btn-danger no-submit @(string.IsNullOrEmpty(Model.Photo) ? "hidden" : "")" id="DeleteImage">
+                                удалить
+                            </div>
+                            <div class="btn btn-primary" id="ChangeImage">
+                                Загрузить фотографию
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Email">
+                            Email
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Email")
+                            @Html.TextBox("Email", Model.Email)
+                            @if (!Model.ActivatedEmail)
+                            {
+                                <a class="btn btn-warning" id="SendActivationBtn">Выслать активацию еще раз</a>
+                            }
+                            @if (!Model.HasEmail)
+                            {
+                                <div class="alert alert-danger">
+                                    Чтобы получить пароль, введите Email и сгенерированный пароль
+                                    будет выслан на этот Email
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Bio">
+                            Биография
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Bio")
+                            @Html.TextArea("Bio", Model.Bio, new { @class = "htmltext ckeditor" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">
+                            Контакты
+                        </label>
+                        <div class="controls">
+                            <div class="btn" id="AddContact"><i class="icon-plus"></i>Добавить</div>
+                            <div id="ContactListWrapper">
+                                @if (Model.Contacts != null)
+                                {
+                                    foreach (var keyValuePair in Model.Contacts)
+                                    {
+                                        @Html.Partial("ContactItem", keyValuePair)
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            Страницы в соцсетях и на других сайтах
+                        </label>
+                        <div class="controls">
+                            <div class="btn" id="AddLink"><i class="icon-plus"></i>Добавить</div>
+                            <div id="LinkListWrapper">
+                                @if (Model.Links != null)
+                                {
+                                    foreach (var keyValuePair in Model.Links)
+                                    {
+                                        @Html.Partial("LinkItem", keyValuePair)
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="OrganizationList">
+                            Участие в организациях
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("OrganizationList", Model.SelectListOrganizations, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="SubjectList">
+                            Интересы
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="RegionList">
+                            Страны и регионы
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Сохранить
+                        </button>
+                        @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+                    </div>
+                </fieldset>
+            }
+            <hr />
+            @if (currentUser.ID == Model.ID)
+            {
+                <div id="ChangePasswordWrapper">
+                    @Html.Action("ChangePassword", "User")
+                </div>
+                <hr />
+                <h2>Настройки</h2>
+                <div class="accordion" id="settingsAcc">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" name="setting-notify" data-toggle="collapse" data-parent="#subjectsAcc" href="#setting-notify">
+                                Уведомления
+                            </a>
+                        </div>
+                        <div id="setting-notify" class="accordion-body collapse">
+                            @using (Html.BeginForm("EditNotify", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+                            {
+                                <div id="messageNotifyWrapper">
+                                </div>
+                                <fieldset>
+                                    <div class="white-card recent-post">
+                                        <div class="control-group">
+                                            <label class="control-label" for="NoticePeriod">
+                                                Получать уведомления об обновлениях
+                                            </label>
+                                            <div class="controls">
+                                                @Html.ValidationMessage("NoticeUpdatePeriod")
+                                                @Html.DropDownList("NoticeUpdatePeriod", Model.SelectListNoticeUpdatePeriod)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label" for="NoticePeriod">
+                                                Получать уведомления об комментариях
+                                            </label>
+                                            <div class="controls">
+                                                @Html.ValidationMessage("SelectListNoticeCommentPeriod")
+                                                @Html.DropDownList("NoticeCommentPeriod", Model.SelectListNoticeCommentPeriod)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary" id="EditNotifyBtn">
+                                            Сохранить
+                                        </button>
+                                        @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+                                    </div>
+                                </fieldset>
+                            }
+                        </div>
+                    </div>
+                    @if (currentUser.InvitedPrivileged || currentUser.InRoles("admin"))
+                    {
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" name="setting-blog" data-toggle="collapse" data-parent="#subjectsAcc" href="#setting-blog">
+                                <div style="padding-top: 80px; margin-top: -80px;"> Блог</div>
+                            </a>
+                        </div>
+                        <div id="setting-blog" class="accordion-body collapse">
+                            <div class="white-card recent-post">
+                                <p>
+                                    Как привилегированный пользователь, <strong>Вы можете вести свой блог на Гендер.ру</strong>.
+                                    Это позволит Вам делиться своими мыслями со всеми пользователей Гендер.ру, которые <strong>
+                                        заинтересованы в тех же темах, что и Вы.
+                                    </strong>
+                                </p>
+                                <p>
+                                    <strong>Как это работает?</strong> Каждое сообщение в Вашем блоге модератор разметит
+                                    ключевыми словами — «темами» (Вы также можете сделать это самостоятельно). После
+                                    этого все, кто подписан на соответствующие темы, получат уведомления о вашем сообщении.
+                                    Кроме того, оно будет отображаться на страницах, объединяющих все материалы по соответствующим
+                                    темам.
+                                </p>
+                                <p>Для ведения блога портал Гендер.ру предлагает Вам три возможности:</p>
+                                <ol class="edit-blog">
+                                    <li>
+                                        <p>
+                                            <strong>обновлять блог обычным способом</strong> — нажав на кнопку <a href="@Url.Action("Create", "Blog")">
+                                                «Написать в блог»
+                                            </a> в закладке <a href="@Url.Action("Author", "Blog", new { url = currentUser.Person.Url })">
+                                                «Блог»
+                                            </a>
+                                            на Вашей странице.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <strong>импортировать готовые сообщения из своего блога</strong>, который Вы уже
+                                            ведете на другой платформе (Живой журнал или Вордпресс). Вы можете добавить на Гендер.ру
+                                            только те сообщения, которые сочтете нужным, игнорируя остальные.
+                                        </p>
+                                        <p>
+                                            <em>
+                                                Для этого укажите адреса страниц, которые Вы хотите импортировать (каждый адрес
+                                                с новой строки).
+                                            </em>
+                                        </p>
+                                        <br />
+                                        @Html.TextArea("ImportBlogUrls", new { rows = 5, style = "width:50%" })
+                                        <br />
+                                        <br />
+                                        <button class="btn" id="ImportPostBtn">Импортировать</button>&nbsp;&nbsp;<small>
+                                            Все
+                                            сообщения будут отмечены
+                                            исходной датой.
+                                        </small>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <strong>настроить выборочную трансляцию сообщений из своего блога,</strong> который
+                                            Вы ведете на другой платформе (Живой журнал, Вордпресс либо другой блог, поддерживающий
+                                            RSS-трансляцию). В этом случае для обновления блога на Гендер.ру Вам даже не придется
+                                            в него заходить — наш умный робот сам импортирует все, что надо.
+                                        </p>
+
+                                        <p>
+                                            <em>
+                                                Для этого Вам необходимо сначала указать блоги, сообщения из которых Вы хотите транслировать
+                                                на Гендер.ру (можно указать адрес блога в ЖЖ или на Вордпрессе либо адрес RSS-потока
+                                                любого другого блога):
+                                            </em>
+                                        </p>
+                                        <p>
+                                            <div class="form-inline">
+                                                @Html.TextBox("ParseBlog", null, new { @class = "input-xxlarge" })&nbsp;&nbsp;&nbsp;<button class="btn" id="ParseBlogBtn">Подключить</button>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <em>
+                                                После этого в каждое новое сообщение, которое Вы захотите продублировать на Гендер.ру,
+                                                достаточно будет добавлять в html-режиме тэг <code>&lt;genderru:@Model.ID&gt;</code>.
+                                                Тэг не будет отображаться в тексте: его увидит лишь наш робот и скопирует сообщение
+                                                в Ваш блог на Гендер.ру.
+                                            </em>
+                                        </p>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    }
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" name="setting-subject-subscribe" data-toggle="collapse" data-parent="#subjectsAcc" href="#setting-subject-subscribe">
+                                Подписки на темы
+                            </a>
+                        </div>
+                        <div id="setting-subject-subscribe" class="accordion-body collapse">
+                            <div class="white-card recent-post">
+                                @using (Html.BeginForm("EditSubjectSubscription", "User", FormMethod.Post, new { @class = "form-horizontal", id = "SubjectSubscriptionForm" }))
+                                {
+                                    <div id="messageSubjectSubscriptionWrapper">
+                                    </div>
+
+                                    <fieldset>
+                                        <p class="subscription">
+                                            Отметьте темы, по которым Вы хотите получать уведомления об обновлениях.
+                                        </p>
+                                        <div id="SubjectSubscriptionWrapper">
+                                            @Html.Action("SubjectSubscription", "User", new { id = Model.ID })
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary" id="SubjectSubscriptionBtn">
+                                                Сохранить
+                                            </button>
+                                            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+                                        </div>
+                                    </fieldset>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" name="setting-comment-subscribe" data-toggle="collapse" data-parent="#subjectsAcc" href="#setting-comment-subscribe">
+                                Подписки на комментарии
+                            </a>
+                        </div>
+                        <div id="setting-comment-subscribe" class="accordion-body collapse">
+                            <div class="white-card recent-post">
+                                @using (Html.BeginForm("EditCommentSubscription", "User", FormMethod.Post, new { @class = "form-horizontal", id = "CommentSubscriptionForm" }))
+                                {
+                                    <fieldset>
+
+                                        <div id="CommentSubscriptionWrapper">
+                                            @Html.Action("CommentSubscription", "User", new { id = Model.ID })
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary" id="CommentSubscriptionBtn">
+                                                Сохранить
+                                            </button>
+                                            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+                                        </div>
+                                    </fieldset>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

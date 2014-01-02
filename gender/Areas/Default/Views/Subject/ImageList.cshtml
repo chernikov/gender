@@ -1,0 +1,19 @@
+﻿@model IEnumerable<gender.Model.Image>
+
+@{
+    var subject = (gender.Model.Subject)ViewBag.Subject;
+}
+@if (Model.Any()) {
+<h3 class="section-header"><i class="icon-picture"></i>&nbsp;Изображения</h3>
+<ul class="section-img-list thumbnails">
+    @foreach (var item in Model)
+    {
+        <li class="span1">
+            <a class="thumbnail" href="@Url.Action("Item", "Image", new { url = item.Url })">
+                <img src="@item.Path?width=100&height=100&mode=crop" />
+            </a>
+        </li>
+    }
+</ul>
+<a href="@Url.Action("Item", "Subject", new { path = subject.FullUrl })#image">Еще</a>
+}

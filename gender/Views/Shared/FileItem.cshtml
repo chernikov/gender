@@ -1,0 +1,33 @@
+﻿@model System.Collections.Generic.KeyValuePair<string, gender.Models.ViewModels.FileView>
+
+@{
+    var resourceItem = ((gender.Controllers.BaseController)ViewContext.Controller).Config.MimeTypes.FirstOrDefault(p => p.Name == Model.Value.MimeType);
+    var resource = "";
+    if (resourceItem != null) 
+    {
+        resource = resourceItem.Resource;
+    }
+}
+<li class="span2">
+    @Html.Hidden("Files[" + Model.Key + "].ID", 0)
+    @Html.Hidden("Files[" + Model.Key + "].IsImage", Model.Value.IsImage)
+    @Html.Hidden("Files[" + Model.Key + "].MimeType", Model.Value.MimeType)
+    @Html.Hidden("Files[" + Model.Key + "].Name", Model.Value.Name)
+    @Html.Hidden("Files[" + Model.Key + "].Path", Model.Value.Path)
+    <div class="thumbnail normalsize">
+        <div class="remove-file">
+            <i class="icon-remove"></i>
+        </div>
+        @if (Model.Value.IsImage)
+        {
+            <img src="@(Model.Value.Path)?width=200&height=200" alt="@Model.Value.Name" />
+        }
+        else
+        {
+            <img src="@resource" alt="@Model.Value.Name" />
+        }
+
+        <a href="@Model.Value.Path" target="_blank" title="@Model.Value.Name">
+            <i class="icon-download"></i>@Model.Value.Name.Teaser(12)</a>
+    </div>
+</li>

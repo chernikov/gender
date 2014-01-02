@@ -1,0 +1,231 @@
+﻿body
+{
+    padding-top: 60px;
+}
+
+/* Additional ----------------------------------- */
+.left
+{
+    float: left;
+}
+
+.right
+{
+    float: right;
+}
+
+.overflow
+{
+    position: relative;
+    overflow: hidden;
+}
+
+.clear:after
+{
+    clear: both;
+    display: block;
+    content: '';
+    height: 0;
+    overflow: hidden;
+}
+
+.hidden
+{
+    display: none;
+}
+
+/* Pager ---------------*/
+
+
+.pager
+{
+    float: right;
+    margin: 10px;
+}
+
+    .pager a
+    {
+        color: #000;
+        text-decoration: none;
+        padding: 0 5px;
+    }
+
+        .pager a:hover
+        {
+            background-color: #999;
+            color: #fff;
+        }
+
+        .pager a.selected
+        {
+            background-color: #999;
+            color: #fff;
+        }
+
+.textarea
+{
+    width: 99%;
+    height: 400px;
+}
+
+.small-textarea
+{
+    width: 99%;
+    height: 150px;
+}
+
+.htmltext
+{
+    width: 99%;
+    height: 400px;
+}
+
+.field-validation-error
+{
+    margin: 5px 10px;
+    color: #b94a48;
+    display : block;
+}
+
+.region-list
+{
+    position: relative;
+}
+
+    .region-list .open, .region-list .non-open
+    {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+    }
+
+    .region-list .open
+    {
+        cursor: pointer;
+    }
+
+    .region-list .title
+    {
+        display: inline-block;
+        margin: 0 10px;
+        cursor: move;
+    }
+
+    .region-list .actions
+    {
+        display: inline-block;
+    }
+
+    .region-list .item
+    {
+        margin: 5px 0;
+        padding : 2px;
+        border : 1px solid #fff;
+    }
+
+    .region-list .move
+    {
+        display: inline-block;
+    }
+
+    
+.subject-list
+{
+}
+
+    .subject-list .open, .subject-list .non-open
+    {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+    }
+
+    .subject-list .open
+    {
+        cursor: pointer;
+    }
+
+    .subject-list .title
+    {
+        display: inline-block;
+        margin: 0 10px;
+        cursor: move;
+    }
+
+    .subject-list .actions
+    {
+        display: inline-block;
+    }
+
+    .subject-list .item
+    {
+        margin: 5px 0;
+    }
+
+    .subject-list .move
+    {
+        display: inline-block;
+    }
+
+.sub-region
+{
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+.qq-upload-button
+{
+    width: 150px !important;
+    margin: 10px 0;
+}
+
+.normalsize img
+{
+    min-height : 120px;
+    min-width : 120px;
+}
+
+.remove-file
+{
+    cursor : pointer;
+}
+
+.required
+{
+    color : #b94a48;
+}
+
+.delete-action, .stop-action
+{
+    background-color: #b94a48;
+    color: #fff !important;
+}
+
+.highlight
+{
+    border : 1px solid #aaa;
+    padding : 5px;
+}
+
+.subject-placeholder
+{
+    height : 20px;
+}
+
+.ui-widget-move
+{
+    border : 1px solid #aaa;
+    background : #000;
+    color : #fff;
+    padding : 2px;
+}
+
+.move
+{
+    cursor : cell;
+}
+
+.input-validation-error
+{
+    background : #ffe2e2 !important;
+}

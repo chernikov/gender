@@ -1,0 +1,6 @@
+﻿@if (ViewData["message"] != null)
+{
+    <div class="container white-header">
+    <p class="text-error"><a href="@Url.Action("Edit", "User")"><strong>@ViewData["message"]</strong></a></p>
+    </div>
+}

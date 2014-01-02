@@ -1,0 +1,45 @@
+﻿@model gender.Model.WebLink
+@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+<div class="post-comments-w">
+    <h3 class="section-header">Комментарии (@Model.CommentCount)
+     @if (currentUser != null)
+     {
+         <a href="#form-add-comment" class="roll-link roll-red" id="AddComment"><span data-title="Добавить комментарий">
+             Добавить комментарий</span>
+         </a>
+     }
+    </h3>
+    <ul class="post-comments-list">
+        @foreach (var comment in Model.SubComments)
+        {
+            @Html.Partial("CommentItem", comment)
+        }
+    </ul>
+    @if (currentUser != null)
+    {
+        <div id="CreateCommentWrapper">
+            <div class="white-card extra-padding">
+                <form class="form-transparent" id="form-add-comment">
+                    @Html.Hidden("OwnerID", Model.ID)
+                    @Html.Hidden("ParentID", "")
+                    <fieldset>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <legend id="HeaderLegend">Добавить комментарий</legend>
+                            </div>
+                            <div class="controls controls-row control-group">
+                                <textarea class="span12" placeholder="Ваш комментарий" rows="6" name="Text" id="Text"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button class="btn btn-small" id="CreateCommentBtn">Отправить</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    }
+</div>

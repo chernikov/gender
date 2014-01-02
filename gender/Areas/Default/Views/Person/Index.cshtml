@@ -1,0 +1,84 @@
+﻿@model gender.Model.PageableData<gender.Model.Person>
+
+@{
+    ViewBag.Title = "Люди";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var letter = (string)ViewBag.Letter;
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<div class='container'>
+    <div class='row'>
+        <div class='span8'>
+            <h3 class='section-header'><i class="icon-user"></i>&nbsp;Люди</h3>
+            @Html.Action("Short", "Home", new {url = "persons-short"})
+            @if (currentUser != null && currentUser.CanCreatePerson())
+            {
+                <p>
+                    <a href="@Url.Action("Create", "Person")" class="btn btn-primary">Добавить персону</a>
+                </p>
+            }
+            <div class="pagination alfabet">
+                <ul class="">
+                    <li>
+                        @if (letter == null)
+                        {
+                            <span>Все</span>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Person")">Все</a>
+                        }
+                    </li>
+                    @for (char c = 'А'; c <= 'Я'; c++)
+                    {
+                        if (c != 'Ъ' && c != 'Ь' && c != 'Ы')
+                        {
+                            if (c.ToString() == letter)
+                            {
+                        <li>
+                            <span>@c.ToString()</span>
+                        </li>
+                            }
+                            else
+                            {
+                        <li>
+                            <a href="@Url.Action("Index", "Person", new { letter = c.ToString() })">@c.ToString()</a>
+                        </li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+            @{
+                int i = 0;
+            }
+            <div class="row">
+            @foreach (var item in Model.List)
+            {
+                @Html.Partial("PersonShort", item)
+                i++;
+                if (i % 2 == 0)
+                {
+                <div class="clearfix"></div>
+                }
+            }
+            </div>
+            <div class="clearfix"></div>
+            <div class="pagination pagination-centered">
+                @Html.PageLinksBootstrap(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x, letter }))
+            </div>
+        </div>
+
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+
+        </div>
+    </div>
+
+</div>

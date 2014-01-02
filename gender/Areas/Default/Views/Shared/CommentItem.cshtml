@@ -1,0 +1,51 @@
+﻿@model gender.Model.Comment
+
+@{
+    var level = Model.Level;
+    if (level > 4) 
+    {
+        level = 4;
+    }
+}
+<li>
+    <a name="comment_@(Model.ID)"><h1 style="padding-top: 80px; margin-top: -80px;"></h1></a>
+    <div class="row">
+        @for (int i = 0; i < level; i++)
+        {
+            <div class="span1">
+                <div class="comment-reply hidden-phone">
+                    <img alt="Icon-message-reply" src="/Content/images/icon-message-reply.png">
+                </div>
+            </div>
+        }
+        <div class="span1">
+            <div class="comment-author-photo hidden-phone">
+                <img alt="Avatar-2" src="@Model.User.Person.Photo?width=150&height=150" />
+            </div>
+        </div>
+        <div class="span@(7 - level)">
+            <div class="comment-author">
+                <a href="@Url.Action("Item", "Person", new { url = Model.User.Person.Url })" class="roll-link roll-red">
+                    <span data-title="@Model.User.Person.FullName">@Model.User.Person.FullName</span>
+                </a>
+
+                <div class="comment-like-wrapper pull-right">
+                    @Html.Partial("CommentLike", Model)
+                </div>
+            </div>
+            <div class="comment-content">
+                @Html.Raw(Model.Text.NlToBr())
+            </div>
+            <div class="comment-date pull-left">
+                @Model.AddedDate.ToString("dd.MM.yyyy | HH:mm")
+            </div>
+            <a href="#form-add-comment" class="roll-link pull-right roll-red reply-comment" data-id="@Model.ID"><span data-title="Ответить">
+                Ответить</span>
+            </a>
+        </div>
+    </div>
+</li>
+@foreach (var comment in Model.SubComments)
+{
+    @Html.Partial("CommentItem", comment)
+}

@@ -1,0 +1,190 @@
+@model gender.Models.ViewModels.BookPublicationView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить книгу" : "Изменить книгу";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/admin/edit-publication.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-region.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-organization.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-person.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-link.js"></script>
+    <script type="text/javascript" src="/Scripts/common/upload-attach.js"></script>
+     <script type="text/javascript">
+         $().ready(function () {
+             selectLink.type = "url";
+             selectLink.prefix = "";
+         });
+    </script>
+}
+
+<h2>@(Model.ID == 0 ? "Добавить книгу" : "Изменить книгу")</h2>
+<p></p>
+@using (Html.BeginForm("Edit", "Publication", FormMethod.Post))
+{
+    <fieldset>
+        @Html.Hidden("ID", Model.ID)
+        @Html.Hidden("Cover", Model.Cover)
+        @Html.Hidden("ModelTypeName", "BookPublicationView")
+         <div class="control-group">
+            <label class="control-label" for="PersonList">
+                Автор(ы)
+            </label>
+            <div class="controls">
+                @Html.ListBox("PersonList", Model.SelectListPersons, new { @class = "input-xlarge chzn-select", placeholder = "Введите имена авторов", data_placeholder = "Введите имена авторов" })
+            </div>
+        </div>
+          <div class="control-group">
+            <label class="control-label" for="Header">
+                Заглавие <span class="required">*</span>
+            </label> 
+            <div class="controls">
+                @Html.ValidationMessage("Header")
+                @Html.TextBox("Header", Model.Header, new { @class = "input-xxlarge" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Bibliographic">
+                Библиографическое описание <span class="required">*</span>
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Bibliographic")
+                @Html.TextArea("Bibliographic", Model.Bibliographic, new { @class = "small-textarea" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Year">
+                Год
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Year")
+                @Html.TextBox("Year", Model.Year, new { @class = "input-small" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Teaser">
+                Аннотация
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Teaser")
+                @Html.TextArea("Teaser", Model.Teaser, new { @class = "small-textarea" })
+            </div>
+        </div>
+         <div class="row">
+             <div class="span12">
+                <h4>Содержимое</h4>
+            </div>
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label" for="Content">
+                        Текст
+                    </label>
+                    <div class="controls">
+                        @Html.ValidationMessage("Content")
+                        @Html.TextArea("Content", Model.Content, new { @class = "htmltext ckeditor" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                        Прикрепленные файлы
+                    </label>
+                    <div class="controls">
+                        <div id="UploadAttach">Загрузить</div>
+                        <ul id="FilesListWrapper" class="thumbnails">
+                            @if (Model.Files != null)
+                            {
+                                foreach (var keyValuePair in Model.Files)
+                                {
+                                @Html.Partial("FileItem", keyValuePair)
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                        Веб-ссылки
+                    </label>
+                    <div class="controls">
+                        <div class="btn" id="AddLink"><i class="icon-plus"></i>Добавить</div>
+                        <div id="LinkListWrapper">
+                            @if (Model.Links != null)
+                            {
+                                foreach (var keyValuePair in Model.Links)
+                                {
+                                @Html.Partial("ShopLinkItem", keyValuePair)
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">
+                Обложка</label>
+            <div class="controls">
+                @Html.ValidationMessage("Cover")
+                <img src="@Model.Cover?width=200" alt="avatar" id="PreviewImage" class="@(string.IsNullOrEmpty(Model.Cover) ? "hidden" : "")"/>
+                <br />
+                <div class="btn btn-danger no-submit" id="DeleteImage">
+                    удалить
+                </div>
+                <div id="ChangeImage">
+                    загрузить изображение
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="OrganizationList">
+                Ответственная организация
+            </label>
+            <div class="controls">
+                @Html.ListBox("OrganizationList", Model.SelectListOrganizations, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+       
+        
+        <div class="control-group">
+            <label class="control-label" for="SubjectList">
+                Темы 
+            </label>
+            <div class="controls">
+                @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="RegionList">
+                Страны и регионы
+            </label>
+            <div class="controls">
+                @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">
+                Веб-ссылки на магазины
+            </label>
+            <div class="controls">
+                <div class="btn" id="AddLinkShop"><i class="icon-plus"></i>Добавить</div>
+                <div id="LinkShopListWrapper">
+                    @if (Model.ShopLinks != null)
+                    {
+                        foreach (var keyValuePair in Model.ShopLinks)
+                        {
+                        @Html.Partial("LinkItem", keyValuePair)
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+        </div>
+    </fieldset>
+}

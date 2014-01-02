@@ -1,0 +1,75 @@
+@model gender.Model.PageableData<gender.Model.Organization>
+
+@{
+    ViewBag.Title = "Организации";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/admin/index-organization.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-user.js"></script>
+}
+<h2>Организации
+</h2>
+@Html.ActionLink("Добавить", "Create", "Organization", null, new { @class = "btn" })
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Автор
+            </th>
+            <th>Наименование
+            </th>
+            <th>Логотип
+            </th>
+            <th>Страна или регион
+            </th>
+            <th>Тема
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.List)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.User.Person.FullName
+            </td>
+            <td>
+                <a href="@Url.Action("Item", "Organization", new {url = item.Url })">@item.Name</a>
+            </td>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.Logo)) 
+                {
+                <img src="@item.Logo?width=200&height=100" />
+                }
+            </td>
+             <td>
+                @foreach (var city in item.SubRegions)
+                {
+                    <span class="label">@city.Name</span>
+                }
+            </td>
+             <td>
+                @foreach (var subject in item.SubSubjects)
+                {
+                    <span class="label">@subject.Name</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", "Organization", new { id = item.ID }, new { @class = "btn" })
+                @Html.ActionLink("Удалить", "Delete", "Organization", new { id = item.ID }, new { @class = "btn btn-danger" })
+                <a href="@Url.Action("Access", "Organization", new { id = item.ID })" class="btn access" data-id="@item.ID"><i class="icon-user"></i></a>
+                <a href="@Url.Action("Redirects", "Organization", new { id = item.ID })" class="btn redirect" data-id="@item.ID"><i class="icon-resize-horizontal"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

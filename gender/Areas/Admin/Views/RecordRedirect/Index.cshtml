@@ -1,0 +1,43 @@
+﻿@model gender.Model.PageableData<gender.Model.RecordRedirect>
+
+@{
+    ViewBag.Title = "Редиректы по карточкам";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Редиректы по карточкам</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Url
+            </th>
+            <th>Карточка
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.List)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+              <td>
+                @item.Url
+            </td>
+            <td>
+                <a href="@item.NewUrl">@item.Name</a>
+            </td>
+          
+            <td>
+                @Html.ActionLink("Удалить", "Delete", "RecordRedirect", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

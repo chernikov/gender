@@ -1,0 +1,146 @@
+﻿@model gender.Model.Organization
+<div class="blog-side-bar clearfix">
+    <div class="widget-tp">
+        <h3>
+            Контакты
+        </h3>
+        <ul>
+            @foreach (var item in Model.SubContacts)
+            {
+                <li>
+                    @switch ((gender.Model.Contact.TypeEnum)item.Type)
+                    {
+                        case gender.Model.Contact.TypeEnum.Address:
+                            <i class="icon-map-marker"></i>
+                            break;
+                        case gender.Model.Contact.TypeEnum.Phone:
+                        <i class="icon-phone"></i>
+                            break;
+                        case gender.Model.Contact.TypeEnum.Email:
+                        <i class="icon-envelope"></i>
+                            break;
+                        case gender.Model.Contact.TypeEnum.Skype:
+                        <i class="icon-skype"></i>
+                            break;
+                    }
+                    &nbsp;
+                    @if (item.Type == (int)gender.Model.Contact.TypeEnum.Email)
+                    {
+                        <a href="mailto:@item.Value">@item.Value</a>
+                    }
+                    else
+                    {
+                        @item.Value
+                    }
+                </li>
+            }
+
+            @foreach (var item in Model.SubLinks)
+            {
+                <li>
+                    <a href="@item.Url">
+                        <img src="@item.Icon" class="image16" />&nbsp;@item.Title
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    @if (Model.SubSubjects.Any())
+    {
+        <div class="blog-categories widget-tp">
+            <h3 class="section-header">
+                <i class="icon-tag"></i>&nbsp;Сфера интересов
+            </h3>
+            <ul class="icons-gree">
+                @foreach (var item in Model.SubSubjects)
+                {
+                    <li>
+                        <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                            <i class="icon-tag">
+                            </i>@item.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    @if (Model.SubPersons.Any())
+    {
+        <h3 class="section-header"><i class="icon-user"></i>&nbsp;Участники</h3>
+        <div class="white-card">
+            <ul class="icons-gree">
+                @foreach (var item in Model.SubPersons.Take(5))
+                {
+                    <li>
+                        <i class="icon-user"></i>&nbsp;<a href="@Url.Action("Item", "Person", new { url = item.Url })">@item.FullName</a>
+                    </li>
+                }
+            </ul>
+            @if (Model.SubPersons.Skip(5).Any())
+            {
+                <a href="@Url.Action("Organization", "Person", new { url = Model.Url })">Еще</a>
+            }
+        </div>
+    }
+    @if (Model.SubModeratedEvents.Any())
+    {
+        <h3 class="section-header">
+            <i class="icon-flag"></i>&nbsp;События
+        </h3>
+        <div class="white-card">
+            <ul class="icons-gree">
+                @foreach (var item in Model.SubModeratedEvents.Take(5))
+                {
+                    <li>
+                        <i class="icon-flag"></i>&nbsp;<a href="@Url.Action("Item", "Event", new { url = item.Url })">@item.Header</a>
+                    </li>
+                }
+            </ul>
+            @if (Model.SubModeratedEvents.Skip(5).Any())
+            {
+                <a href="@Url.Action("Organization", "Event", new { url = Model.Url })">Еще</a>
+            }
+        </div>
+    }
+    @if (Model.SubModeratedPublications.Any())
+    {
+        <h3 class="section-header">
+            <i class="icon-book"></i>&nbsp;Публикации
+        </h3>
+        <div class="white-card">
+            <ul class="icons-gree">
+                @foreach (var item in Model.SubModeratedPublications.Take(5))
+                {
+                    <li>
+                        <i class="icon-book"></i>&nbsp;<a href="@Url.Action("Item", "Publication", new { url = item.Url })">@item.Header</a>
+                    </li>
+                }
+            </ul>
+            @if (Model.SubModeratedPublications.Skip(5).Any())
+            {
+                <a href="@Url.Action("Organization", "Publication", new { url = Model.Url })">Еще</a>
+            }
+        </div>
+    }
+    @if (Model.SubModeratedStudyMaterials.Any())
+    {
+        <h3 class="section-header">
+            <i class="icon-briefcase"></i>&nbsp;Учебные материалы
+        </h3>
+        <div class="white-card">
+            <ul class="icons-gree">
+                @foreach (var item in Model.SubModeratedStudyMaterials.Take(5))
+                {
+                    <li>
+                        <i class="icon-briefcase"></i>&nbsp;<a href="@Url.Action("Item", "StudyMaterial", new { url = item.Url })">@item.Name</a>
+                    </li>
+                }
+            </ul>
+            @if (Model.SubModeratedStudyMaterials.Skip(5).Any())
+            {
+                <a href="@Url.Action("Organization", "StudyMaterial", new { url = Model.Url })">Еще</a>
+            }
+        </div>
+    }
+
+</div>

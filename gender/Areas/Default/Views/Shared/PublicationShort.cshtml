@@ -1,0 +1,41 @@
+﻿@model gender.Model.Publication
+
+<div class="publication-short">
+    <div class="white-card">
+        <h5>
+            @if (!string.IsNullOrWhiteSpace(Model.FirstFileMimeType))
+            {
+                @Html.Action("MimeType", "Publication", new { mime = Model.FirstFileMimeType })
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.Cover))
+            {
+                <img src="@Model.Cover" alt="Article" width="75" />
+            }
+            else
+            {
+                switch ((gender.Model.Publication.TypeEnum)Model.Type)
+                {
+                    case gender.Model.Publication.TypeEnum.Article:
+                        <img src="/Content/images/article.png" alt="Article" />
+                        break;
+                    case gender.Model.Publication.TypeEnum.Book:
+                    <img src="/Content/images/book.png" alt="Book" />
+                        break;
+                    case gender.Model.Publication.TypeEnum.Thesis:
+                    <img src="/Content/images/disser.png" alt="Thesis" />
+                        break;
+                }
+            }
+            <a href="@Url.Action("Item", "Publication", new { url = Model.Url })">@Model.Header</a>
+        </h5>
+        <p>
+            @Html.Raw(Model.Teaser.NlToBr())
+        </p>
+        <p>
+            @foreach (var subject in Model.SubSubjects)
+            {
+                <span class="subject"><i class="icon-tags gray"></i>&nbsp;@subject.Name</span>
+            }
+        </p>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+﻿@{
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Гендер.ру";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+<div class="container">
+    <div class="white-card">
+        <p class="text-center">
+            <strong>Портал работает в тестовом режиме</strong>
+        </p>
+    </div>
+</div>
+<div class='container index-page'>
+    <div class="row">
+        <div class="span4">
+            <div class="white-card recent-post">
+                @Html.Action("AboutShort", "Home")
+            </div>
+            <!--white-card-->
+        </div>
+        <!--span-->
+        <div class="span4">
+            <div class="white-card recent-post">
+                <h3 class="section-header"><i class="icon-th"></i>&nbsp;Разделы</h3>
+                <ul class="icons-gree">
+                    <li>
+                        <h5>
+                            <i class="icon-tags"></i>&nbsp;
+                            @Html.ActionLink("Темы", "Index", "Subject")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-map-marker"></i>&nbsp;
+                            @Html.ActionLink("Страны и регионы", "Index", "Region")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-user"></i>&nbsp;
+                            @Html.ActionLink("Люди", "Index", "Person")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-group"></i>&nbsp;
+                            @Html.ActionLink("Организации", "Index", "Organization")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-file"></i>&nbsp;
+                            @Html.ActionLink("Документы", "Index", "Document")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-book"></i>&nbsp;
+                            @Html.ActionLink("Публикации", "Index", "Publication")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-briefcase"></i>&nbsp;
+                            @Html.ActionLink("Учебные материалы", "Index", "StudyMaterial")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-flag"></i>&nbsp;
+                            @Html.ActionLink("События", "Index", "Event")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-globe"></i>&nbsp;
+                            @Html.ActionLink("Веб-ресурсы", "Index", "WebLink")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-picture"></i>&nbsp;
+                            @Html.ActionLink("Изображения", "Index", "Image")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-comment-alt"></i>&nbsp;
+                            @Html.ActionLink("Блоги", "Index", "Blog")
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>
+                            <i class="icon-bookmark"></i>&nbsp;
+                            @Html.ActionLink("Глоссарий", "Index", "Article")
+                        </h5>
+                    </li>
+
+                </ul>
+                <hr />
+                <div class="pull-right">
+                    <a href="@Url.Action("Index", "Section")">>> Подробнее</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!--white-card-->
+
+        </div>
+        <!--span-->
+        <div class="span4">
+            <div class="white-card recent-post">
+                @Html.Action("Subjects", "Home")
+                <hr />
+                <div class="pull-right">
+                    <a href="@Url.Action("Index", "Subject")">>> Подробнее</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!--white-card-->
+        </div>
+        <!--span-->
+    </div>
+    @if (currentUser != null)
+    {
+        <div class="row">
+            <div class="span4">
+                <div class="white-card recent-post">
+                    @Html.Action("LastActivity", "Home")
+                </div>
+                <!--white-card-->
+            </div>
+            <div class="span4">
+                <div class="white-card recent-post">
+                    @Html.Action("LastBlogs", "Home")
+                </div>
+                <!--white-card-->
+            </div>
+            <div class="span4">
+                <div class="white-card recent-post">
+                    @Html.Action("LastComments", "Home")
+                </div>
+                <!--white-card-->
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿@model gender.Model.BlogPost
+@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+<div class="pull-right like blog-post-short-like" data-id="@Model.ID">
+    <div class="set-like">
+        @if (currentUser != null && currentUser.CanLikeComment)
+        {
+            if (currentUser.IsLike(Model, true))
+            {
+            <i class="plus icon-plus-sign"></i>
+            }
+            else
+            {
+            <i class="plus icon-plus"></i>
+            }
+        }
+        <div class="value label label-info">@Model.TotalLikes</div>
+        @if (currentUser != null && currentUser.CanLikeComment)
+        {
+            if (currentUser.IsLike(Model, false))
+            {
+            <i class="minus icon-minus-sign"></i>
+            }
+            else
+            {
+            <i class="minus icon-minus"></i>
+            }
+        }
+    </div>
+</div>

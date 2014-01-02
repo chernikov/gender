@@ -1,0 +1,63 @@
+@model gender.Model.PageableData<gender.Model.StudyMaterial>
+
+@{
+    ViewBag.Title = "Учебные материалы";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/admin/index-studymaterial.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-user.js"></script>
+}
+<h2>Учебные материалы
+</h2>
+@Html.ActionLink("Добавить", "Create", "StudyMaterial", null, new { @class = "btn" })
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Автор
+            </th>
+            <th>Наименование
+            </th>
+             <th>Отмодерировано
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.List)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.User.Person.FullName
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @if (item.ModeratedDate.HasValue)
+                {
+                    @item.ModeratedDate.Value.ToString("dd.MM.yyyy")
+                }
+                else
+                {
+                    <a href="@Url.Action("Moderate", "StudyMaterial", new { id = item.ID })" class="btn btn-mini">
+                        Отмодерировать</a>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", "StudyMaterial", new { id = item.ID }, new { @class = "btn" })
+                @Html.ActionLink("Удалить", "Delete", "StudyMaterial", new { id = item.ID }, new { @class = "btn btn-danger" })
+                <a href="@Url.Action("Access", "StudyMaterial", new { id = item.ID })" class="btn access" data-id="@item.ID"><i class="icon-user"></i></a>
+                <a href="@Url.Action("Redirects", "StudyMaterial", new { id = item.ID })" class="btn redirect" data-id="@item.ID"><i class="icon-resize-horizontal"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

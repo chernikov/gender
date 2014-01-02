@@ -1,0 +1,40 @@
+﻿@model gender.Model.PageableData<gender.Model.Comment>
+@{
+    ViewBag.Title = "Комментарии";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <h3 class="section-header"><i class="icon-comments-alt"></i>&nbsp;Последние комментарии
+            </h3>
+            @Html.Action("Short", "Home", new { url = "comments-short" })
+            <div class="white-card">
+                <ul>
+                    @foreach (var item in Model.List)
+                    {
+                      
+                        <li>
+                            @item.AddedDate.ToString("dd.MM.yy") | <a href="@Url.Action("Item", "Person", new { url = item.User.Person.Url })">@item.User.Person.FullName</a>
+                            &mdash;             
+                            @item.ShortDesc:
+                            <i class="icon-@item.Icon gray"></i>&nbsp;
+            &laquo;<a href="@Url.Action("Item", item.LinkType, new { url = item.Url })#comment_@item.ID">@item.NameLink</a>&raquo;
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="pagination pagination-centered">
+                @Html.PageLinksBootstrap(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+</div>

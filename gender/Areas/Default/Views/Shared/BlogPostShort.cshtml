@@ -1,0 +1,41 @@
+﻿@model gender.Model.BlogPost
+
+<div class="blog-short">
+    <div class="white-card">
+        @Html.Partial("BlogPostShortLike", Model)
+        <h5>@Model.Header</h5>
+        <p>
+            <i class="icon-calendar"></i>&nbsp;@Model.AddedDate.ToString("dd MMMM yyyy") | <i class="icon-user"></i>&nbsp;@Model.Blog.User.Person.FullName | <i class="icon-comments-alt">
+            </i>&nbsp;@Model.CommentCount  @Model.CommentCount.CountWord("комментарий", "комментария", "комментариев")
+        </p>
+        <p>
+            @Html.Raw(Model.Teaser.NlToBr())
+        </p>
+        <hr />
+        <p>
+            <div class="pull-right">
+                <a class="btn" href="@Url.Action("Item", "Blog", new { url = Model.Url })">Читать далее &raquo;</a>
+            </div>
+
+            @if (Model.SubSubjects.Any())
+            {
+            <p class="commas">
+                @foreach (var subject in Model.SubSubjects)
+                {
+                    <span class="subject"><i class="icon-tags gray"></i>&nbsp;@subject.Name</span>
+                }
+            </p>
+            }
+            @if (Model.SubRegions.Any())
+            {
+                <p class="commas">
+                    @foreach (var region in Model.SubRegions)
+                    {
+                        <span class="subject"><i class="icon-map-marker gray"></i>&nbsp;@region.Name</span>
+                    }
+                </p>
+            }
+            </p>
+            <div class="clearfix"></div>
+        </div>
+    </div>

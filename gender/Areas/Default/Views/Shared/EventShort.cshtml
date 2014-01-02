@@ -1,0 +1,28 @@
+﻿@model gender.Model.Event
+
+
+<div class="white-card event-short no-border short-item">
+    <h5>@(Model.EventDate.HasValue ? Model.EventDate.Value.ToString("yyyy, d MMMM") : Model.Year.ToString())
+        |
+        <a href="@Url.Action("Item", "Event", new { url = Model.Url })">@Model.Header</a>
+    </h5>
+    @if (!string.IsNullOrWhiteSpace(Model.Teaser))
+    {
+        <p>@Html.Raw(Model.Teaser.NlToBr())</p>
+    }
+    <div class="info">
+        <div class="info-item commas">
+            @foreach (var subject in Model.SubSubjects)
+            {
+                <span class="subject"><i class="icon-tags gray"></i>&nbsp;@subject.Name</span>
+            }
+        </div>
+        <span class="info-item commas">
+            @foreach (var region in Model.SubRegions)
+            {
+                <span class="subject"><i class="icon-map-marker gray"></i>&nbsp;@region.Name</span>
+            }
+        </span>
+    </div>
+</div>
+

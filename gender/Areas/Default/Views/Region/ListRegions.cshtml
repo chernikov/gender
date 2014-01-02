@@ -1,0 +1,16 @@
+﻿@model gender.Model.Region
+
+<ul>
+    @foreach (var item in Model.SubRegions)
+    {
+        <li>
+            <h5>
+                <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">@item.Name</a>
+                @if (item.HasEntry || item.AnySubRegions)
+                {
+                    @Html.Partial("ListRegions", item)
+                }
+            </h5>
+        </li>
+    }
+</ul>

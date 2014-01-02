@@ -1,0 +1,115 @@
+﻿@model gender.Models.ViewModels.WebLinkView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить веб-ресурс" : "Изменить веб-ресурс";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    @Styles.Render("~/Content/css/chosen")
+    @Styles.Render("~/Content/css/jquery-ui")
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/default/edit-weblink.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-region.js"></script>
+}
+<div class="container">
+    <div class="row">
+        <div class="single-post-w">
+            <h2 class="post-title">@(Model.ID == 0 ? "Добавить веб-ресурс" : "Изменить веб-ресурс")
+            </h2>
+            @using (Html.BeginForm("Edit", "WebLink", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <fieldset>
+                    @Html.Hidden("ID", Model.ID)
+                    @Html.Hidden("Screenshot", Model.Screenshot)
+                    <div class="control-group">
+                        <label class="control-label" for="Name">
+                            Имя <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Name")
+                            @Html.TextBox("Name", Model.Name)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Url">
+                            Веб-ссылка <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Url")
+                            @Html.TextBox("Url", Model.Url)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            Скриншот</label>
+                        <div class="controls">
+                            <img src="@Model.Screenshot?width=600" alt="screenshot" id="PreviewScreenshot" class="@(string.IsNullOrEmpty(Model.Screenshot) ? "hidden" : "")"/>
+                            <br />
+                            <div class="btn btn-danger no-submit" id="DeleteScreenshot">
+                                удалить
+                            </div>
+                            <div class="btn btn-primary" id="ChangeScreenshot">
+                                загрузить скриншот
+                            </div>
+                        </div>
+
+                        @Html.ValidationMessage("Screenshot")
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Description">
+                            Описание
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Description")
+                            @Html.TextArea("Description", Model.Description, new { @class = "small-textarea" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="ReservedUrl">
+                            Резервный Url
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("ReservedUrl")
+                            @Html.TextBox("ReservedUrl", Model.ReservedUrl)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="RSS">
+                            RSS
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("RSS")
+                            @Html.TextBox("RSS", Model.RSS)
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="SubjectList">
+                            Темы 
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="RegionList">
+                            Страны и регионы
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Сохранить
+                        </button>
+                        @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+                    </div>
+                </fieldset>
+            }
+
+        </div>
+    </div>
+</div>

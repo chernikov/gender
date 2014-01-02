@@ -1,0 +1,103 @@
+﻿@model gender.Model.WebLink
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.Keywords = Model.Keywords;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/default/slide-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/default/like.js"></script>
+    <script type="text/javascript" src="/Scripts/default/comment.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            comment.ajaxComment = "/WebLink/CreateComment";
+        });
+    </script>
+}
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header"><i class="icon-globe"></i>&nbsp;<a href="@Url.Action("Index", "WebLink")">Веб-ресурсы</a>
+            </h3>
+        </div>
+        <div class="span8">
+            <div class="single-post-w">
+                <h2 class="post-title">@Model.Name
+                    @if (currentUser != null && currentUser.CanEdit(Model))
+                    {
+                        <a href="@Url.Action("Edit", "WebLink", new { id = Model.ID })">
+                            <sup><i class="icon-edit"></i></sup>
+                        </a>
+                    }
+                    @if (currentUser != null && currentUser.CanDelete(Model))
+                    {
+                        <a href="@Url.Action("Delete", "WebLink", new { id = Model.ID })">
+                            <sup><i class="icon-remove delete-action"></i></sup>
+                        </a>
+                    }
+                </h2>
+
+                @if (Model.Screenshot != null)
+                {
+                    <div class="white-card">
+                        <img src="@Model.Screenshot" alt="" />
+                    </div>
+                }
+
+                <a href="@Model.Url" target="_blank">Ссылка</a>
+                @if (!string.IsNullOrWhiteSpace(Model.ReservedUrl))
+                {
+                    <span>| <a href="@Model.ReservedUrl" target="_blank">Сохранненая копия</a></span>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.RSS))
+                {
+                    <span>| <a href="@Model.RSS" target="_blank">RSS</a></span>
+                }
+                <div class="post-content">
+                    @Html.Raw(Model.Description.NlToP())
+                </div>
+            </div>
+            <div class="white-card web-link-like-wrapper">
+                @Html.Partial("WebLinkLike", Model)
+            </div>
+            <div class="addthis-wrapper">
+                @Html.Partial("AddThis")
+            </div>
+            @Html.Action("Comments", "WebLink", new { id = Model.ID })
+        </div>
+        <div class="span4">
+            @if (currentUser != null)
+            {
+                <button id="SubscribeCommentBtn" class="btn @(currentUser.IsCommentSubscribed(Model) ? "active" : "")" data-id="@Model.ID" data-type="WebLink">
+                    @(currentUser.IsCommentSubscribed(Model) ? "Отписаться от комментариев" : "Подписаться на комментарии")
+                </button>
+            }
+            <div class="blog-side-bar clearfix">
+                <div class="blog-categories widget-tp">
+                    <h3>Темы&nbsp;/&nbsp;Страны и регионы</h3>
+                    <ul>
+                        @foreach (var item in Model.SubSubjects)
+                        {
+                            <li>
+                                <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
+                                </i>&nbsp;@item.Name</a>
+                            </li>    
+                        }
+                        @foreach (var item in Model.SubRegions)
+                        {
+                            <li>
+                                <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
+                                </i>&nbsp;@item.Name</a>
+                            </li>    
+                        }
+                    </ul>
+                </div>
+                <div id="AlsoSubjectWrapper" data-type="WebLink" data-id="@Model.ID">
+                    @Html.Action("AlsoSubject", "WebLink", new { id = Model.ID })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

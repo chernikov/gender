@@ -1,0 +1,18 @@
+﻿@model IEnumerable<gender.Model.Subject>
+@{
+    var list = (List<int>)ViewBag.List;
+}
+
+<ul class="subscription">
+@foreach (var subject in Model)
+{
+    <li>
+        <label> 
+        <input type="checkbox" name="SubjectSelect", @(list.Contains(subject.ID) ? "checked" : "") value="@subject.ID" />&nbsp;&nbsp;&nbsp;<span class="bylabel">@subject.Name</span></label>
+        @if (subject.AnySubSubjects)
+        {
+            @Html.Partial("SubjectSubscription", subject.SubSubjects)
+        }
+    </li>
+}
+</ul>

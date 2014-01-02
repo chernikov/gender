@@ -1,0 +1,16 @@
+﻿@model IEnumerable<int>
+@{
+    var selectedYear = (int)ViewBag.SelectedYear;
+}
+<ul>
+    @foreach (var item in Model)
+    {
+       <li><h5>
+       @if (selectedYear != item) {
+            <a href="@Url.Action("Year", "Publication", new { year = item})">@item</a>
+       } else {
+           @item
+       }
+           </h5></li>
+    }
+</ul>

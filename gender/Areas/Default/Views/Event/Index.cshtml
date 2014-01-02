@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "События";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <h3 class='section-header'><i class="icon-flag"></i>&nbsp;События</h3>
+            @Html.Action("Short", "Home", new { url = "events-short" })
+            @if (currentUser != null && currentUser.CanCreateEvent())
+            {
+                <p>
+                    <a href="@Url.Action("Create", "Event")" class="btn btn-primary">Добавить событие</a>
+                </p>
+            }
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a href="#all" data-toggle="tab">Все события</a>
+                </li>
+                <li>
+                    <a href="#russia" data-toggle="tab">События в истории России и СССР</a>
+                </li>
+                <li>
+                    <a href="#other" data-toggle="tab">События в других странах</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="all">
+                    @Html.Action("List", "Event", new { type = (int)gender.Model.Event.Type.All })
+                </div>
+                <div class="tab-pane" id="russia">
+                    @Html.Action("List", "Event", new { type = (int)gender.Model.Event.Type.Russia })
+                </div>
+                <div class="tab-pane" id="other">
+                    @Html.Action("List", "Event", new { type = (int)gender.Model.Event.Type.Other })
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+</div>

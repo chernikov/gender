@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var accountActivate = (bool)ViewBag.AccountActivate;
+}
+
+<div class='container'>
+    <div class='row'>
+        <div class='span12'>
+            <h3 class='section-header'><i class="icon-user"></i>&nbsp;Регистрация</h3>
+        </div>
+    </div>
+    <div class="white-card">
+        <p>Ваш почтовый ящик подтвержден. </p>
+        @if (accountActivate)
+        {
+            <p>
+                Ваш аккаунт активирован
+            </p>
+        }
+    </div>
+</div>

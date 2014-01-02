@@ -1,0 +1,25 @@
+﻿@model IEnumerable<gender.Model.UpdateRecord>
+<h3 class="section-header"><i class="icon-refresh"></i>&nbsp;Последние обновления</h3>
+<ul class="icons-gree">
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.AddedDate.ToString("dd.MM.yy") | 
+        @if (item.UserID.HasValue)
+        {
+            if (item.Type != (int)gender.Model.UpdateRecord.TypeEnum.NewUser)
+            {
+            <text><a href="@Url.Action("Item", "Person", new { url = item.User.Person.Url })">@item.User.Person.FullName</a>
+            &mdash;</text>
+            }
+        }
+            @item.ShortDesc
+            <br />
+            <i class="icon-@item.Icon"></i>
+            <a href="@item.Link">@item.NameLink</a>
+        </li>
+    }
+</ul>
+<div class="pull-right"><a href="@Url.Action("Index", "Activity")">>> Подробнее</a>
+</div>
+<div class="clearfix"></div>

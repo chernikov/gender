@@ -1,0 +1,196 @@
+﻿@model gender.Model.Event
+@{
+    ViewBag.Title = Model.Header;
+    ViewBag.Keywords = Model.Keywords;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/default/slide-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/default/comment.js"></script>
+    <script type="text/javascript" src="/Scripts/default/like.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            comment.ajaxComment = "/Event/CreateComment";
+        });
+    </script>
+}
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header">
+                <i class="icon-flag"></i>&nbsp;<a href="@Url.Action("Index", "Event")">События</a>
+            </h3>
+        </div>
+        @if (Model.ModeratedDate.HasValue || (currentUser != null && currentUser.CanEdit(Model)))
+        {
+            <div class="span8">
+                <div class="single-post-w">
+                    <div class=" widget-tp">
+                        @if (Model.EventDate.HasValue)
+                        {
+                            <h3>
+                                @Model.EventDate.Value.ToString("yyyy, d MMMM")
+                        </h3>
+                        }
+                        else
+                        {
+                            <h3>@Model.Year год</h3>
+                        }
+                    </div>
+                    <h2 class="post-title">
+                        @Model.Header
+                    @if (currentUser != null && currentUser.CanEdit(Model))
+                    {
+                        <a href="@Url.Action("Edit", "Event", new { id = Model.ID })">
+                            <sup><i class="icon-edit"></i></sup>
+                        </a>
+                    }
+                    @if (currentUser != null && currentUser.CanDelete(Model))
+                    {
+                        <a href="@Url.Action("Delete", "Event", new { id = Model.ID })">
+                            <sup><i class="icon-remove delete-action"></i></sup>
+                        </a>
+                    }
+                </h2>
+                <p class="post-info clearfix no-border">
+                    @if (Model.SubOrganizations.Any())
+                    {
+                        <span class="info-item">
+                            Организации :
+                            @foreach (var item in Model.SubOrganizations)
+                            {
+                                <a href="@Url.Action("Item", "Organization", new { url = item.Url })">
+                                    <i class="icon-group">
+                                    </i>&nbsp;@item.Name
+                                </a>
+                            }
+                        </span>
+                    }
+                    @if (Model.SubPersons.Any())
+                    {
+                        <br />
+                        <span class="info-item">
+                            Участники :
+                            @foreach (var item in Model.SubPersons)
+                            {
+                                <a href="@Url.Action("Item", "Person", new { url = item.Url })">
+                                    <i class="icon-user">
+                                    </i>&nbsp;@item.FullName
+                                </a>
+                            }
+                        </span>
+
+                    }
+                    @if (Model.SubDocuments.Any())
+                    {
+                        <br />
+                        <span class="info-item">
+                            Принятые документы :
+                            @foreach (var item in Model.SubDocuments)
+                            {
+                                <a href="@Url.Action("Item", "Document", new { url = item.Url })">
+                                    <i class="icon-file">
+                                    </i>&nbsp;@item.Header
+                                </a>
+                            }
+                        </span>
+                    }
+                </p>
+                @if (Model.Image != null)
+                {
+                    <div class="white-card">
+                        <img src="@Model.Image" alt="" />
+                    </div>
+                }
+                <div class="post-content">
+                    @Html.Raw(Model.Teaser.NlToP())
+                </div>
+
+                <p class="post-info clearfix no-border">
+                    @if (Model.SubFiles.Any())
+                    {
+                        <span class="info-item">
+                            Скачать:
+
+                            @foreach (var item in Model.SubFiles)
+                            {
+                                <a href="@item.Path" target="_blank">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
+                            }
+                        </span>
+                        <br />
+                    }
+                    @if (Model.SubLinks.Any())
+                    {
+                        <span class="info-item">
+                            Читать на :
+                            @foreach (var item in Model.SubLinks)
+                            {
+                                <a href="@item.Url" target="_blank">
+                                    <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title
+                                </a>
+                            }
+                        </span>
+                    }
+                </p>
+                <div class="pull-right">
+                    <strong>Добавил(а): @Model.User.Person.FullName</strong><br />
+                    <strong>Последнее обновление: @Model.ChangedDate.ToString("dd.MM.yyyy")</strong>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="white-card event-like-wrapper">
+                @Html.Partial("EventLike", Model)
+            </div>
+            <div class="addthis-wrapper">
+                @Html.Partial("AddThis")
+            </div>
+            @Html.Action("Comments", "Event", new { id = Model.ID })
+        </div>
+            <div class="span4">
+                @if (currentUser != null)
+                {
+                    <button id="SubscribeCommentBtn" class="btn @(currentUser.IsCommentSubscribed(Model) ? "active" : "")" data-id="@Model.ID" data-type="Event">
+                        @(currentUser.IsCommentSubscribed(Model) ? "Отписаться от комментариев" : "Подписаться на комментарии")
+                    </button>
+                }
+
+                <div class="blog-side-bar clearfix">
+                    <div class="blog-categories widget-tp">
+                        <h3>Темы&nbsp;/&nbsp;Страны и регионы</h3>
+                        <ul>
+                            @foreach (var item in Model.SubSubjects)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                                        <i class="icon-tag">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                </li>
+                            }
+                            @foreach (var item in Model.SubRegions)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                        <i class="icon-map-marker">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div id="AlsoSubjectWrapper" data-type="Event" data-id="@Model.ID">
+                        @Html.Action("AlsoSubject", "Event", new { id = Model.ID })
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="span8">
+                <h2>Материал на модерации</h2>
+            </div>
+        }
+    </div>
+</div>
+

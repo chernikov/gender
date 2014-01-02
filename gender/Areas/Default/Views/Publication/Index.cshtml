@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Публикации";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <h3 class="section-header"><i class="icon-book"></i>&nbsp;Публикации</h3>
+            @Html.Action("Short", "Home", new { url = "publications-short" })
+            @if (currentUser != null && currentUser.CanCreatePublication())
+            {
+                <p>
+                    Добавить: 
+                    
+                    <a href="@Url.Action("CreateBook", "Publication")" class="btn btn-primary">Книгу</a>
+                    <a href="@Url.Action("CreateArticle", "Publication")" class="btn btn-primary">Статью</a>
+                    <a href="@Url.Action("CreateThesis", "Publication")" class="btn btn-primary">Диссертацию</a>
+                </p>
+            }
+            <div class="row">
+                <div class="span4">
+                    <div class="white-card">
+                        <h4>Публикации по авторам</h4>
+                        @Html.Action("AuthorList", "Publication")
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="white-card">
+                        <h4>Публикации по годам</h4>
+                        @Html.Action("YearList", "Publication")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+
+
+</div>

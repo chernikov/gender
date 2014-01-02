@@ -1,0 +1,45 @@
+﻿@model gender.Model.PageableData<gender.Model.StudyMaterial>
+@{
+    ViewBag.Title = "Учебные материалы";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span8">
+         <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;Учебные материалы
+            </h3>
+            @Html.Action("Short", "Home", new {url="study-materials-short" })
+            @if (currentUser != null && currentUser.CanCreateStudyMaterial())
+            {
+                <p>
+                    <a href="@Url.Action("Create", "StudyMaterial")" class="btn btn-primary">Добавить учебный
+                        материал</a>
+                </p>
+            }
+            <div class="white-card">
+                <ul>
+                    @foreach (var item in Model.List)
+                    {
+                        <li>
+                            @Html.Partial("StudyMaterialShort", item)
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="pagination pagination-centered">
+                @Html.PageLinksBootstrap(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+</div>

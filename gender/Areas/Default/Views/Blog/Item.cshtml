@@ -1,0 +1,94 @@
+﻿@model gender.Model.BlogPost
+
+@{
+    ViewBag.Title = Model.Header;
+    ViewBag.Keywords = Model.Keywords;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/default/slide-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/default/comment.js"></script>
+    <script type="text/javascript" src="/Scripts/default/like.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            comment.ajaxComment = "/blogs/CreateComment";
+        });
+    </script>
+}
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header"><i class="icon-comment-alt"></i>&nbsp;<a href="@Url.Action("Index", "Blog")">Блоги</a>
+            </h3>
+        </div>
+        <div class="span8">
+            <div class="single-post-w">
+                <h2 class="post-title">@Model.Header
+                    @if (currentUser != null && currentUser.CanEdit(Model))
+                    {
+                        <a href="@Url.Action("Edit", "Blog", new { id = Model.ID })">
+                            <sup><i class="icon-edit"></i></sup>
+                        </a>
+                    }
+                    @if (currentUser != null && currentUser.CanDelete(Model))
+                    {
+                        <a href="@Url.Action("Delete", "Blog", new { id = Model.ID })">
+                            <sup><i class="icon-remove delete-action"></i></sup>
+                        </a>
+                    }
+                </h2>
+                <p class="post-info clearfix no-border">
+
+                    <span class="info-item">Автор : <a href="@Url.Action("Item", "Person", new { url = Model.Blog.User.Person.Url })">
+                        <i class="icon-user"></i>&nbsp;@Model.Blog.User.Person.FullName</a>
+                    </span>
+                    <span class="info-item pull-right">@Model.AddedDate.ToString("dd MMMM yyyy")</span>
+                </p>
+                <div class="post-content">
+                    @Html.Raw(Model.Content)
+                </div>
+
+            </div>
+            <div class="white-card document-like-wrapper">
+                @Html.Partial("BlogPostLike", Model)
+            </div>
+            <div class="addthis-wrapper">
+                @Html.Partial("AddThis")
+            </div>
+            @Html.Action("Comments", "Blog", new { id = Model.ID })
+        </div>
+        <div class="span4">
+            @if (currentUser != null)
+            {
+                <button id="SubscribeCommentBtn" class="btn @(currentUser.IsCommentSubscribed(Model) ? "active" : "")" data-id="@Model.ID" data-type="BlogPost">
+                    @(currentUser.IsCommentSubscribed(Model) ? "Отписаться от комментариев" : "Подписаться на комментарии")
+                </button>
+            }
+            <div class="blog-side-bar clearfix">
+                <div class="blog-categories widget-tp">
+                    <h3>Темы&nbsp;/&nbsp;Страны и регионы</h3>
+                    <ul>
+                        @foreach (var item in Model.SubSubjects)
+                        {
+                            <li>
+                                <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
+                                </i>&nbsp;@item.Name</a>
+                            </li>    
+                        }
+                        @foreach (var item in Model.SubRegions)
+                        {
+                            <li>
+                                <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
+                                </i>&nbsp;@item.Name</a>
+                            </li>    
+                        }
+                    </ul>
+                </div>
+                <div id="AlsoSubjectWrapper" data-type="Blog" data-id="@Model.ID">
+                    @Html.Action("AlsoSubject", "Blog", new { id = Model.ID })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

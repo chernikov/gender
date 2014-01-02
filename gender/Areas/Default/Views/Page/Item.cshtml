@@ -1,0 +1,32 @@
+﻿@model gender.Model.Page
+
+@{
+    ViewBag.Title = Model.Header;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="span8">
+
+
+            <div class="single-post-w">
+                <h2 class="post-title">
+                    @Model.Header
+                </h2>
+                <div class="post-content">
+                    @Html.Raw(Model.Text)
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+
+    </div>
+</div>
+

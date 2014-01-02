@@ -1,0 +1,70 @@
+﻿@model IList<gender.Model.Region>
+
+@{
+    ViewBag.Title = "Страны и регионы";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var world = Model[0];
+    var russia = Model[1];
+}
+
+<div class="container region-list">
+    <div class="row">
+        <div class="span8">
+            <h3 class="section-header"><i class="icon-map-marker"></i>&nbsp;Страны и регионы
+            </h3>
+             @Html.Action("Short", "Home", new {url = "regions-short"})
+            <div class="row">
+                <div class="span4">
+                    <div class="white-card recent-post">
+                        <h3>@world.Name</h3>
+                       
+                        <ul class="icons-gree">
+                            @foreach (var item in world.SubRegions)
+                            {
+                                if (item.HasEntry || item.AnySubRegions)
+                                {
+                                <li>
+                                    <h5><a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">@item.Name.ToUpper()</a>
+                                    </h5>
+                                    @if (item.AnySubRegions)
+                                    {
+                                        @Html.Partial("ListRegions", item)
+                                    }
+                                </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="white-card recent-post">
+                        <h3>@russia.Name</h3>
+                        <ul class="icons-gree">
+                            @foreach (var item in russia.SubRegions)
+                            {
+                                if (item.HasEntry || item.AnySubRegions)
+                                {
+                                <li>
+                                    <h5><a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">@item.Name.ToUpper()</a>
+                                    </h5>
+                                    @if (item.AnySubRegions)
+                                    {
+                                        @Html.Partial("ListRegions", item)
+                                    }
+                                </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+            </div>
+        </div>
+    </div>
+</div>

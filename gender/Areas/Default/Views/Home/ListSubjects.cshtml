@@ -1,0 +1,16 @@
+﻿@model gender.Model.Subject
+
+<ul>
+    @foreach (var item in Model.SubSubjects)
+    {
+        if (item.MainShow)
+        {
+        <li><a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">@item.Name</a>
+            @if (item.AnySubSubjects)
+            {
+                @Html.Partial("ListSubjects", item)
+            }
+        </li>
+        }
+    }
+</ul>

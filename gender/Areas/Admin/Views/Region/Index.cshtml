@@ -1,0 +1,43 @@
+﻿@model IEnumerable<gender.Model.Region>
+
+@{
+    ViewBag.Title = "Страны и регионы";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header
+{
+    <script type="text/javascript" src="~/Scripts/admin/region-list.js"></script>
+
+}
+<h2>Страны и регионы</h2>
+
+@Html.ActionLink("Добавить", "Create", "Region", null, new { @class = "btn" })
+<div class="region-list regionList">
+    @foreach (var item in Model)
+    {
+        <div class="item regionItem" data-id="@item.ID">
+            @if (item.Regions.Any())
+            {
+                <div class="open icon-plus-sign"></div>
+            }
+            else
+            {
+                <div class="non-open"></div>
+            }
+            <div class="move">
+                <i class="icon-fullscreen"></i>
+            </div>
+            <div class="title">
+                @item.Name
+            </div>
+            <div class="actions">
+                @Html.ActionLink("Добавить", "Create", "Region", new { id = item.ID }, new { @class = "btn btn-mini" })
+                @Html.ActionLink("Изменить", "Edit", "Region", new { id = item.ID }, new { @class = "btn btn-mini" })
+                @Html.ActionLink("Удалить", "Delete", "Region", new { id = item.ID }, new { @class = "btn btn-mini btn-danger" })
+            </div>
+            <div class="sub-wrapper"></div>
+        </div>
+    }
+</div>
+

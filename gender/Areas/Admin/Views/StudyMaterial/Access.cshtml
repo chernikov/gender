@@ -1,0 +1,47 @@
+﻿@model IEnumerable<gender.Model.StudyMaterialAccess>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Доступ к редактированию карточки</h3>
+</div>
+<div class="modal-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#
+                </th>
+                <th>Пользователь
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr class="access-line">
+                <td> 
+                    @item.UserID
+                </td>
+                <td>
+                    @item.User.Person.FullName
+                </td>
+                <td>
+                    <a href="#" class="remove-access" data-id="@item.ID"><i class="icon-minus"></i> Удалить</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    @Html.Hidden("AccessID", null)
+    <form class="form-inline">
+        <label for="AccessName">
+            Пользователь
+        </label>
+        @Html.TextBox("AccessName", null)
+        <button type="submit" class="btn" id="AddAccess"><i class="icon-plus"></i>Добавить</button>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+</div>
+
+

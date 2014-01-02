@@ -1,0 +1,38 @@
+@model IEnumerable<gender.Model.SubscriptionTemplate>
+
+@{
+    ViewBag.Title = "Шаблоны уведомлений";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Шаблоны уведомлений
+</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Активный
+            </th>
+            <th>Шаблон
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.TypeStr
+            </td>
+            <td>
+                @(item.IsActive ? "Да" : "Нет")
+            </td>
+            <td>
+                @item.Template
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", "SubscriptionTemplate", new { id = item.ID }, new { @class = "btn" })
+            </td>
+        </tr>
+    }
+</table>

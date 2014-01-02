@@ -1,0 +1,62 @@
+﻿@model gender.Model.Event
+@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<div class="like event-like" data-id="@Model.ID">
+    <div class="row">
+        <div class="span6">
+            <div class="likers">
+                <i class="icon-thumbs-up"></i>&nbsp;Одобряют это:
+        @if (Model.SubLikers.Any())
+        {
+            foreach (var item in Model.SubLikers)
+            {
+            <a href="@Url.Action("Item", "Person", new { url = item.Person.Url })" class="user">@item.Person.FullName</a>
+            }
+        }
+        else
+        { 
+            <span>Нет таких</span>
+        }
+            </div>
+            <div class="likers">
+                <i class="icon-thumbs-down"></i>&nbsp;Не одобряют это:
+        @if (Model.SubUnLikersCount > 0)
+        {
+            <span>@Model.SubUnLikersCount @Model.SubUnLikersCount.CountWord("человек", "человека", "человек")</span>
+        }
+        else
+        { 
+            <span>Нет таких</span>
+        }
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="set-like ">
+                @if (currentUser != null && currentUser.CanLikeComment)
+                {
+                    if (currentUser.IsLike(Model, true))
+                    {
+                    <i class="plus icon-plus-sign"></i>
+                    }
+                    else
+                    {
+                    <i class="plus icon-plus"></i>
+                    }
+                }
+                <div class="value label label-info">@Model.TotalLikes</div>
+                @if (currentUser != null && currentUser.CanLikeComment)
+                {
+                    if (currentUser.IsLike(Model, false))
+                    {
+                    <i class="minus icon-minus-sign"></i>
+                    }
+                    else
+                    {
+                    <i class="minus icon-minus"></i>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

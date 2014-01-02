@@ -1,0 +1,10 @@
+﻿@model IEnumerable<gender.Model.Subject>
+<h3 class="section-header"><i class="icon-tags"></i> Темы</h3>
+<ul class="icons-gree">
+    @foreach (var item in Model)
+    {
+        <li>
+           <h5><i class="icon-tag"></i>&nbsp;<a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">@item.Name</a></h5>
+        </li>
+    }
+</ul>

@@ -1,0 +1,16 @@
+﻿@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+@if (currentUser.Blog != null && currentUser.Blog.SubBlogParsers.Any())
+{
+    <h5>Импортируемые RSS-ленты</h5>
+    <ul>
+        @foreach (var blogParser in currentUser.Blog.SubBlogParsers)
+        {
+            <li><a href="@blogParser.Link">@blogParser.Link</a>
+                <button class="btn btn-mini remove-parser" data-id="@blogParser.ID">Удалить</button>
+            </li>
+        }
+    </ul>
+}

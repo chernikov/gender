@@ -1,0 +1,32 @@
+﻿@{
+    var controllerName = ViewContext.RequestContext.RouteData.Values["controller"] as string;
+    var actionName = ViewContext.RequestContext.RouteData.Values["action"] as string;
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<ul class="nav">
+    @if (currentUser != null)
+    {
+        <li class="@(string.Compare(controllerName, "User", true) == 0 ? "active" : "")"><a href="@Url.Action("Index", "User")" class="underline">
+            Я</a></li>
+    }
+    <li class="@(string.Compare(controllerName, "Home", true) == 0 ? "active" : "")"><a href="@Url.Action("Index", "Home")">
+        ГЛАВНАЯ</a></li>
+    <li class="@(string.Compare(controllerName, "Section", true) == 0 ? "active" : "")">
+        <a href="@Url.Action("Index", "Section")">РАЗДЕЛЫ</a></li>
+    <li class="@(string.Compare(controllerName, "Subject", true) == 0 ? "active" : "")">
+        <a href="@Url.Action("Index", "Subject")">ТЕМЫ</a></li>
+    <li class="@(string.Compare(controllerName, "Region", true) == 0 ? "active" : "")"><a href="@Url.Action("Index", "Region")">
+        РЕГИОНЫ</a></li>
+    <li class="@(string.Compare(controllerName, "Search", true) == 0 ? "active" : "")"><a href="@Url.Action("Index", "Search")">
+        ПОИСК</a></li>
+    @if (currentUser == null)
+    {
+        <li class="@(string.Compare(controllerName, "Login", true) == 0 ? "active" : "")"><a href="@Url.Action("Index", "Login")">
+            ВХОД</a></li>
+    }
+    else
+    {
+        <li class="@(string.Compare(controllerName, "Login", true) == 0 ? "active" : "")"><a href="@Url.Action("Logout", "Login")">
+            ВЫХОД</a></li>
+    }
+</ul>

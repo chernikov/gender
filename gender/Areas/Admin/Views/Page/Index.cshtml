@@ -1,0 +1,45 @@
+@model IEnumerable<gender.Model.Page>
+
+@{
+    ViewBag.Title = "Статические страницы";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Статические страницы
+</h2>
+@Html.ActionLink("Добавить", "Create", "Page", null, new { @class = "btn" })
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Имя
+            </th>
+            <th>Заголовок
+            </th>
+            <th>Url
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Header
+            </td>
+            <td>
+                @item.Url
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", "Page", new { id = item.ID }, new { @class = "btn" })
+            </td>
+        </tr>
+    }
+</table>

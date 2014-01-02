@@ -1,0 +1,38 @@
+@model gender.Model.PageableData<gender.Model.Blog>
+
+@{
+    ViewBag.Title = "Блоги";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Блоги
+</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Последнее обновление 
+            </th>
+             <th>Наименование
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.List)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.LastUpdate
+            </td>
+            <td>
+                <a href="@Url.Action("Index", "BlogPost", new { id = item.ID })">Блог @item.User.Person.FullName</a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

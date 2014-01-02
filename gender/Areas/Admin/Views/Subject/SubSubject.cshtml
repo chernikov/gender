@@ -1,0 +1,31 @@
+﻿@model IEnumerable<gender.Model.Subject>
+
+<div class="sub-region subjectList">
+    @foreach (var item in Model)
+    { 
+        <div class="item subjectItem" data-id="@item.ID">
+            @if (item.Subjects.Any())
+            {
+                <div class="open icon-plus-sign"></div>
+            }
+            <div class="move">
+                <i class="icon-fullscreen"></i>
+            </div>
+            <div class="title">
+                 @if (item.MainShow)
+                {
+                    <p>@item.Name</p>
+                } else {
+                    <p class="muted">@item.Name</p>
+                }
+            </div>
+            <div class="actions">
+                @Html.ActionLink("Добавить", "Create", "Subject", new { id = item.ID }, new { @class = "btn btn-mini" })
+                @Html.ActionLink("Изменить", "Edit", "Subject", new { id = item.ID }, new { @class = "btn btn-mini" })
+                @Html.ActionLink("Удалить", "Delete", "Subject", new { id = item.ID }, new { @class = "btn btn-mini btn-danger" })
+            </div>
+            <div class="sub-wrapper"></div>
+        </div>
+       
+    }
+</div>

@@ -1,0 +1,36 @@
+@model gender.Models.ViewModels.SubscriptionTemplateView
+@{
+    ViewBag.Title = "Изменить шаблон уведомлений";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Изменить шаблон рассылки</h2>
+@using (Html.BeginForm("Edit", "SubscriptionTemplate", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+	<fieldset>
+		@Html.Hidden("ID", Model.ID)
+		<div class="control-group">
+            <label class="control-label" for="IsActive">
+                Активный
+			</label>
+            <div class="controls">
+                @Html.ValidationMessage("IsActive")
+				@Html.CheckBox("IsActive", Model.IsActive)
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="Template">
+                Шаблон
+			</label>
+            <div class="controls">
+                @Html.ValidationMessage("Template")
+				@Html.TextArea("Template", Model.Template, new {@class = "textarea"})
+            </div>
+        </div>
+	   <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+			</button>
+            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+        </div>
+	</fieldset>
+}

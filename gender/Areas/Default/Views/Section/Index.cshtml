@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Разделы";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="span8 sections">
+            <h3 class="section-header"><i class="icon-th"></i>&nbsp;Разделы</h3>
+
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Subject")"><i class="icon-tags"></i>
+                        <br />
+                        Темы
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Region")"><i class="icon-map-marker"></i>
+                        <br />
+                        Страны и регионы
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Person")"><i class="icon-user"></i>
+                        <br />
+                        Люди
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Organization")"><i class="icon-group"></i>
+                        <br />
+                        Организации
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Document")"><i class="icon-file"></i>
+                        <br />
+                        Документы
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Publication")"><i class="icon-book"></i>
+                        <br />
+                        Публикации
+                    </a>
+                </div>
+            </div>
+
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "StudyMaterial")"><i class="icon-briefcase"></i>
+                        <br />
+                        Учебные материалы
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Event")"><i class="icon-flag"></i>
+                        <br />
+                        События
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "WebLink")"><i class="icon-globe"></i>
+                        <br />
+                        Веб-ресурсы
+                    </a>
+                </div>
+            </div>
+
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Image")"><i class="icon-picture"></i>
+                        <br />
+                        Изображения
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Blog")"><i class="icon-comment-alt"></i>
+                        <br />
+                        Блоги
+                    </a>
+                </div>
+            </div>
+            <div class="span2">
+                <div class="white-card">
+                    <a href="@Url.Action("Index", "Article")"><i class="icon-bookmark"></i>
+                        <br />
+                        Глоссарий
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+
+</div>

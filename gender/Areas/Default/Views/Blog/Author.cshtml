@@ -1,0 +1,93 @@
+﻿@model gender.Model.Blog
+@{
+    ViewBag.Title = "Блоги";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+    var person = Model.User.Person;
+    var page = (int)ViewBag.Page;
+}
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/default/like.js"></script>
+}
+<div class="container author">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header"><i class="icon-user"></i>&nbsp;<a href="@Url.Action("Index", "Person")">Люди</a>
+            </h3>
+        </div>
+        <div class="span8">
+            @Html.Partial("UserInfo", Model.User.Person)
+            <ul class="nav nav-tabs" id="myTab">
+                <li>
+                    <a title="Инфо" href="@Url.Action("Item", "Person", new { url = person.Url })"><i
+                        class="icon-info"></i></a>
+                </li>
+                <li>
+                    <a title="Публикации" href="@Url.Action("Author", "Publication", new { url = person.Url })">
+                        <i class="icon-book"></i>&nbsp;<span class="label label-inverse">+@person.PublicationCount</span>
+                    </a>
+                </li>
+                <li>
+                    <a title="Учебные материалы" href="@Url.Action("Author", "StudyMaterial", new { url = person.Url })">
+                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@person.StudyMaterialCount</span></a>
+                </li>
+                <li>
+                    <a title="Изображения" href="@Url.Action("Author", "Image", new { url = person.Url })">
+                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">+@person.ImageCount</span></a>
+                </li>
+                @if (person.SiteUser != null)
+                {
+                    <li>
+                        <a title="Активность" href="@Url.Action("Author", "Activity", new { url = person.Url })">
+                            <i class="icon-bar-chart"></i>&nbsp;</a>
+                    </li>
+                }
+                <li class="active">
+                    <a title="Блог" href="@Url.Action("Author", "Blog", new { url = person.Url })">Блог
+                        &nbsp;<span class="label label-inverse">+@person.BlogPostCount</span>
+                    </a>
+                </li>
+                @if (currentUser != null && currentUser.CanEdit(person))
+                {
+                    <li>
+                        <a title="Настройки" href="@Url.Action("Edit", "User", new { url = person.Url })"><i
+                            class="icon-cogs"></i></a>
+                    </li>
+                }
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active">
+
+
+                    @if (currentUser != null && currentUser.ID == person.UserID && currentUser.CanCreateBlog())
+                    {
+                        <p>
+                            <a href="@Url.Action("Create", "Blog")" class="btn btn-primary">Написать в блог</a>
+                        </p>
+                          <p>
+                              <a href="@Url.Action("Edit", "User", new {url = person.Url })#setting-blog" class="btn btn-primary">Настроить трансляцию своего блога с другого ресурса</a>
+                        </p>
+                        
+                            
+                    }
+                    @if (Model.SubBlogPosts.Any())
+                    {
+                        foreach (var blogPost in Model.SubPageBlogPosts(page))
+                        {
+                        @Html.Partial("BlogPostShort", blogPost)
+                        }
+                    }
+                </div>
+                <div class="clearfix"></div>
+                <div class="pagination pagination-centered">
+                    @Html.PageLinksBootstrap(page, Model.BlogPostCountPage(), x => Url.Action("Author", new { page = x }))
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            @Html.Partial("UserRightPart", Model.User.Person)
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,104 @@
+﻿@{
+    var controllerName = ViewContext.RequestContext.RouteData.Values["controller"] as string;
+    var actionName = ViewContext.RequestContext.RouteData.Values["action"] as string;
+    var host = gender.Controllers.BaseController.HostName;
+}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>@ViewBag.Title</title>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://@(host)/feed" />
+    <meta name="description" content="">
+    @if (ViewBag.Keywords != null)
+    {
+        <meta name="keywords" content="@ViewBag.Keywords">
+    }
+    <meta name="viewport" content="width=device-width">
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css/theme")
+    @Styles.Render("~/Content/css/chosen")
+    <link href="http://fonts.googleapis.com/css?family=Abel:400|Oswald:300,400,700" media="all"
+        rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic-ext,cyrillic'
+        rel='stylesheet' type='text/css'>
+    @RenderSection("styles", false)
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    @Html.Partial("GoogleAnalytics")
+    <header id='header'>
+        <div class='navbar navbar-fixed-top navbar-inverse'>
+            <div class='navbar-inner'>
+                <div class="container">
+                    <a class="btn btn-navbar collapsed" data-target=".nav-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    @Html.Action("UrgentUser", "Home")
+                    <div class="logos">
+                        <a href="/">
+                            <img src="/Content/images/logo.png" alt="" title=""></a>
+                        <span class="logos">Научный и просветительский
+                        <br>
+                            портал</span>
+                    </div>
+                    <div class="nav-collapse subnav-collapse collapse pull-right" id="top-navigation">
+                        @Html.Partial("MainMenu")
+                        @*@Html.Action("UserLogin", "Home")*@
+                    </div>
+                    <div class="age-mark">
+                        18+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class='section-wrapper' id="MainSection">
+        @RenderBody()
+    </section>
+    <footer>
+        <div class='deep-footer'>
+            <div class='container'>
+                <div class='row clearfix'>
+                    <div class='span5 pull-left'>
+                        Портал основан <a href="@Url.Action("Item", "Organization", new { url = "moskovskij-czentr-gendernyx-issledovanij-mczgi" })">
+                            Московским центром гендерных исследований</a>
+                        @if (controllerName == "Home" && actionName == "Index")
+                        {
+                            <text><br />
+                            при поддержке Фонда Дж. и К. МакАртуров</text>
+                        }
+                    </div>
+                    <div class="span3">
+                        <script type="text/javascript" src="/Scripts/orphus.js"></script>
+                        <a href="http://orphus.ru" id="orphus" target="_blank">
+                            <img alt="Система Orphus" src="/Content/images/orphus.gif" border="0" width="240"
+                                height="48" /></a>
+                    </div>
+
+                    <div class='span4 pull-right'>
+                        @Html.Action("SearchForm", "Home")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    @MiniProfiler.RenderIncludes()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/theme")
+    @Scripts.Render("~/bundles/chosen")
+    <script type="text/javascript" src="/Scripts/default/common.js"></script>
+    @RenderSection("header", false)
+</body>
+</html>

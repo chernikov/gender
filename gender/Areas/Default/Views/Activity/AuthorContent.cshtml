@@ -1,0 +1,19 @@
+﻿@model IList<gender.Model.UpdateRecord>
+
+<ul>
+    @foreach (var item in Model)
+    {
+            if(item.Type == (int)gender.Model.UpdateRecord.TypeEnum.NewUser) {
+            <li>
+                @item.AddedDate.ToString("dd.MM.yy") | Зарегистрировался/лась на сайте
+            </li>
+            } else {
+                <li>
+                @item.AddedDate.ToString("dd.MM.yy") | Добавил/а @item.ShortDesc<br />
+                <i class="icon-@item.Icon gray"></i>
+            &laquo;<a href="@item.Link">@item.NameLink</a>&raquo;
+            </li>
+                                                          }
+        
+    }
+</ul>

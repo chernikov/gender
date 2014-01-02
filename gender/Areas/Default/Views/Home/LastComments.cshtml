@@ -1,0 +1,22 @@
+﻿@model IEnumerable<gender.Model.Comment>
+
+
+<h3 class="section-header"><i class="icon-comments-alt"></i>&nbsp;Последние комментарии</h3>
+<ul class="icons-gree">
+    @foreach (var item in Model)
+    {
+        item.Init();
+        if (item.Any)
+        {
+            <li>
+                @item.AddedDate.ToString("dd.MM.yy") | <a href="@Url.Action("Item", "Person", new { url = item.User.Person.Url })">@item.User.Person.FullName</a> &mdash; 
+                @item.ShortDesc:
+                <i class="icon-@item.Icon"></i>&nbsp;
+                &laquo;<a href="@Url.Action("Item", item.LinkType, new {url = item.Url})#comment_@item.ID">@item.NameLink</a>&raquo;
+            </li>
+        }
+    }
+</ul>
+<div class="pull-right"><a href="@Url.Action("Index", "Comment")">>> Подробнее</a>
+</div>
+<div class="clearfix"></div>

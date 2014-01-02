@@ -1,0 +1,50 @@
+﻿@model gender.Model.Person
+<div class="span4 short-item">
+    <div class="white-card">
+        <div class="img-w clearfix">
+            <div class="white-card">
+                @if (!string.IsNullOrWhiteSpace(Model.Photo))
+                {
+                    <a href="@Url.Action("Item", "Person", new { url = Model.Url })">
+                        <img alt="Photo-card" src="@Model.Photo?width=150&height=200&scale=both&mode=crop">
+                    </a>
+                }
+                else
+                {
+                    <i class='icon-user big'></i>
+                }
+            </div>
+        </div>
+        <h5>
+            <a href="@Url.Action("Item", "Person", new { url = Model.Url })">@Model.FullName</a>
+        </h5>
+        <div class="info">
+            @if (Model.SubSubjects.Any())
+            {
+                <span class="info-item commas">
+                    Интересы:
+                    @foreach (var subject in Model.SubSubjects)
+{
+    <span class="subject"><i class="icon-tags gray"></i>@subject.Name</span>
+}
+                </span>     <br />
+            }
+            @if (Model.PublicationCount > 0)
+            {
+                <span class="info-item">Публикаций:&nbsp;@Model.PublicationCount</span><br />
+            }
+            @if (Model.StudyMaterialCount > 0)
+            {
+                <span class="info-item">Учебных&nbsp;материалов:&nbsp;@Model.StudyMaterialCount</span><br />
+            }
+            @if (Model.ImageCount > 0)
+            {
+                <span class="info-item">Изображений:&nbsp;@Model.ImageCount</span><br />
+            }
+            @if (Model.BlogPostCount > 0)
+            {
+                <span class="info-item">Сообщений&nbsp;в&nbsp;блоге:&nbsp;@Model.BlogPostCount</span><br />
+            }
+        </div>
+    </div>
+</div>

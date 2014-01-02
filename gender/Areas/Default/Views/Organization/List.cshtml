@@ -1,0 +1,7 @@
+﻿@model IList<gender.Model.Organization>
+<ul>
+    @foreach (var item in Model)
+    {
+       @Html.Partial("OrganizationShort", item)
+    }
+</ul>

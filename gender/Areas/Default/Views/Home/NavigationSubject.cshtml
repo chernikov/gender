@@ -1,0 +1,34 @@
+﻿@model IList<gender.Model.Subject>
+
+<div class="blog-side-bar clearfix">
+    <div class="blog-categories widget-tp">
+        <h3>
+            <i class="icon-tag gray"></i>&nbsp;Темы
+        </h3>
+
+        <div class="accordion" id="subjectsAcc">
+
+            @foreach (var item in Model)
+            {
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#subjectsAcc" href="#subject-@(item.ID)">
+                            @item.Name
+                        </a>
+                    </div>
+                    <div id="subject-@(item.ID)" class="accordion-body collapse">
+                        <ul class="icons-gree">
+                            <li>
+                                <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl})">@item.Name.ToUpper()</a>
+                            </li>
+                             @foreach(var subItem in item.SubSubjects) 
+                                {
+                             @Html.Partial("SubNavigationSubject", subItem)
+                                }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

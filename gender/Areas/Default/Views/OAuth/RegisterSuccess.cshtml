@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var emailExist = (bool)ViewBag.EmailExist;
+}
+
+<div class='container'>
+    <div class='row'>
+        <div class='span12'>
+            <h3 class='section-header'><i class="icon-user"></i>&nbsp;Регистрация</h3>
+        </div>
+    </div>
+    <div class="white-card">
+        <p>
+            Вы успешно зарегистрированы.
+        </p>
+        @if (!emailExist)
+        {
+            <p>Добавьте email, чтобы иметь возможность восстановить доступ в случае чего.</p>    
+        }
+
+    </div>
+</div>

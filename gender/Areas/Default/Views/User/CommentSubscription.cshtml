@@ -1,0 +1,31 @@
+﻿@model List<gender.Model.ISubscriptionable>
+
+@if (Model.Any())
+{
+    <p class="subscription">
+        Уберите «галочку», чтобы отменить подписку на комментарии к тому или иному материалу.
+    </p>
+    <ul class="subscription">
+        @{ var i = 0; }
+        @foreach (var item in Model)
+        {
+            <li>
+                <label>
+                    @Html.Hidden("CommentSubscription.index", i)
+                    @Html.Hidden("CommentSubscription[" + i.ToString() + "].ID", item.ID)
+                    @Html.Hidden("CommentSubscription[" + i.ToString() + "].MaterialType", item.Material.TypeUrl)
+                    @Html.CheckBox("CommentSubscription[" + i.ToString() + "].IsChecked", true)
+                    <span class="bylabel">@item.Material.MaterialType @item.Material.Name</span>
+                </label>
+
+            </li> 
+            i++;
+        }
+    </ul>
+}
+else
+{
+    <p class="subscription">
+        Нету ни одной подписки
+    </p>
+}

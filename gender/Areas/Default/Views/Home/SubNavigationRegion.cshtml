@@ -1,0 +1,24 @@
+﻿@model gender.Model.Region
+@{
+    var level = (int?)ViewData["level"];
+}
+
+@if (Model.HasEntry)
+{
+    <li>
+
+        <a href="@Url.Action("Item", "Region", new { path = Model.FullUrl })">
+            @if (level == 1)
+            {
+                <text>   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</text>
+            }@Model.Name
+        </a>
+    </li>
+}
+@if (Model.SubRegions.Any())
+{
+    foreach (var item in Model.SubRegions)
+    {
+        @Html.Partial("SubNavigationRegion", item, new ViewDataDictionary() { { "level", 1 } })
+    }
+}

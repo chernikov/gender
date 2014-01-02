@@ -1,0 +1,56 @@
+@model gender.Models.ViewModels.PageView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить страницу" : "Изменит страницу";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>@(Model.ID == 0 ?  "Добавить страницу" : "Изменит страницу")</h2>
+<p></p>
+@using (Html.BeginForm("Edit", "Page", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+	<fieldset>
+		@Html.Hidden("ID", Model.ID)
+
+		<div class="control-group">
+            <label class="control-label" for="Name">
+                Имя
+			</label>
+            <div class="controls">
+                @Html.ValidationMessage("Name")
+				@Html.TextBox("Name", Model.Name)
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="Header">
+                Заголовок
+			</label>
+            <div class="controls">
+                @Html.ValidationMessage("Header")
+				@Html.TextBox("Header", Model.Header)
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="Url">
+                Url
+			</label>
+            <div class="controls">
+                @Html.ValidationMessage("Url")
+				@Html.TextBox("Url", Model.Url)
+            </div>
+        </div>
+		<div class="control-group">
+            <label class="control-label" for="Text">
+                Текст
+			</label>
+            <div class="controls">
+                @Html.ValidationMessage("Text")
+				@Html.TextArea("Text", Model.Text, new {@class = "htmltext ckeditor"})
+            </div>
+        </div>
+	   <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+			</button>
+            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+        </div>
+	</fieldset>
+}

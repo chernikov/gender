@@ -1,0 +1,18 @@
+﻿@model KeyValuePair<string, gender.Models.ViewModels.ContactView>
+
+<div class="ContactWrapper">
+
+    <span class="row">
+
+        <span class="span2">
+            @Html.DropDownList("Contacts[" + Model.Key + "].Type", Model.Value.SelectListTypes, new { @class = "input-medium" })
+        </span>
+        <span class="span6">
+            @Html.TextBox("Contacts[" + Model.Key + "].Value", Model.Value.Value, new { @class = "input-xlarge" })
+            @Html.ValidationMessage("Contacts[" + Model.Key + "].Value")
+        </span>
+        <span class="span1">
+            <span class="btn remove-line-contact"><i class="icon-trash"></i></span>
+        </span>
+    </span>
+</div>

@@ -1,0 +1,128 @@
+﻿@model gender.Models.ViewModels.OrganizationView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить организацию" : "Изменить организацию";
+    Layout = "~/Areas/default/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    @Styles.Render("~/Content/css/chosen")
+    @Styles.Render("~/Content/css/jquery-ui")
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/default/edit-organization.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-region.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-contact.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-link.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            selectLink.type = "url";
+            selectLink.prefix = "";
+        });
+    </script>
+}
+<div class="container">
+    <div class="row">
+        <div class="single-post-w">
+            <h2 class="post-title">@(Model.ID == 0 ? "Добавить организацию" : "Изменить организацию")
+            </h2>
+            @using (Html.BeginForm("Edit", "Organization", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <fieldset>
+                    @Html.Hidden("ID", Model.ID)
+                    @Html.Hidden("Logo", Model.Logo)
+                    <div class="control-group">
+                        <label class="control-label" for="Name">
+                            Наименование <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Name")
+                            @Html.TextBox("Name", Model.Name)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Info">
+                            Информация <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Info")
+                            @Html.TextArea("Info", Model.Info, new { @class = "htmltext ckeditor" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">
+                            Контакты
+                        </label>
+                        <div class="controls">
+                            <div class="btn" id="AddContact"><i class="icon-plus"></i>Добавить</div>
+                            <div id="ContactListWrapper">
+                                @if (Model.Contacts != null)
+                                {
+                                    foreach (var keyValuePair in Model.Contacts)
+                                    {
+                                    @Html.Partial("ContactItem", keyValuePair)
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            Сайт организации (+ аккаунты в соцсетях)
+                        </label>
+                        <div class="controls">
+                            <div class="btn" id="AddLink"><i class="icon-plus"></i>Добавить</div>
+                            <div id="LinkListWrapper">
+                                @if (Model.Links != null)
+                                {
+                                    foreach (var keyValuePair in Model.Links)
+                                    {
+                                    @Html.Partial("LinkItem", keyValuePair)
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">
+                            Логотип</label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Logo")
+                            <img src="@Model.Logo?width=200" alt="avatar" id="PreviewImage" class="@(string.IsNullOrEmpty(Model.Logo) ? "hidden" : "")"/>
+                            <br />
+                            <div class="btn btn-danger no-submit" id="DeleteImage">
+                                удалить
+                            </div>
+                            <div class="btn btn-pirmary" id="ChangeImage">
+                                загрузить логотип
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="SubjectList">
+                            Сфера интересов 
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="RegionList">
+                            Территориальная принадлежность
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Сохранить
+                        </button>
+                        @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>

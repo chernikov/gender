@@ -1,0 +1,19 @@
+﻿@model IEnumerable<gender.Model.WebLink>
+@{
+    var subject = (gender.Model.Subject)ViewBag.Subject;
+}
+@if (Model.Any())
+{
+    <h3 class="section-header"><i class="icon-globe"></i>&nbsp;Веб-ресурсы</h3>
+    <div class="white-card">
+        <ul class="icons-gree">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <i class="icon-globe"></i>&nbsp;<a href="@Url.Action("Item", "WebLink", new { url = item.SiteUrl })">@item.Name</a>
+                </li>
+            }
+        </ul>
+        <a href="@Url.Action("Item", "Subject", new { path = subject.FullUrl })#weblink">Еще</a>
+    </div>
+}

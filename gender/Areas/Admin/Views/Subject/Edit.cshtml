@@ -1,0 +1,42 @@
+﻿@model gender.Models.ViewModels.SubjectView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить тему" : "Изменить тему";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/admin/subject-edit.js"></script>
+}
+
+<h2>@(Model.ID == 0 ? "Добавить тему" : "Изменить тему")</h2>
+<p></p>
+@using (Html.BeginForm("Edit", "Subject", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        @Html.Hidden("_ID", Model._ID)
+        @Html.Hidden("ParentID", Model.ParentID)
+        <div class="control-group">
+            <label class="control-label" for="Name">
+                Наименование
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Name")
+                @Html.TextBox("Name", Model.Name, new { @class = "input-xxlarge"})
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="MainShow">
+                Показывать на главной
+            </label>
+            <div class="controls">
+                @Html.CheckBox("MainShow", Model.MainShow)
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+        </div>
+    </fieldset>
+}

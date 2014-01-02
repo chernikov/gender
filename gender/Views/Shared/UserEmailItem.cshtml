@@ -1,0 +1,29 @@
+﻿@model KeyValuePair<string, gender.Models.ViewModels.UserEmailView>
+
+<div class="UserEmailWrapper">
+    @Html.Hidden("UserEmails[" + Model.Key + "].ID", Model.Value.ID)
+    @Html.Hidden("UserEmails[" + Model.Key + "].ActivateDate", Model.Value.ActivateDate)
+    @Html.Hidden("UserEmails[" + Model.Key + "].UserID", Model.Value.UserID)
+    <span class="row">
+        <span class="span2">
+            <label class="primary-email">
+
+                @Html.CheckBox("UserEmails[" + Model.Key + "].IsPrimary", Model.Value.IsPrimary)
+                главный
+            </label>
+        </span>
+        <span class="span5">
+            @Html.TextBox("UserEmails[" + Model.Key + "].Email", Model.Value.Email, new { @class = "input-xlarge" })
+            @Html.ValidationMessage("UserEmails[" + Model.Key + "].Email")
+        </span>
+        <span class="span1">
+            @if (Model.Value.ActivateDate.HasValue)
+            {
+                <i class="icon-check"></i>
+            }
+        </span>
+        <span class="span1">
+            <span class="btn remove-line-user-email"><i class="icon-trash"></i></span>
+        </span>
+    </span>
+</div>

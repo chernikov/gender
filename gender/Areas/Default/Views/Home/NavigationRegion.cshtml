@@ -1,0 +1,29 @@
+﻿@model IList<gender.Model.Region>
+
+<div class="blog-side-bar clearfix">
+    <div class="blog-categories widget-tp">
+        <h3>
+            <i class="icon-map-marker gray"></i>&nbsp;Страны и регионы
+        </h3>
+        <div class="accordion" id="regionsAcc">
+            @foreach (var item in Model)
+            {
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#regionsAcc" href="#region-@(item.ID)">
+                            @item.Name
+                        </a>
+                    </div>
+                    <div id="region-@(item.ID)" class="accordion-body collapse">
+                        <ul class="icons-gree">
+                             @foreach(var subItem in item.SubRegions) 
+                                {
+                             @Html.Partial("SubNavigationRegion", subItem)
+                                }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@model gender.Model.Person
+@{
+    ViewBag.Title = "Активность" + Model.FullName;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header">
+                <i class="icon-user"></i>&nbsp;<a href="@Url.Action("Index", "Person")">Люди</a>
+            </h3>
+        </div>
+        <div class="span8">
+            @Html.Partial("UserInfo", Model)
+            <ul class="nav nav-tabs" id="myTab">
+                <li>
+                    <a title="Инфо" href="@Url.Action("Item", "Person", new { url = Model.Url })">
+                        <i class="icon-info"></i>
+                    </a>
+                </li>
+                <li>
+                    <a title="Публикации" href="@Url.Action("Author", "Publication", new { url = Model.Url })">
+                        <i class="icon-book"></i>&nbsp;<span class="label label-inverse">+@Model.PublicationCount</span>
+                    </a>
+                </li>
+                <li>
+                    <a title="Учебные материалы" href="@Url.Action("Author", "StudyMaterial", new { url = Model.Url })">
+                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.StudyMaterialCount</span>
+                    </a>
+                </li>
+                <li>
+                    <a title="Изображения" href="@Url.Action("Author", "Image", new { url = Model.Url })">
+                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">+@Model.ImageCount</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a title="Активность" href="@Url.Action("Author", "Activity", new { url = Model.Url })">
+                        Активность
+                    </a>
+                </li>
+                @if (Model.HasBlog || (currentUser != null && Model.UserID == currentUser.ID))
+                {
+                    <li>
+                        <a title="Блог" href="@Url.Action("Author", "Blog", new { url = Model.Url })">
+                            <i class="icon-comment"></i>&nbsp;<span class="label label-inverse">+@Model.BlogPostCount</span>
+                        </a>
+                    </li>
+                }
+                @if (currentUser != null && currentUser.CanEdit(Model))
+                {
+                    <li>
+                        <a title="Настройки" href="@Url.Action("Edit", "User", new { url = Model.Url })">
+                            <i class="icon-cogs"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    @Html.Action("AuthorContent", "Activity", new { id = Model.SiteUser.ID })
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            @Html.Partial("UserRightPart", Model)
+        </div>
+    </div>
+</div>
+
+
+
+
+<h2></h2>
+

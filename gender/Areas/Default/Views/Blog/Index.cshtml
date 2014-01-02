@@ -1,0 +1,49 @@
+﻿@model gender.Model.PageableData<gender.Model.BlogPost>
+
+@{
+    ViewBag.Title = "Блоги";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/default/like.js"></script>
+}
+
+<div class='container'>
+    <div class='row'>
+        <div class='span8'>
+            <h3 class='section-header'><i class="icon-comment-alt"></i>&nbsp;Блоги</h3>
+
+            @if (currentUser != null && currentUser.CanCreateBlog())
+            {
+                <p>
+                    <a href="@Url.Action("Create", "Blog")" class="btn btn-primary">Добавить пост</a>
+                </p>
+            }
+
+            @foreach (var item in Model.List)
+            {
+                @Html.Partial("BlogPostShort", item)
+            }
+            <div class="clearfix"></div>
+            <div class="pagination pagination-centered">
+                @Html.PageLinksBootstrap(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<h2>Index</h2>

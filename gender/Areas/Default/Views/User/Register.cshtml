@@ -1,0 +1,124 @@
+﻿@model gender.Models.ViewModels.User.RegisterUserView
+
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+
+<div class='container'>
+    <div class='row'>
+        <div class="span6">
+            <h3 class='section-header'><i class="icon-user"></i>&nbsp;Регистрация</h3>
+            @using (Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <fieldset>
+                    @Html.Hidden("ID", Model.ID)
+                    @Html.Hidden("InviteID", Model.InviteID)
+                    <div class="control-group">
+                        <label class="control-label" for="LastName">
+                            Фамилия <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.TextBox("LastName", Model.LastName)
+                            @Html.ValidationMessage("LastName")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="FirstName">
+                            Имя <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.TextBox("FirstName", Model.FirstName)
+                            @Html.ValidationMessage("FirstName")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Patronymic">
+                            Отчество
+                        </label>
+                        <div class="controls">
+                            @Html.TextBox("Patronymic", Model.Patronymic)
+                            @Html.ValidationMessage("Patronymic")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Email">
+                            Email <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.TextBox("Email", Model.Email)
+                            @Html.ValidationMessage("Email")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Password">
+                            Пароль <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.Password("Password", Model.Password)
+                            @Html.ValidationMessage("Password")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="ConfirmPassword">
+                            Пароль еще раз<span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.Password("ConfirmPassword", Model.ConfirmPassword)
+                            @Html.ValidationMessage("ConfirmPassword")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Captcha">
+                            Введите цифры в поле ниже <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            <img src="@Url.Action("Captcha", "User")" alt="captcha" />
+                            @Html.TextBox("Captcha", Model.Captcha)
+                            @Html.ValidationMessage("Captcha")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Agreement">
+                            Обязуюсь следовать <a href="/pages/rules">Правилам портала</a>
+                        </label>
+                        <div class="controls">
+                            @Html.CheckBox("Agreement", Model.Agreement)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn btn-primary">
+                                Зарегистрироваться
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            }
+        </div>
+        <div class="span6">
+            <h3 class='section-header'><i class="icon-user"></i>&nbsp;Регистрация через социальные
+                сети
+            </h3>
+            <p>
+                <a class="" href="@Url.Action("GoogleLogin", "OAuth")">
+                    <img src="/Content/images/login/google.png" alt="Google" /></a>&nbsp;
+                <a class="" href="@Url.Action("YandexLogin", "OAuth")">
+                    <img src="/Content/images/login/yandex.png" alt="Яндекс" /></a>&nbsp;&nbsp;
+                <a class="" href="@Url.Action("MailruLogin", "OAuth")">
+                    <img src="/Content/images/login/mailru.png" alt="Мейл.ру" /></a>
+            </p>
+            <p>
+                <a class="" href="@Url.Action("FacebookLogin", "OAuth")">
+                    <img src="/Content/images/login/fb.png" alt="Фейсбук" /></a>&nbsp;&nbsp;
+                <a class="" href="@Url.Action("VkontakteLogin", "OAuth")">
+                    <img src="/Content/images/login/vk.png" alt="Вконтакте" /></a>
+
+                @* <a class="" href="@Url.Action("TwitterLogin", "OAuth")">
+                    <img src="/Content/images/login/yandex.jpg" alt="Яндекс" /></a>*@
+
+            </p>
+        </div>
+    </div>
+</div>
+

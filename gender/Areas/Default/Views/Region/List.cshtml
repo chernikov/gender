@@ -1,0 +1,30 @@
+﻿@model gender.Model.Region
+@{
+    var type = (int)ViewBag.Type;
+}
+
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#regionAccordion" href="#collapse@(Model.Url)">
+            <i class="icon-map-marker"></i>&nbsp;@Model.Name
+        </a>
+    </div>
+    <div id="collapse@(Model.Url)" class="accordion-body collapse @(type == 1 ? "in" : "")">
+        <div class="accordion-inner ">
+            <div class="blog-categories">
+                <ul class="icons-gree">
+                    @foreach (var item in Model.SubRegions)
+                    {
+                       if(item.HasEntry) 
+                       {
+                        <li>
+                            <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
+                            </i>@item.Name</a>
+                        </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

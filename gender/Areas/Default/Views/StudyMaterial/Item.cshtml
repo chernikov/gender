@@ -1,0 +1,161 @@
+﻿@model gender.Model.StudyMaterial
+
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.Keywords = Model.Keywords;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/default/slide-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/default/like.js"></script>
+    <script type="text/javascript" src="/Scripts/default/comment.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            comment.ajaxComment = "/StudyMaterial/CreateComment";
+        });
+    </script>
+}
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;<a href="@Url.Action("Index", "StudyMaterial")">Учебные
+                материалы</a>
+            </h3>
+        </div>
+        @if (Model.ModeratedDate.HasValue || (currentUser != null && currentUser.CanEdit(Model)))
+        {
+            <div class="span8">
+                <div class="single-post-w">
+                    <h2 class="post-title">@Model.Name
+                        @if (currentUser != null && currentUser.CanEdit(Model))
+                        {
+                            <a href="@Url.Action("Edit", "StudyMaterial", new { id = Model.ID })">
+                                <sup><i class="icon-edit"></i></sup>
+                            </a>
+                        }
+                        @if (currentUser != null && currentUser.CanDelete(Model))
+                        {
+                            <a href="@Url.Action("Delete", "StudyMaterial", new { id = Model.ID })">
+                                <sup><i class="icon-remove delete-action"></i></sup>
+                            </a>
+                        }
+                    </h2>
+                    <p class="post-info clearfix no-border">
+                        <span class="info-item">Автор :
+                          @foreach (var item in Model.SubPersons)
+                          {
+                              <a href="@Url.Action("Item", "Person", new { url = item.Url })"><i class="icon-user">
+                              </i>&nbsp;@item.FullName</a>
+                          }
+                        </span>
+                        @if (Model.SubOrganizations.Any())
+                        {
+                            <br />
+                            <span class="info-item">Организация :
+                          @foreach (var item in Model.SubOrganizations)
+                          {
+                              <a href="@Url.Action("Item", "Organization", new { url = item.Url })"><i class="icon-group">
+                              </i>&nbsp;@item.Name</a>
+                          }
+                            </span>
+                        }
+                        @if (Model.SubRegions.Any())
+                        {
+                            <br />
+                            <span class="info-item">Регион :
+                          @foreach (var item in Model.SubRegions)
+                          {
+                              <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
+                              </i>&nbsp;@item.Name</a>
+                          }
+                            </span>
+                        }
+                    </p>
+                    @if (!string.IsNullOrWhiteSpace(Model.Teaser))
+                    {
+                        <div class="widget-filled widget-yellow">
+                            @Html.Raw(Model.Teaser.NlToP())
+                        </div>
+                    }
+                    <div class="post-content">
+                        @Html.Raw(Model.Content)
+                    </div>
+                    <div class="pull-right">
+                        <strong>Добавил(а): @Model.User.Person.FullName</strong><br />
+                        <strong>Последнее обновление: @Model.ChangedDate.ToString("dd.MM.yyyy")</strong>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p class="post-info no-border">
+                        @if (Model.SubFiles.Any())
+                        {
+                            <span class="info-item">Скачать:
+                        
+                        @foreach (var item in Model.SubFiles)
+                        {
+                            <a href="@item.Path" target="_blank">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
+                        }
+                            </span>
+                            <br />
+                        }
+                        @if (Model.SubLinks.Any())
+                        {
+                            <span class="info-item">Читать:
+                        @foreach (var item in Model.SubLinks)
+                        {
+                            <a href="@item.Url" target="_blank">
+                                <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title</a>
+                        }
+                            </span>
+                        }
+                    </p>
+                </div>
+                <div class="white-card study-material-like-wrapper">
+                    @Html.Partial("StudyMaterialLike", Model)
+                </div>
+                <div class="addthis-wrapper">
+                    @Html.Partial("AddThis")
+                </div>
+                @Html.Action("Comments", "StudyMaterial", new { id = Model.ID })
+            </div>
+            <div class="span4">
+                @if (currentUser != null)
+                {
+                    <button id="SubscribeCommentBtn" class="btn @(currentUser.IsCommentSubscribed(Model) ? "active" : "")" data-id="@Model.ID" data-type="StudyMaterial">
+                        @(currentUser.IsCommentSubscribed(Model) ? "Отписаться от комментариев" : "Подписаться на комментарии")
+                    </button>
+                }
+                <div class="blog-side-bar clearfix">
+                    <div class="blog-categories widget-tp">
+                        <h3>Темы&nbsp;/&nbsp;Страны и регионы</h3>
+                        <ul>
+                            @foreach (var item in Model.SubSubjects)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
+                                    </i>&nbsp;@item.Name</a>
+                                </li>    
+                            }
+                            @foreach (var item in Model.SubRegions)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
+                                    </i>&nbsp;@item.Name</a>
+                                </li>    
+                            }
+                        </ul>
+                    </div>
+                    <div id="AlsoSubjectWrapper" data-type="StudyMaterial" data-id="@Model.ID">
+                        @Html.Action("AlsoSubject", "StudyMaterial", new { id = Model.ID })
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="span8">
+                <h2>Материал на модерации</h2>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@model gender.Model.PageableData<gender.Model.Redirect>
+
+@{
+    ViewBag.Title = "Редиректы";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>Редиректы
+</h2>
+@Html.ActionLink("Добавить", "Create", "Redirect", null, new { @class = "btn" })
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Url</th>
+            <th>Новый url</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.List)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.OldLink <em>@(item.IsForum ? "на форуме" : "")</em>
+            </td>
+               <td>
+                @item.NewLink
+            </td>
+
+            <td>
+                @Html.ActionLink("Изменить", "Edit", "Redirect", new { id = item.ID }, new { @class = "btn" })
+                @Html.ActionLink("Удалить", "Delete", "Redirect", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

@@ -1,0 +1,22 @@
+﻿@model gender.Model.Organization
+
+<li class="organization-short short-item">
+    <div class="white-card no-border">
+        <h5><a href="@Url.Action("Item", "Organization", new { url = Model.Url })">@Model.Name</a>
+        </h5>
+        <div class="info">
+            <span class="info-item">
+                @foreach (var subject in Model.SubSubjects)
+                {
+                    <span class="subject"><i class="icon-tags gray"></i>&nbsp;@subject.Name</span>
+                }
+            </span>
+            <span class="info-item">
+                @foreach (var region in Model.SubRegions)
+                {
+                    <span class="subject"><i class="icon-map-marker gray"></i>&nbsp;@region.Name</span>
+                }
+            </span>
+        </div>
+    </div>
+</li>

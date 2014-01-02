@@ -1,0 +1,13 @@
+﻿@model gender.Model.Subject
+
+
+<li>
+    <a href="@Url.Action("Item", "Subject", new { path = Model.FullUrl })">@Model.Name</a>
+</li>
+@if (Model.SubSubjects.Any())
+{
+    foreach (var item in Model.SubSubjects)
+    {
+    @Html.Partial("SubNavigationSubject", item)
+    }
+}

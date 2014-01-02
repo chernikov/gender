@@ -1,0 +1,18 @@
+﻿@model IEnumerable<gender.Model.Event>
+
+@if (Model.Any())
+{
+    var currentYear = 0;
+    foreach (var current in Model)
+    {
+        var year = current.EventDate.HasValue ? current.EventDate.Value.Year : (current.Year.HasValue ? current.Year.Value : 0);
+        if (year != currentYear)
+        {
+            <h3>@year</h3>
+            currentYear = year;
+        }
+        @Html.Partial("EventShort", current)
+    }
+}
+
+    

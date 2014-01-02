@@ -1,0 +1,16 @@
+﻿@model gender.Model.User
+
+@if (Model != null)
+{
+    <div class="top-account-control visible-desktop">
+        @Html.ActionLink("Выход", "Logout", "Login", null, new { @class = "top-sign-in" })
+        @Html.ActionLink("Профиль", "Index", "User", null, new { @class = "top-create-account" })
+    </div>
+}
+else
+{
+    <div class="top-account-control visible-desktop">
+        @Html.ActionLink("Регистрация", "Register", "User", null, new { @class = "top-create-account" })
+        @Html.ActionLink("Вход", "Index", "Login", null, new { @class = "top-sign-in" })
+    </div>
+}

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<gender.Model.BlogPost>
+@{
+    var subject = (gender.Model.Subject)ViewBag.Subject;
+}
+@if (Model.Any())
+{
+    <h3 class="section-header"><i class="icon-twitter"></i>&nbsp;Сообщения и дискуссии в блогах</h3>
+    <div class="white-card">
+        <ul class="icons-gree">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <i class="icon-file"></i>&nbsp;<a href="@Url.Action("Item", "BlogPost", new { url = item.Url })">@item.Header</a>
+                </li>
+            }
+        </ul>
+        <a href="@Url.Action("Item", "Subject", new { path = subject.FullUrl })#blog">Еще</a>
+    </div>
+}

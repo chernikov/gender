@@ -1,0 +1,59 @@
+@model gender.Model.PageableData<gender.Model.User>
+@{
+    ViewBag.Title = "Пользователи";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Пользователи
+</h2>
+@Html.ActionLink("Создать", "Create", "User", null, new { @class = "btn" })
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Персона ID
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                ФИО
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.List)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @(item.Person.ID != 0 ? (int?)item.Person.ID : null)
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @item.Person.FullName
+            </td>
+            <td>
+                @if (!item.ActivatedDate.HasValue)
+                {
+                    @Html.ActionLink("Активировать", "Activate", "User", new { id = item.ID }, new { @class = "btn" })
+
+                }
+                @Html.ActionLink("Зайти", "Login", "User", new { id = item.ID }, new { @class = "btn" })
+                @Html.ActionLink("Изменить", "Edit", "User", new { id = item.ID }, new { @class = "btn" })
+                @Html.ActionLink("Удалить", "Delete", "User", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

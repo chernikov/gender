@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{54305171-F603-4070-9E75-1F7173681E8A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>gender.Model</RootNamespace>
+    <AssemblyName>gender.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IAccess.cs" />
+    <Compile Include="ICommentable.cs" />
+    <Compile Include="IMaterial.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="ISubscriptionable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Proxy\Article.cs" />
+    <Compile Include="Proxy\ArticleRecordRedirect.cs" />
+    <Compile Include="Proxy\ArticleSubject.cs" />
+    <Compile Include="Proxy\Blog.cs" />
+    <Compile Include="Proxy\BlogParser.cs" />
+    <Compile Include="Proxy\BlogPost.cs" />
+    <Compile Include="Proxy\BlogPostComment.cs" />
+    <Compile Include="Proxy\BlogPostEvent.cs" />
+    <Compile Include="Proxy\BlogPostLike.cs" />
+    <Compile Include="Proxy\BlogPostOrganization.cs" />
+    <Compile Include="Proxy\BlogPostPerson.cs" />
+    <Compile Include="Proxy\BlogPostRecordRedirect.cs" />
+    <Compile Include="Proxy\BlogPostRegion.cs" />
+    <Compile Include="Proxy\BlogPostSubject.cs" />
+    <Compile Include="Proxy\BlogPostSubscription.cs" />
+    <Compile Include="Proxy\Comment.cs" />
+    <Compile Include="Proxy\CommentLike.cs" />
+    <Compile Include="Proxy\Contact.cs" />
+    <Compile Include="Proxy\Distribution.cs" />
+    <Compile Include="Proxy\Document.cs" />
+    <Compile Include="Proxy\DocumentAccess.cs" />
+    <Compile Include="Proxy\DocumentComment.cs" />
+    <Compile Include="Proxy\DocumentFile.cs" />
+    <Compile Include="Proxy\DocumentLike.cs" />
+    <Compile Include="Proxy\DocumentLink.cs" />
+    <Compile Include="Proxy\DocumentOrganization.cs" />
+    <Compile Include="Proxy\DocumentRecordRedirect.cs" />
+    <Compile Include="Proxy\DocumentRegion.cs" />
+    <Compile Include="Proxy\DocumentSubject.cs" />
+    <Compile Include="Proxy\DocumentSubscription.cs" />
+    <Compile Include="Proxy\Event.cs" />
+    <Compile Include="Proxy\EventAccess.cs" />
+    <Compile Include="Proxy\EventComment.cs" />
+    <Compile Include="Proxy\EventFile.cs" />
+    <Compile Include="Proxy\EventLike.cs" />
+    <Compile Include="Proxy\EventLink.cs" />
+    <Compile Include="Proxy\EventOrganization.cs" />
+    <Compile Include="Proxy\EventPerson.cs" />
+    <Compile Include="Proxy\EventRecordRedirect.cs" />
+    <Compile Include="Proxy\EventRegion.cs" />
+    <Compile Include="Proxy\EventSubject.cs" />
+    <Compile Include="Proxy\EventSubscription.cs" />
+    <Compile Include="Proxy\File.cs" />
+    <Compile Include="Proxy\Image.cs" />
+    <Compile Include="Proxy\ImageAccess.cs" />
+    <Compile Include="Proxy\ImageComment.cs" />
+    <Compile Include="Proxy\ImageLike.cs" />
+    <Compile Include="Proxy\ImageLink.cs" />
+    <Compile Include="Proxy\ImagePerson.cs" />
+    <Compile Include="Proxy\ImageRecordRedirect.cs" />
+    <Compile Include="Proxy\ImageRegion.cs" />
+    <Compile Include="Proxy\ImageSubject.cs" />
+    <Compile Include="Proxy\ImageSubscription.cs" />
+    <Compile Include="Proxy\Invite.cs" />
+    <Compile Include="Proxy\Link.cs" />
+    <Compile Include="Proxy\Mail.cs" />
+    <Compile Include="Proxy\Organization.cs" />
+    <Compile Include="Proxy\OrganizationAccess.cs" />
+    <Compile Include="Proxy\OrganizationContact.cs" />
+    <Compile Include="Proxy\OrganizationLike.cs" />
+    <Compile Include="Proxy\OrganizationLink.cs" />
+    <Compile Include="Proxy\OrganizationRecordRedirect.cs" />
+    <Compile Include="Proxy\OrganizationRegion.cs" />
+    <Compile Include="Proxy\OrganizationSubject.cs" />
+    <Compile Include="Proxy\Page.cs" />
+    <Compile Include="Proxy\Person.cs" />
+    <Compile Include="Proxy\PersonAccess.cs" />
+    <Compile Include="Proxy\PersonContact.cs" />
+    <Compile Include="Proxy\PersonLink.cs" />
+    <Compile Include="Proxy\PersonOrganization.cs" />
+    <Compile Include="Proxy\PersonRecordRedirect.cs" />
+    <Compile Include="Proxy\PersonRegion.cs" />
+    <Compile Include="Proxy\PersonSubject.cs" />
+    <Compile Include="Proxy\Publication.cs" />
+    <Compile Include="Proxy\PublicationAccess.cs" />
+    <Compile Include="Proxy\PublicationComment.cs" />
+    <Compile Include="Proxy\PublicationFile.cs" />
+    <Compile Include="Proxy\PublicationLike.cs" />
+    <Compile Include="Proxy\PublicationLink.cs" />
+    <Compile Include="Proxy\PublicationOrganization.cs" />
+    <Compile Include="Proxy\PublicationPerson.cs" />
+    <Compile Include="Proxy\PublicationRecordRedirect.cs" />
+    <Compile Include="Proxy\PublicationRegion.cs" />
+    <Compile Include="Proxy\PublicationSubject.cs" />
+    <Compile Include="Proxy\PublicationSubscription.cs" />
+    <Compile Include="Proxy\RecordRedirect.cs" />
+    <Compile Include="Proxy\Redirect.cs" />
+    <Compile Include="Proxy\Region.cs" />
+    <Compile Include="Proxy\Role.cs" />
+    <Compile Include="Proxy\Setting.cs" />
+    <Compile Include="Proxy\StudyMaterial.cs" />
+    <Compile Include="Proxy\StudyMaterialAccess.cs" />
+    <Compile Include="Proxy\StudyMaterialComment.cs" />
+    <Compile Include="Proxy\StudyMaterialFile.cs" />
+    <Compile Include="Proxy\StudyMaterialLike.cs" />
+    <Compile Include="Proxy\StudyMaterialLink.cs" />
+    <Compile Include="Proxy\StudyMaterialOrganization.cs" />
+    <Compile Include="Proxy\StudyMaterialPerson.cs" />
+    <Compile Include="Proxy\StudyMaterialRecordRedirect.cs" />
+    <Compile Include="Proxy\StudyMaterialRegion.cs" />
+    <Compile Include="Proxy\StudyMaterialSubject.cs" />
+    <Compile Include="Proxy\StudyMaterialSubscription.cs" />
+    <Compile Include="Proxy\Subject.cs" />
+    <Compile Include="Proxy\SubjectSubscription.cs" />
+    <Compile Include="Proxy\SubscriptionPart.cs" />
+    <Compile Include="Proxy\SubscriptionTemplate.cs" />
+    <Compile Include="Proxy\UpdateRecord.cs" />
+    <Compile Include="Proxy\User.cs" />
+    <Compile Include="Proxy\UserEmail.cs" />
+    <Compile Include="Proxy\UserRole.cs" />
+    <Compile Include="Proxy\UserSocial.cs" />
+    <Compile Include="Proxy\WebLink.cs" />
+    <Compile Include="Proxy\WebLinkAccess.cs" />
+    <Compile Include="Proxy\WebLinkComment.cs" />
+    <Compile Include="Proxy\WebLinkLike.cs" />
+    <Compile Include="Proxy\WebLinkRecordRedirect.cs" />
+    <Compile Include="Proxy\WebLinkRegion.cs" />
+    <Compile Include="Proxy\WebLinkSubject.cs" />
+    <Compile Include="Proxy\WebLinkSubscription.cs" />
+    <Compile Include="SqlRepository.cs" />
+    <Compile Include="genderDb.designer.cs">
+      <DependentUpon>genderDb.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="SqlRepository\Article.cs" />
+    <Compile Include="SqlRepository\ArticleRecordRedirect.cs" />
+    <Compile Include="SqlRepository\ArticleSubject.cs" />
+    <Compile Include="SqlRepository\Blog.cs" />
+    <Compile Include="SqlRepository\BlogParser.cs" />
+    <Compile Include="SqlRepository\BlogPost.cs" />
+    <Compile Include="SqlRepository\BlogPostComment.cs" />
+    <Compile Include="SqlRepository\BlogPostEvent.cs" />
+    <Compile Include="SqlRepository\BlogPostLike.cs" />
+    <Compile Include="SqlRepository\BlogPostOrganization.cs" />
+    <Compile Include="SqlRepository\BlogPostPerson.cs" />
+    <Compile Include="SqlRepository\BlogPostRecordRedirect.cs" />
+    <Compile Include="SqlRepository\BlogPostRegion.cs" />
+    <Compile Include="SqlRepository\BlogPostSubject.cs" />
+    <Compile Include="SqlRepository\BlogPostSubscription.cs" />
+    <Compile Include="SqlRepository\Comment.cs" />
+    <Compile Include="SqlRepository\CommentLike.cs" />
+    <Compile Include="SqlRepository\Contact.cs" />
+    <Compile Include="SqlRepository\Distribution.cs" />
+    <Compile Include="SqlRepository\Document.cs" />
+    <Compile Include="SqlRepository\DocumentAccess.cs" />
+    <Compile Include="SqlRepository\DocumentComment.cs" />
+    <Compile Include="SqlRepository\DocumentFile.cs" />
+    <Compile Include="SqlRepository\DocumentLike.cs" />
+    <Compile Include="SqlRepository\DocumentLink.cs" />
+    <Compile Include="SqlRepository\DocumentOrganization.cs" />
+    <Compile Include="SqlRepository\DocumentRecordRedirect.cs" />
+    <Compile Include="SqlRepository\DocumentRegion.cs" />
+    <Compile Include="SqlRepository\DocumentSubject.cs" />
+    <Compile Include="SqlRepository\DocumentSubscription.cs" />
+    <Compile Include="SqlRepository\Event.cs" />
+    <Compile Include="SqlRepository\EventAccess.cs" />
+    <Compile Include="SqlRepository\EventComment.cs" />
+    <Compile Include="SqlRepository\EventFile.cs" />
+    <Compile Include="SqlRepository\EventLike.cs" />
+    <Compile Include="SqlRepository\EventLink.cs" />
+    <Compile Include="SqlRepository\EventOrganization.cs" />
+    <Compile Include="SqlRepository\EventPerson.cs" />
+    <Compile Include="SqlRepository\EventRecordRedirect.cs" />
+    <Compile Include="SqlRepository\EventRegion.cs" />
+    <Compile Include="SqlRepository\EventSubject.cs" />
+    <Compile Include="SqlRepository\EventSubscription.cs" />
+    <Compile Include="SqlRepository\File.cs" />
+    <Compile Include="SqlRepository\Image.cs" />
+    <Compile Include="SqlRepository\ImageAccess.cs" />
+    <Compile Include="SqlRepository\ImageComment.cs" />
+    <Compile Include="SqlRepository\ImageLike.cs" />
+    <Compile Include="SqlRepository\ImageLink.cs" />
+    <Compile Include="SqlRepository\ImagePerson.cs" />
+    <Compile Include="SqlRepository\ImageRecordRedirect.cs" />
+    <Compile Include="SqlRepository\ImageRegion.cs" />
+    <Compile Include="SqlRepository\ImageSubject.cs" />
+    <Compile Include="SqlRepository\ImageSubscription.cs" />
+    <Compile Include="SqlRepository\Invite.cs" />
+    <Compile Include="SqlRepository\Link.cs" />
+    <Compile Include="SqlRepository\Mail.cs" />
+    <Compile Include="SqlRepository\Organization.cs" />
+    <Compile Include="SqlRepository\OrganizationAccess.cs" />
+    <Compile Include="SqlRepository\OrganizationContact.cs" />
+    <Compile Include="SqlRepository\OrganizationLike.cs" />
+    <Compile Include="SqlRepository\OrganizationLink.cs" />
+    <Compile Include="SqlRepository\OrganizationRecordRedirect.cs" />
+    <Compile Include="SqlRepository\OrganizationRegion.cs" />
+    <Compile Include="SqlRepository\OrganizationSubject.cs" />
+    <Compile Include="SqlRepository\Page.cs" />
+    <Compile Include="SqlRepository\Person.cs" />
+    <Compile Include="SqlRepository\PersonAccess.cs" />
+    <Compile Include="SqlRepository\PersonContact.cs" />
+    <Compile Include="SqlRepository\PersonLink.cs" />
+    <Compile Include="SqlRepository\PersonOrganization.cs" />
+    <Compile Include="SqlRepository\PersonRecordRedirect.cs" />
+    <Compile Include="SqlRepository\PersonRegion.cs" />
+    <Compile Include="SqlRepository\PersonSubject.cs" />
+    <Compile Include="SqlRepository\Publication.cs" />
+    <Compile Include="SqlRepository\PublicationAccess.cs" />
+    <Compile Include="SqlRepository\PublicationComment.cs" />
+    <Compile Include="SqlRepository\PublicationFile.cs" />
+    <Compile Include="SqlRepository\PublicationLike.cs" />
+    <Compile Include="SqlRepository\PublicationLink.cs" />
+    <Compile Include="SqlRepository\PublicationOrganization.cs" />
+    <Compile Include="SqlRepository\PublicationPerson.cs" />
+    <Compile Include="SqlRepository\PublicationRecordRedirect.cs" />
+    <Compile Include="SqlRepository\PublicationRegion.cs" />
+    <Compile Include="SqlRepository\PublicationSubject.cs" />
+    <Compile Include="SqlRepository\PublicationSubscription.cs" />
+    <Compile Include="SqlRepository\RecordRedirect.cs" />
+    <Compile Include="SqlRepository\Redirect.cs" />
+    <Compile Include="SqlRepository\Region.cs" />
+    <Compile Include="SqlRepository\Role.cs" />
+    <Compile Include="SqlRepository\Setting.cs" />
+    <Compile Include="SqlRepository\StudyMaterial.cs" />
+    <Compile Include="SqlRepository\StudyMaterialAccess.cs" />
+    <Compile Include="SqlRepository\StudyMaterialComment.cs" />
+    <Compile Include="SqlRepository\StudyMaterialFile.cs" />
+    <Compile Include="SqlRepository\StudyMaterialLike.cs" />
+    <Compile Include="SqlRepository\StudyMaterialLink.cs" />
+    <Compile Include="SqlRepository\StudyMaterialOrganization.cs" />
+    <Compile Include="SqlRepository\StudyMaterialPerson.cs" />
+    <Compile Include="SqlRepository\StudyMaterialRecordRedirect.cs" />
+    <Compile Include="SqlRepository\StudyMaterialRegion.cs" />
+    <Compile Include="SqlRepository\StudyMaterialSubject.cs" />
+    <Compile Include="SqlRepository\StudyMaterialSubscription.cs" />
+    <Compile Include="SqlRepository\Subject.cs" />
+    <Compile Include="SqlRepository\SubjectSubscription.cs" />
+    <Compile Include="SqlRepository\SubscriptionPart.cs" />
+    <Compile Include="SqlRepository\SubscriptionTemplate.cs" />
+    <Compile Include="SqlRepository\UpdateRecord.cs" />
+    <Compile Include="SqlRepository\User.cs" />
+    <Compile Include="SqlRepository\UserEmail.cs" />
+    <Compile Include="SqlRepository\UserRole.cs" />
+    <Compile Include="SqlRepository\UserSocial.cs" />
+    <Compile Include="SqlRepository\WebLink.cs" />
+    <Compile Include="SqlRepository\WebLinkAccess.cs" />
+    <Compile Include="SqlRepository\WebLinkComment.cs" />
+    <Compile Include="SqlRepository\WebLinkLike.cs" />
+    <Compile Include="SqlRepository\WebLinkRecordRedirect.cs" />
+    <Compile Include="SqlRepository\WebLinkRegion.cs" />
+    <Compile Include="SqlRepository\WebLinkSubject.cs" />
+    <Compile Include="SqlRepository\WebLinkSubscription.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="CodeTemplates\Scaffolders\IRepository\IRepositoryItemTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\IRepository\IRepository.ps1" />
+    <None Include="CodeTemplates\Scaffolders\IRepository\IRepositoryTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\ProviderRepository\ProviderRepository.ps1" />
+    <None Include="CodeTemplates\Scaffolders\Proxy\ProxyLangTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\Proxy\Proxy.ps1" />
+    <None Include="CodeTemplates\Scaffolders\Proxy\ProxyTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\SqlRepository\SqlRepositoryLangTemplate.cs.t4" />
+    <None Include="CodeTemplates\Scaffolders\SqlRepository\SqlRepository.ps1" />
+    <None Include="CodeTemplates\Scaffolders\SqlRepository\SqlRepositoryTemplate.cs.t4" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="genderDb.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>genderDb.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ManageAttribute\ManageAttribute.csproj">
+      <Project>{05960685-9A37-4B71-A94E-D009358ABA71}</Project>
+      <Name>ManageAttribute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gender.Tools\gender.Tools.csproj">
+      <Project>{ACACA979-4B2B-4EC8-8E4A-825C2A5377B1}</Project>
+      <Name>gender.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="genderDb.dbml.layout">
+      <DependentUpon>genderDb.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

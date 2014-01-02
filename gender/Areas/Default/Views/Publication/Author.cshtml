@@ -1,0 +1,115 @@
+﻿@model gender.Model.Person
+@{
+    ViewBag.Title = "Публикации " + Model.FullName;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+<div class="container author">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header">
+                <i class="icon-user"></i>&nbsp;<a href="@Url.Action("Index", "Person")">Люди</a>
+            </h3>
+        </div>
+        <div class="span8">
+            @Html.Partial("UserInfo", Model)
+            <ul class="nav nav-tabs" id="myTab">
+                <li>
+                    <a title="Инфо" href="@Url.Action("Item", "Person", new { url = Model.Url })">
+                        <i class="icon-info"></i>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="@Url.Action("Author", "Publication", new { url = Model.Url })">
+                        Публикации <span class="label label-inverse">+@Model.ModeratedPublicationCount</span>
+                    </a>
+                </li>
+                <li>
+                    <a title="Учебные материалы" href="@Url.Action("Author", "StudyMaterial", new { url = Model.Url })">
+                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.ModeratedStudyMaterialCount</span>
+                    </a>
+                </li>
+                <li>
+                    <a title="Изображения" href="@Url.Action("Author", "Image", new { url = Model.Url })">
+                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">+@Model.ModeratedImageCount</span>
+                    </a>
+                </li>
+                @if (Model.SiteUser != null)
+                {
+                    <li>
+                        <a title="Активность" href="@Url.Action("Author", "Activity", new { url = Model.Url })">
+                            <i class="icon-bar-chart"></i>&nbsp;
+                        </a>
+                    </li>
+                }
+                @if (Model.HasBlog || (currentUser != null && Model.UserID == currentUser.ID))
+                {
+                    <li>
+                        <a title="Блог" href="@Url.Action("Author", "Blog", new { url = Model.Url })">
+                            <i class="icon-comment"></i>&nbsp;<span class="label label-inverse">+@Model.BlogPostCount</span>
+                        </a>
+                    </li>
+                }
+                @if (currentUser != null && currentUser.CanEdit(Model))
+                {
+                    <li>
+                        <a title="Настройки" href="@Url.Action("Edit", "User", new { url = Model.Url })">
+                            <i class="icon-cogs"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    @if (currentUser != null && currentUser.ID == Model.UserID && currentUser.CanCreatePublication())
+                    {
+                        <p>
+                            Добавить:
+
+                            <a href="@Url.Action("CreateBook", "Publication")" class="btn btn-primary">Книгу</a>
+                            <a href="@Url.Action("CreateArticle", "Publication")" class="btn btn-primary">Статью</a>
+                            <a href="@Url.Action("CreateThesis", "Publication")" class="btn btn-primary">Диссертацию</a>
+                        </p>
+                        if (Model.SubPublications.Any())
+                        {
+                            var currentYear = 0;
+                            foreach (var current in Model.SubPublications)
+                            {
+                                var year = current.Year ?? 0;
+                                if (year != currentYear)
+                                {
+                                    <h3>@year</h3>
+                                    currentYear = year;
+                                }
+                                @Html.Partial("PublicationShort", current)
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Model.SubModeratedPublications.Any())
+                        {
+                            var currentYear = 0;
+                            foreach (var current in Model.SubModeratedPublications)
+                            {
+                                var year = current.Year ?? 0;
+                                if (year != currentYear)
+                                {
+                                    <h3>@year</h3>
+                                    currentYear = year;
+                                }
+                                @Html.Partial("PublicationShort", current)
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            @Html.Partial("UserRightPart", Model)
+        </div>
+    </div>
+</div>
+
+

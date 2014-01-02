@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "EditBatch";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditBatch</h2>
+
+@using (Html.BeginForm("EditBatch", "User", FormMethod.Post))
+{
+    @Html.TextArea("Batch")
+    <button>OK</button>
+}

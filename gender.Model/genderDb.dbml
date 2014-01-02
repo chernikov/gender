@@ -1,0 +1,1413 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="gender" Class="genderDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SATURN\MSSQL;Initial Catalog=gender;Integrated Security=True" SettingsObjectName="gender.Model.Properties.Settings" SettingsPropertyName="genderConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.UserSocial" Member="UserSocials">
+    <Type Name="UserSocial">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Provider" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Identified" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserInfo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="JsonResource" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExpiredBy" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_UserSocial" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserRole" Member="UserRoles">
+    <Type Name="UserRole">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Role_UserRole" Member="Role" ThisKey="RoleID" OtherKey="ID" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_UserRole" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role" Member="Roles">
+    <Type Name="Role">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Role_UserRole" Member="UserRoles" ThisKey="ID" OtherKey="RoleID" Type="UserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Link" Member="Links">
+    <Type Name="Link">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Icon" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Association Name="Link_DocumentLink" Member="DocumentLinks" ThisKey="ID" OtherKey="LinkID" Type="DocumentLink" />
+      <Association Name="Link_EventLink" Member="EventLinks" ThisKey="ID" OtherKey="LinkID" Type="EventLink" />
+      <Association Name="Link_ImageLink" Member="ImageLinks" ThisKey="ID" OtherKey="LinkID" Type="ImageLink" />
+      <Association Name="Link_OrganizationLink" Member="OrganizationLinks" ThisKey="ID" OtherKey="LinkID" Type="OrganizationLink" />
+      <Association Name="Link_PersonLink" Member="PersonLinks" ThisKey="ID" OtherKey="LinkID" Type="PersonLink" />
+      <Association Name="Link_PublicationLink" Member="PublicationLinks" ThisKey="ID" OtherKey="LinkID" Type="PublicationLink" />
+      <Association Name="Link_StudyMaterialLink" Member="StudyMaterialLinks" ThisKey="ID" OtherKey="LinkID" Type="StudyMaterialLink" />
+      <Association Name="Link_BlogPost" Member="BlogPosts" ThisKey="ID" OtherKey="LinkID" Type="BlogPost" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contact" Member="Contacts">
+    <Type Name="Contact">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="Contact_OrganizationContact" Member="OrganizationContacts" ThisKey="ID" OtherKey="ContactID" Type="OrganizationContact" />
+      <Association Name="Contact_PersonContact" Member="PersonContacts" ThisKey="ID" OtherKey="ContactID" Type="PersonContact" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Blog" Member="Blogs">
+    <Type Name="Blog">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Blog_BlogPost" Member="BlogPosts" ThisKey="ID" OtherKey="BlogID" Type="BlogPost" />
+      <Association Name="Blog_BlogParser" Member="BlogParsers" ThisKey="ID" OtherKey="BlogID" Type="BlogParser" />
+      <Association Name="User_Blog" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Notice" Member="Notices">
+    <Type Name="Notice">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NoticeDistributionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SenderID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReceiverID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ReadedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="NoticeDistribution_Notice" Member="NoticeDistribution" ThisKey="NoticeDistributionID" OtherKey="ID" Type="NoticeDistribution" IsForeignKey="true" />
+      <Association Name="User_Notice" Member="User" ThisKey="ReceiverID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Notice1" Member="User1" ThisKey="SenderID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NoticeDistribution" Member="NoticeDistributions">
+    <Type Name="NoticeDistribution">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="NoticeDistribution_Notice" Member="Notices" ThisKey="ID" OtherKey="NoticeDistributionID" Type="Notice" />
+      <Association Name="User_NoticeDistribution" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ArticleSubject" Member="ArticleSubjects">
+    <Type Name="ArticleSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ArticleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Article_ArticleSubject" Member="Article" ThisKey="ArticleID" OtherKey="ID" Type="Article" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Subject_ArticleSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostComment" Member="BlogPostComments">
+    <Type Name="BlogPostComment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Comment_BlogPostComment" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="BlogPost_BlogPostComment" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostSubject" Member="BlogPostSubjects">
+    <Type Name="BlogPostSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_BlogPostSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="BlogPost_BlogPostSubject" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostEvent" Member="BlogPostEvents">
+    <Type Name="BlogPostEvent">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPostEvent" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_BlogPostEvent" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostOrganization" Member="BlogPostOrganizations">
+    <Type Name="BlogPostOrganization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_BlogPostOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="BlogPost_BlogPostOrganization" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostPerson" Member="BlogPostPersons">
+    <Type Name="BlogPostPerson">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPostPerson" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_BlogPostPerson" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostRegion" Member="BlogPostRegions">
+    <Type Name="BlogPostRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Region_BlogPostRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="BlogPost_BlogPostRegion" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentAccess" Member="DocumentAccesses">
+    <Type Name="DocumentAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentAccess" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_DocumentAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentFile" Member="DocumentFiles">
+    <Type Name="DocumentFile">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="File_DocumentFile" Member="File" ThisKey="FileID" OtherKey="ID" Type="File" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Document_DocumentFile" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentLike" Member="DocumentLikes">
+    <Type Name="DocumentLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentLike" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" />
+      <Association Name="User_DocumentLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentLink" Member="DocumentLinks">
+    <Type Name="DocumentLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Link_DocumentLink" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Document_DocumentLink" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentOrganization" Member="DocumentOrganizations">
+    <Type Name="DocumentOrganization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_DocumentOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Document_DocumentOrganization" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentComment" Member="DocumentComments">
+    <Type Name="DocumentComment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentComment" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Comment_DocumentComment" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventAccess" Member="EventAccesses">
+    <Type Name="EventAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_EventAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Event_EventAccess" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventSubject" Member="EventSubjects">
+    <Type Name="EventSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_EventSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+      <Association Name="Event_EventSubject" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventComment" Member="EventComments">
+    <Type Name="EventComment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Comment_EventComment" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_EventComment" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventFile" Member="EventFiles">
+    <Type Name="EventFile">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="File_EventFile" Member="File" ThisKey="FileID" OtherKey="ID" Type="File" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_EventFile" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventLike" Member="EventLikes">
+    <Type Name="EventLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="User_EventLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_EventLike" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventLink" Member="EventLinks">
+    <Type Name="EventLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Link_EventLink" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_EventLink" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventOrganization" Member="EventOrganizations">
+    <Type Name="EventOrganization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_EventOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_EventOrganization" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventPerson" Member="EventPersons">
+    <Type Name="EventPerson">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Person_EventPerson" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_EventPerson" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventRegion" Member="EventRegions">
+    <Type Name="EventRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Region_EventRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" />
+      <Association Name="Event_EventRegion" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageAccess" Member="ImageAccesses">
+    <Type Name="ImageAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImageAccess" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_ImageAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageSubject" Member="ImageSubjects">
+    <Type Name="ImageSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_ImageSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Image_ImageSubject" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageComment" Member="ImageComments">
+    <Type Name="ImageComment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImageComment" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Comment_ImageComment" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageLike" Member="ImageLikes">
+    <Type Name="ImageLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImageLike" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_ImageLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageLink" Member="ImageLinks">
+    <Type Name="ImageLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Link_ImageLink" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Image_ImageLink" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImagePerson" Member="ImagePersons">
+    <Type Name="ImagePerson">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImagePerson" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_ImagePerson" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageRegion" Member="ImageRegions">
+    <Type Name="ImageRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImageRegion" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Region_ImageRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrganizationAccess" Member="OrganizationAccesses">
+    <Type Name="OrganizationAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_OrganizationAccess" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_OrganizationAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrganizationSubject" Member="OrganizationSubjects">
+    <Type Name="OrganizationSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_OrganizationSubject" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Subject_OrganizationSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrganizationContact" Member="OrganizationContacts">
+    <Type Name="OrganizationContact">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Contact_OrganizationContact" Member="Contact" ThisKey="ContactID" OtherKey="ID" Type="Contact" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_OrganizationContact" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrganizationLike" Member="OrganizationLikes">
+    <Type Name="OrganizationLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_OrganizationLike" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_OrganizationLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrganizationLink" Member="OrganizationLinks">
+    <Type Name="OrganizationLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Link_OrganizationLink" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_OrganizationLink" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrganizationRegion" Member="OrganizationRegions">
+    <Type Name="OrganizationRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_OrganizationRegion" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Region_OrganizationRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonAccess" Member="PersonAccesses">
+    <Type Name="PersonAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_PersonAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Person_PersonAccess" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonSubject" Member="PersonSubjects">
+    <Type Name="PersonSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_PersonSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+      <Association Name="Person_PersonSubject" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonContact" Member="PersonContacts">
+    <Type Name="PersonContact">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContactID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Contact_PersonContact" Member="Contact" ThisKey="ContactID" OtherKey="ID" Type="Contact" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_PersonContact" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonLink" Member="PersonLinks">
+    <Type Name="PersonLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Link_PersonLink" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_PersonLink" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonOrganization" Member="PersonOrganizations">
+    <Type Name="PersonOrganization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_PersonOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_PersonOrganization" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationAccess" Member="PublicationAccesses">
+    <Type Name="PublicationAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_PublicationAccess" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_PublicationAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationSubject" Member="PublicationSubjects">
+    <Type Name="PublicationSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_PublicationSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+      <Association Name="Publication_PublicationSubject" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationComment" Member="PublicationComments">
+    <Type Name="PublicationComment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Comment_PublicationComment" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Publication_PublicationComment" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationFile" Member="PublicationFiles">
+    <Type Name="PublicationFile">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="File_PublicationFile" Member="File" ThisKey="FileID" OtherKey="ID" Type="File" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Publication_PublicationFile" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationLike" Member="PublicationLikes">
+    <Type Name="PublicationLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_PublicationLike" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_PublicationLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationLink" Member="PublicationLinks">
+    <Type Name="PublicationLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsShop" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Link_PublicationLink" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Publication_PublicationLink" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationOrganization" Member="PublicationOrganizations">
+    <Type Name="PublicationOrganization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_PublicationOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Publication_PublicationOrganization" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationPerson" Member="PublicationPersons">
+    <Type Name="PublicationPerson">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_PublicationPerson" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_PublicationPerson" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationRegion" Member="PublicationRegions">
+    <Type Name="PublicationRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_PublicationRegion" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Region_PublicationRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialSubject" Member="StudyMaterialSubjects">
+    <Type Name="StudyMaterialSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_StudyMaterialSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+      <Association Name="StudyMaterial_StudyMaterialSubject" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialComment" Member="StudyMaterialComments">
+    <Type Name="StudyMaterialComment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="StudyMaterial_StudyMaterialComment" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Comment_StudyMaterialComment" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialFile" Member="StudyMaterialFiles">
+    <Type Name="StudyMaterialFile">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FileID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="File_StudyMaterialFile" Member="File" ThisKey="FileID" OtherKey="ID" Type="File" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="StudyMaterial_StudyMaterialFile" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialLike" Member="StudyMaterialLikes">
+    <Type Name="StudyMaterialLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="StudyMaterial_StudyMaterialLike" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_StudyMaterialLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialLink" Member="StudyMaterialLinks">
+    <Type Name="StudyMaterialLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Link_StudyMaterialLink" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="StudyMaterial_StudyMaterialLink" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialPerson" Member="StudyMaterialPersons">
+    <Type Name="StudyMaterialPerson">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="StudyMaterial_StudyMaterialPerson" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_StudyMaterialPerson" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialRegion" Member="StudyMaterialRegions">
+    <Type Name="StudyMaterialRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="StudyMaterial_StudyMaterialRegion" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Region_StudyMaterialRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLinkAccess" Member="WebLinkAccesses">
+    <Type Name="WebLinkAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebLinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WebLink_WebLinkAccess" Member="WebLink" ThisKey="WebLinkID" OtherKey="ID" Type="WebLink" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_WebLinkAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLinkSubject" Member="WebLinkSubjects">
+    <Type Name="WebLinkSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebLinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_WebLinkSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+      <Association Name="WebLink_WebLinkSubject" Member="WebLink" ThisKey="WebLinkID" OtherKey="ID" Type="WebLink" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLinkComment" Member="WebLinkComments">
+    <Type Name="WebLinkComment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebLinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WebLink_WebLinkComment" Member="WebLink" ThisKey="WebLinkID" OtherKey="ID" Type="WebLink" IsForeignKey="true" />
+      <Association Name="Comment_WebLinkComment" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLinkLike" Member="WebLinkLikes">
+    <Type Name="WebLinkLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebLinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="WebLink_WebLinkLike" Member="WebLink" ThisKey="WebLinkID" OtherKey="ID" Type="WebLink" IsForeignKey="true" />
+      <Association Name="User_WebLinkLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLinkRegion" Member="WebLinkRegions">
+    <Type Name="WebLinkRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebLinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WebLink_WebLinkRegion" Member="WebLink" ThisKey="WebLinkID" OtherKey="ID" Type="WebLink" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Region_WebLinkRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialOrganization" Member="StudyMaterialOrganizations">
+    <Type Name="StudyMaterialOrganization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_StudyMaterialOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="StudyMaterial_StudyMaterialOrganization" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[File]" Member="Files">
+    <Type Name="File">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Path" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsImage" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MimeType" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="File_DocumentFile" Member="DocumentFiles" ThisKey="ID" OtherKey="FileID" Type="DocumentFile" />
+      <Association Name="File_EventFile" Member="EventFiles" ThisKey="ID" OtherKey="FileID" Type="EventFile" />
+      <Association Name="File_PublicationFile" Member="PublicationFiles" ThisKey="ID" OtherKey="FileID" Type="PublicationFile" />
+      <Association Name="File_StudyMaterialFile" Member="StudyMaterialFiles" ThisKey="ID" OtherKey="FileID" Type="StudyMaterialFile" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Organization" Member="Organizations">
+    <Type Name="Organization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_BlogPostOrganization" Member="BlogPostOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="BlogPostOrganization" />
+      <Association Name="Organization_DocumentOrganization" Member="DocumentOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="DocumentOrganization" />
+      <Association Name="Organization_EventOrganization" Member="EventOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="EventOrganization" />
+      <Association Name="Organization_OrganizationAccess" Member="OrganizationAccesses" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationAccess" />
+      <Association Name="Organization_OrganizationSubject" Member="OrganizationSubjects" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationSubject" />
+      <Association Name="Organization_OrganizationContact" Member="OrganizationContacts" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationContact" />
+      <Association Name="Organization_OrganizationLike" Member="OrganizationLikes" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationLike" />
+      <Association Name="Organization_OrganizationLink" Member="OrganizationLinks" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationLink" />
+      <Association Name="Organization_OrganizationRegion" Member="OrganizationRegions" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationRegion" />
+      <Association Name="Organization_PersonOrganization" Member="PersonOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="PersonOrganization" />
+      <Association Name="Organization_PublicationOrganization" Member="PublicationOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="PublicationOrganization" />
+      <Association Name="Organization_StudyMaterialOrganization" Member="StudyMaterialOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="StudyMaterialOrganization" />
+      <Association Name="Organization_OrganizationRecordRedirect" Member="OrganizationRecordRedirects" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationRecordRedirect" />
+      <Association Name="User_Organization" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Article" Member="Articles">
+    <Type Name="Article">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Article_ArticleSubject" Member="ArticleSubjects" ThisKey="ID" OtherKey="ArticleID" Type="ArticleSubject" />
+      <Association Name="Article_ArticleRecordRedirect" Member="ArticleRecordRedirects" ThisKey="ID" OtherKey="ArticleID" Type="ArticleRecordRedirect" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Document" Member="Documents">
+    <Type Name="Document">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Teaser" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentAccess" Member="DocumentAccesses" ThisKey="ID" OtherKey="DocumentID" Type="DocumentAccess" />
+      <Association Name="Document_DocumentFile" Member="DocumentFiles" ThisKey="ID" OtherKey="DocumentID" Type="DocumentFile" />
+      <Association Name="Document_DocumentLike" Member="DocumentLikes" ThisKey="ID" OtherKey="DocumentID" Type="DocumentLike" />
+      <Association Name="Document_DocumentLink" Member="DocumentLinks" ThisKey="ID" OtherKey="DocumentID" Type="DocumentLink" />
+      <Association Name="Document_DocumentOrganization" Member="DocumentOrganizations" ThisKey="ID" OtherKey="DocumentID" Type="DocumentOrganization" />
+      <Association Name="Document_DocumentComment" Member="DocumentComments" ThisKey="ID" OtherKey="DocumentID" Type="DocumentComment" />
+      <Association Name="Document_DocumentSubject" Member="DocumentSubjects" ThisKey="ID" OtherKey="DocumentID" Type="DocumentSubject" />
+      <Association Name="Document_DocumentRegion" Member="DocumentRegions" ThisKey="ID" OtherKey="DocumentID" Type="DocumentRegion" />
+      <Association Name="Document_DocumentRecordRedirect" Member="DocumentRecordRedirects" ThisKey="ID" OtherKey="DocumentID" Type="DocumentRecordRedirect" />
+      <Association Name="Document_DocumentSubscription" Member="DocumentSubscriptions" ThisKey="ID" OtherKey="DocumentID" Type="DocumentSubscription" />
+      <Association Name="User_Document" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Event_Document" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subject" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MainShow" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_ArticleSubject" Member="ArticleSubjects" ThisKey="ID" OtherKey="SubjectID" Type="ArticleSubject" />
+      <Association Name="Subject_BlogPostSubject" Member="BlogPostSubjects" ThisKey="ID" OtherKey="SubjectID" Type="BlogPostSubject" />
+      <Association Name="Subject_EventSubject" Member="EventSubjects" ThisKey="ID" OtherKey="SubjectID" Type="EventSubject" />
+      <Association Name="Subject_ImageSubject" Member="ImageSubjects" ThisKey="ID" OtherKey="SubjectID" Type="ImageSubject" />
+      <Association Name="Subject_OrganizationSubject" Member="OrganizationSubjects" ThisKey="ID" OtherKey="SubjectID" Type="OrganizationSubject" />
+      <Association Name="Subject_PersonSubject" Member="PersonSubjects" ThisKey="ID" OtherKey="SubjectID" Type="PersonSubject" />
+      <Association Name="Subject_PublicationSubject" Member="PublicationSubjects" ThisKey="ID" OtherKey="SubjectID" Type="PublicationSubject" />
+      <Association Name="Subject_StudyMaterialSubject" Member="StudyMaterialSubjects" ThisKey="ID" OtherKey="SubjectID" Type="StudyMaterialSubject" />
+      <Association Name="Subject_WebLinkSubject" Member="WebLinkSubjects" ThisKey="ID" OtherKey="SubjectID" Type="WebLinkSubject" />
+      <Association Name="Subject_Subject" Member="Subjects" ThisKey="ID" OtherKey="ParentID" Type="Subject" />
+      <Association Name="Subject_DocumentSubject" Member="DocumentSubjects" ThisKey="ID" OtherKey="SubjectID" Type="DocumentSubject" />
+      <Association Name="Subject_SubjectSubscription" Member="SubjectSubscriptions" ThisKey="ID" OtherKey="SubjectID" Type="SubjectSubscription" />
+      <Association Name="Subject_Subject" Member="Subject1" ThisKey="ParentID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Image" Member="Images">
+    <Type Name="Image">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Path" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImageAccess" Member="ImageAccesses" ThisKey="ID" OtherKey="ImageID" Type="ImageAccess" />
+      <Association Name="Image_ImageSubject" Member="ImageSubjects" ThisKey="ID" OtherKey="ImageID" Type="ImageSubject" />
+      <Association Name="Image_ImageComment" Member="ImageComments" ThisKey="ID" OtherKey="ImageID" Type="ImageComment" />
+      <Association Name="Image_ImageLike" Member="ImageLikes" ThisKey="ID" OtherKey="ImageID" Type="ImageLike" />
+      <Association Name="Image_ImageLink" Member="ImageLinks" ThisKey="ID" OtherKey="ImageID" Type="ImageLink" />
+      <Association Name="Image_ImagePerson" Member="ImagePersons" ThisKey="ID" OtherKey="ImageID" Type="ImagePerson" />
+      <Association Name="Image_ImageRegion" Member="ImageRegions" ThisKey="ID" OtherKey="ImageID" Type="ImageRegion" />
+      <Association Name="Image_ImageRecordRedirect" Member="ImageRecordRedirects" ThisKey="ID" OtherKey="ImageID" Type="ImageRecordRedirect" />
+      <Association Name="Image_ImageSubscription" Member="ImageSubscriptions" ThisKey="ID" OtherKey="ImageID" Type="ImageSubscription" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterial" Member="StudyMaterials">
+    <Type Name="StudyMaterial">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Teaser" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="StudyMaterial_StudyMaterialSubject" Member="StudyMaterialSubjects" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialSubject" />
+      <Association Name="StudyMaterial_StudyMaterialComment" Member="StudyMaterialComments" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialComment" />
+      <Association Name="StudyMaterial_StudyMaterialFile" Member="StudyMaterialFiles" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialFile" />
+      <Association Name="StudyMaterial_StudyMaterialLike" Member="StudyMaterialLikes" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialLike" />
+      <Association Name="StudyMaterial_StudyMaterialLink" Member="StudyMaterialLinks" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialLink" />
+      <Association Name="StudyMaterial_StudyMaterialPerson" Member="StudyMaterialPersons" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialPerson" />
+      <Association Name="StudyMaterial_StudyMaterialRegion" Member="StudyMaterialRegions" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialRegion" />
+      <Association Name="StudyMaterial_StudyMaterialOrganization" Member="StudyMaterialOrganizations" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialOrganization" />
+      <Association Name="StudyMaterial_StudyMaterialAccess" Member="StudyMaterialAccesses" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialAccess" />
+      <Association Name="StudyMaterial_StudyMaterialRecordRedirect" Member="StudyMaterialRecordRedirects" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialRecordRedirect" />
+      <Association Name="StudyMaterial_StudyMaterialSubscription" Member="StudyMaterialSubscriptions" ThisKey="ID" OtherKey="StudyMaterialID" Type="StudyMaterialSubscription" />
+      <Association Name="User_StudyMaterial" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLink" Member="WebLinks">
+    <Type Name="WebLink">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="SiteUrl" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Screenshot" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(1024) NOT NULL" CanBeNull="false" />
+      <Column Name="ReservedUrl" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RSS" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WebLink_WebLinkAccess" Member="WebLinkAccesses" ThisKey="ID" OtherKey="WebLinkID" Type="WebLinkAccess" />
+      <Association Name="WebLink_WebLinkSubject" Member="WebLinkSubjects" ThisKey="ID" OtherKey="WebLinkID" Type="WebLinkSubject" />
+      <Association Name="WebLink_WebLinkComment" Member="WebLinkComments" ThisKey="ID" OtherKey="WebLinkID" Type="WebLinkComment" />
+      <Association Name="WebLink_WebLinkLike" Member="WebLinkLikes" ThisKey="ID" OtherKey="WebLinkID" Type="WebLinkLike" />
+      <Association Name="WebLink_WebLinkRegion" Member="WebLinkRegions" ThisKey="ID" OtherKey="WebLinkID" Type="WebLinkRegion" />
+      <Association Name="WebLink_WebLinkRecordRedirect" Member="WebLinkRecordRedirects" ThisKey="ID" OtherKey="WebLinkID" Type="WebLinkRecordRedirect" />
+      <Association Name="WebLink_WebLinkSubscription" Member="WebLinkSubscriptions" ThisKey="ID" OtherKey="WebLinkID" Type="WebLinkSubscription" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonRegion" Member="PersonRegions">
+    <Type Name="PersonRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Region_PersonRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" />
+      <Association Name="Person_PersonRegion" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentSubject" Member="DocumentSubjects">
+    <Type Name="DocumentSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentSubject" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Subject_DocumentSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentRegion" Member="DocumentRegions">
+    <Type Name="DocumentRegion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentRegion" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Region_DocumentRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialAccess" Member="StudyMaterialAccesses">
+    <Type Name="StudyMaterialAccess">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="StudyMaterial_StudyMaterialAccess" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_StudyMaterialAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RecordRedirect" Member="RecordRedirects">
+    <Type Name="RecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="IsForum" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="RecordRedirect_ArticleRecordRedirect" Member="ArticleRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="ArticleRecordRedirect" />
+      <Association Name="RecordRedirect_BlogPostRecordRedirect" Member="BlogPostRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="BlogPostRecordRedirect" />
+      <Association Name="RecordRedirect_DocumentRecordRedirect" Member="DocumentRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="DocumentRecordRedirect" />
+      <Association Name="RecordRedirect_EventRecordRedirect" Member="EventRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="EventRecordRedirect" />
+      <Association Name="RecordRedirect_ImageRecordRedirect" Member="ImageRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="ImageRecordRedirect" />
+      <Association Name="RecordRedirect_OrganizationRecordRedirect" Member="OrganizationRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="OrganizationRecordRedirect" />
+      <Association Name="RecordRedirect_PersonRecordRedirect" Member="PersonRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="PersonRecordRedirect" />
+      <Association Name="RecordRedirect_PublicationRecordRedirect" Member="PublicationRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="PublicationRecordRedirect" />
+      <Association Name="RecordRedirect_StudyMaterialRecordRedirect" Member="StudyMaterialRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="StudyMaterialRecordRedirect" />
+      <Association Name="RecordRedirect_WebLinkRecordRedirect" Member="WebLinkRecordRedirects" ThisKey="ID" OtherKey="RecordRedirectID" Type="WebLinkRecordRedirect" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ArticleRecordRedirect" Member="ArticleRecordRedirects">
+    <Type Name="ArticleRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ArticleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Article_ArticleRecordRedirect" Member="Article" ThisKey="ArticleID" OtherKey="ID" Type="Article" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="RecordRedirect_ArticleRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostRecordRedirect" Member="BlogPostRecordRedirects">
+    <Type Name="BlogPostRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RecordRedirect_BlogPostRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="BlogPost_BlogPostRecordRedirect" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentRecordRedirect" Member="DocumentRecordRedirects">
+    <Type Name="DocumentRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentRecordRedirect" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="RecordRedirect_DocumentRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventRecordRedirect" Member="EventRecordRedirects">
+    <Type Name="EventRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RecordRedirect_EventRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Event_EventRecordRedirect" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageRecordRedirect" Member="ImageRecordRedirects">
+    <Type Name="ImageRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImageRecordRedirect" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="RecordRedirect_ImageRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrganizationRecordRedirect" Member="OrganizationRecordRedirects">
+    <Type Name="OrganizationRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_OrganizationRecordRedirect" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="RecordRedirect_OrganizationRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonRecordRedirect" Member="PersonRecordRedirects">
+    <Type Name="PersonRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RecordRedirect_PersonRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Person_PersonRecordRedirect" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationRecordRedirect" Member="PublicationRecordRedirects">
+    <Type Name="PublicationRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RecordRedirect_PublicationRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Publication_PublicationRecordRedirect" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialRecordRedirect" Member="StudyMaterialRecordRedirects">
+    <Type Name="StudyMaterialRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RecordRedirect_StudyMaterialRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="StudyMaterial_StudyMaterialRecordRedirect" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLinkRecordRedirect" Member="WebLinkRecordRedirects">
+    <Type Name="WebLinkRecordRedirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebLinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RecordRedirect_WebLinkRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="WebLink_WebLinkRecordRedirect" Member="WebLink" ThisKey="WebLinkID" OtherKey="ID" Type="WebLink" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Redirect" Member="Redirects">
+    <Type Name="Redirect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OldLink" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="NewLink" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="IsForum" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserEmail" Member="UserEmails">
+    <Type Name="UserEmail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="ActivateLink" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="ActivateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsPrimary" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Sended" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="User_UserEmail" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Setting" Member="Settings">
+    <Type Name="Setting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ValueInt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ValueDouble" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CommentLike" Member="CommentLikes">
+    <Type Name="CommentLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Comment_CommentLike" Member="Comment" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_CommentLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comment" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsBanned" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Comment_BlogPostComment" Member="BlogPostComments" ThisKey="ID" OtherKey="CommentID" Type="BlogPostComment" />
+      <Association Name="Comment_DocumentComment" Member="DocumentComments" ThisKey="ID" OtherKey="CommentID" Type="DocumentComment" />
+      <Association Name="Comment_EventComment" Member="EventComments" ThisKey="ID" OtherKey="CommentID" Type="EventComment" />
+      <Association Name="Comment_ImageComment" Member="ImageComments" ThisKey="ID" OtherKey="CommentID" Type="ImageComment" />
+      <Association Name="Comment_PublicationComment" Member="PublicationComments" ThisKey="ID" OtherKey="CommentID" Type="PublicationComment" />
+      <Association Name="Comment_StudyMaterialComment" Member="StudyMaterialComments" ThisKey="ID" OtherKey="CommentID" Type="StudyMaterialComment" />
+      <Association Name="Comment_WebLinkComment" Member="WebLinkComments" ThisKey="ID" OtherKey="CommentID" Type="WebLinkComment" />
+      <Association Name="Comment_CommentLike" Member="CommentLikes" ThisKey="ID" OtherKey="CommentID" Type="CommentLike" />
+      <Association Name="Comment_Comment" Member="Comments" ThisKey="ID" OtherKey="ParentID" Type="Comment" />
+      <Association Name="Comment_Comment" Member="Comment1" ThisKey="ParentID" OtherKey="ID" Type="Comment" IsForeignKey="true" />
+      <Association Name="User_Comment" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Page" Member="Pages">
+    <Type Name="Page">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Publication" Member="Publications">
+    <Type Name="Publication">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cover" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="Bibliographic" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Teaser" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_PublicationAccess" Member="PublicationAccesses" ThisKey="ID" OtherKey="PublicationID" Type="PublicationAccess" />
+      <Association Name="Publication_PublicationSubject" Member="PublicationSubjects" ThisKey="ID" OtherKey="PublicationID" Type="PublicationSubject" />
+      <Association Name="Publication_PublicationComment" Member="PublicationComments" ThisKey="ID" OtherKey="PublicationID" Type="PublicationComment" />
+      <Association Name="Publication_PublicationFile" Member="PublicationFiles" ThisKey="ID" OtherKey="PublicationID" Type="PublicationFile" />
+      <Association Name="Publication_PublicationLike" Member="PublicationLikes" ThisKey="ID" OtherKey="PublicationID" Type="PublicationLike" />
+      <Association Name="Publication_PublicationLink" Member="PublicationLinks" ThisKey="ID" OtherKey="PublicationID" Type="PublicationLink" />
+      <Association Name="Publication_PublicationOrganization" Member="PublicationOrganizations" ThisKey="ID" OtherKey="PublicationID" Type="PublicationOrganization" />
+      <Association Name="Publication_PublicationPerson" Member="PublicationPersons" ThisKey="ID" OtherKey="PublicationID" Type="PublicationPerson" />
+      <Association Name="Publication_PublicationRegion" Member="PublicationRegions" ThisKey="ID" OtherKey="PublicationID" Type="PublicationRegion" />
+      <Association Name="Publication_PublicationRecordRedirect" Member="PublicationRecordRedirects" ThisKey="ID" OtherKey="PublicationID" Type="PublicationRecordRedirect" />
+      <Association Name="Publication_Publication" Member="Publications" ThisKey="ID" OtherKey="ParentID" Type="Publication" />
+      <Association Name="Publication_PublicationSubscription" Member="PublicationSubscriptions" ThisKey="ID" OtherKey="PublicationID" Type="PublicationSubscription" />
+      <Association Name="Publication_Publication" Member="Publication1" ThisKey="ParentID" OtherKey="ID" Type="Publication" IsForeignKey="true" />
+      <Association Name="User_Publication" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Region" Member="Regions">
+    <Type Name="Region">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="OrderBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Map" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="HasEntry" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Region_BlogPostRegion" Member="BlogPostRegions" ThisKey="ID" OtherKey="RegionID" Type="BlogPostRegion" />
+      <Association Name="Region_EventRegion" Member="EventRegions" ThisKey="ID" OtherKey="RegionID" Type="EventRegion" />
+      <Association Name="Region_ImageRegion" Member="ImageRegions" ThisKey="ID" OtherKey="RegionID" Type="ImageRegion" />
+      <Association Name="Region_OrganizationRegion" Member="OrganizationRegions" ThisKey="ID" OtherKey="RegionID" Type="OrganizationRegion" />
+      <Association Name="Region_PublicationRegion" Member="PublicationRegions" ThisKey="ID" OtherKey="RegionID" Type="PublicationRegion" />
+      <Association Name="Region_StudyMaterialRegion" Member="StudyMaterialRegions" ThisKey="ID" OtherKey="RegionID" Type="StudyMaterialRegion" />
+      <Association Name="Region_WebLinkRegion" Member="WebLinkRegions" ThisKey="ID" OtherKey="RegionID" Type="WebLinkRegion" />
+      <Association Name="Region_PersonRegion" Member="PersonRegions" ThisKey="ID" OtherKey="RegionID" Type="PersonRegion" />
+      <Association Name="Region_DocumentRegion" Member="DocumentRegions" ThisKey="ID" OtherKey="RegionID" Type="DocumentRegion" />
+      <Association Name="Region_Region" Member="Regions" ThisKey="ID" OtherKey="ParentID" Type="Region" />
+      <Association Name="Region_Region" Member="Region1" ThisKey="ParentID" OtherKey="ID" Type="Region" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPost" Member="BlogPosts">
+    <Type Name="BlogPost">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinkID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Source" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPostComment" Member="BlogPostComments" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostComment" />
+      <Association Name="BlogPost_BlogPostSubject" Member="BlogPostSubjects" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostSubject" />
+      <Association Name="BlogPost_BlogPostEvent" Member="BlogPostEvents" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostEvent" />
+      <Association Name="BlogPost_BlogPostOrganization" Member="BlogPostOrganizations" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostOrganization" />
+      <Association Name="BlogPost_BlogPostPerson" Member="BlogPostPersons" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostPerson" />
+      <Association Name="BlogPost_BlogPostRegion" Member="BlogPostRegions" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostRegion" />
+      <Association Name="BlogPost_BlogPostRecordRedirect" Member="BlogPostRecordRedirects" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostRecordRedirect" />
+      <Association Name="BlogPost_BlogPostSubscription" Member="BlogPostSubscriptions" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostSubscription" />
+      <Association Name="BlogPost_BlogPostLike" Member="BlogPostLikes" ThisKey="ID" OtherKey="BlogPostID" Type="BlogPostLike" />
+      <Association Name="Blog_BlogPost" Member="Blog" ThisKey="BlogID" OtherKey="ID" Type="Blog" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Link_BlogPost" Member="Link" ThisKey="LinkID" OtherKey="ID" Type="Link" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationSubscription" Member="PublicationSubscriptions">
+    <Type Name="PublicationSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_PublicationSubscription" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_PublicationSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventSubscription" Member="EventSubscriptions">
+    <Type Name="EventSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_EventSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Event_EventSubscription" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageSubscription" Member="ImageSubscriptions">
+    <Type Name="ImageSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Image_ImageSubscription" Member="Image" ThisKey="ImageID" OtherKey="ID" Type="Image" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_ImageSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostSubscription" Member="BlogPostSubscriptions">
+    <Type Name="BlogPostSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPostSubscription" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_BlogPostSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebLinkSubscription" Member="WebLinkSubscriptions">
+    <Type Name="WebLinkSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WebLinkID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WebLink_WebLinkSubscription" Member="WebLink" ThisKey="WebLinkID" OtherKey="ID" Type="WebLink" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_WebLinkSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudyMaterialSubscription" Member="StudyMaterialSubscriptions">
+    <Type Name="StudyMaterialSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="StudyMaterial_StudyMaterialSubscription" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_StudyMaterialSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentSubscription" Member="DocumentSubscriptions">
+    <Type Name="DocumentSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Document_DocumentSubscription" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_DocumentSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubjectSubscription" Member="SubjectSubscriptions">
+    <Type Name="SubjectSubscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_SubjectSubscription" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_SubjectSubscription" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActivatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActivatedLink" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastVisitDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Invited" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Rating" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartRating" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoticeCommentPeriod" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoticeUpdatePeriod" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_UserSocial" Member="UserSocials" ThisKey="ID" OtherKey="UserID" Type="UserSocial" />
+      <Association Name="User_UserRole" Member="UserRoles" ThisKey="ID" OtherKey="UserID" Type="UserRole" />
+      <Association Name="User_Blog" Member="Blogs" ThisKey="ID" OtherKey="UserID" Type="Blog" />
+      <Association Name="User_Notice" Member="Notices" ThisKey="ID" OtherKey="ReceiverID" Type="Notice" />
+      <Association Name="User_Notice1" Member="Notices1" ThisKey="ID" OtherKey="SenderID" Type="Notice" />
+      <Association Name="User_NoticeDistribution" Member="NoticeDistributions" ThisKey="ID" OtherKey="UserID" Type="NoticeDistribution" />
+      <Association Name="User_DocumentAccess" Member="DocumentAccesses" ThisKey="ID" OtherKey="UserID" Type="DocumentAccess" />
+      <Association Name="User_DocumentLike" Member="DocumentLikes" ThisKey="ID" OtherKey="UserID" Type="DocumentLike" />
+      <Association Name="User_EventAccess" Member="EventAccesses" ThisKey="ID" OtherKey="UserID" Type="EventAccess" />
+      <Association Name="User_EventLike" Member="EventLikes" ThisKey="ID" OtherKey="UserID" Type="EventLike" />
+      <Association Name="User_ImageAccess" Member="ImageAccesses" ThisKey="ID" OtherKey="UserID" Type="ImageAccess" />
+      <Association Name="User_ImageLike" Member="ImageLikes" ThisKey="ID" OtherKey="UserID" Type="ImageLike" />
+      <Association Name="User_OrganizationAccess" Member="OrganizationAccesses" ThisKey="ID" OtherKey="UserID" Type="OrganizationAccess" />
+      <Association Name="User_OrganizationLike" Member="OrganizationLikes" ThisKey="ID" OtherKey="UserID" Type="OrganizationLike" />
+      <Association Name="User_PersonAccess" Member="PersonAccesses" ThisKey="ID" OtherKey="UserID" Type="PersonAccess" />
+      <Association Name="User_PublicationAccess" Member="PublicationAccesses" ThisKey="ID" OtherKey="UserID" Type="PublicationAccess" />
+      <Association Name="User_PublicationLike" Member="PublicationLikes" ThisKey="ID" OtherKey="UserID" Type="PublicationLike" />
+      <Association Name="User_StudyMaterialLike" Member="StudyMaterialLikes" ThisKey="ID" OtherKey="UserID" Type="StudyMaterialLike" />
+      <Association Name="User_WebLinkAccess" Member="WebLinkAccesses" ThisKey="ID" OtherKey="UserID" Type="WebLinkAccess" />
+      <Association Name="User_WebLinkLike" Member="WebLinkLikes" ThisKey="ID" OtherKey="UserID" Type="WebLinkLike" />
+      <Association Name="User_Organization" Member="Organizations" ThisKey="ID" OtherKey="UserID" Type="Organization" />
+      <Association Name="User_Document" Member="Documents" ThisKey="ID" OtherKey="UserID" Type="Document" />
+      <Association Name="User_StudyMaterial" Member="StudyMaterials" ThisKey="ID" OtherKey="UserID" Type="StudyMaterial" />
+      <Association Name="User_StudyMaterialAccess" Member="StudyMaterialAccesses" ThisKey="ID" OtherKey="UserID" Type="StudyMaterialAccess" />
+      <Association Name="User_UserEmail" Member="UserEmails" ThisKey="ID" OtherKey="UserID" Type="UserEmail" />
+      <Association Name="User_CommentLike" Member="CommentLikes" ThisKey="ID" OtherKey="UserID" Type="CommentLike" />
+      <Association Name="User_Comment" Member="Comments" ThisKey="ID" OtherKey="UserID" Type="Comment" />
+      <Association Name="User_Publication" Member="Publications" ThisKey="ID" OtherKey="UserID" Type="Publication" />
+      <Association Name="User_PublicationSubscription" Member="PublicationSubscriptions" ThisKey="ID" OtherKey="UserID" Type="PublicationSubscription" />
+      <Association Name="User_EventSubscription" Member="EventSubscriptions" ThisKey="ID" OtherKey="UserID" Type="EventSubscription" />
+      <Association Name="User_ImageSubscription" Member="ImageSubscriptions" ThisKey="ID" OtherKey="UserID" Type="ImageSubscription" />
+      <Association Name="User_BlogPostSubscription" Member="BlogPostSubscriptions" ThisKey="ID" OtherKey="UserID" Type="BlogPostSubscription" />
+      <Association Name="User_WebLinkSubscription" Member="WebLinkSubscriptions" ThisKey="ID" OtherKey="UserID" Type="WebLinkSubscription" />
+      <Association Name="User_StudyMaterialSubscription" Member="StudyMaterialSubscriptions" ThisKey="ID" OtherKey="UserID" Type="StudyMaterialSubscription" />
+      <Association Name="User_DocumentSubscription" Member="DocumentSubscriptions" ThisKey="ID" OtherKey="UserID" Type="DocumentSubscription" />
+      <Association Name="User_SubjectSubscription" Member="SubjectSubscriptions" ThisKey="ID" OtherKey="UserID" Type="SubjectSubscription" />
+      <Association Name="User_BlogPostLike" Member="BlogPostLikes" ThisKey="ID" OtherKey="UserID" Type="BlogPostLike" />
+      <Association Name="User_Person" Member="Persons" ThisKey="ID" OtherKey="AuthorID" Type="Person" />
+      <Association Name="User_Person1" Member="Persons1" ThisKey="ID" OtherKey="UserID" Type="Person" />
+      <Association Name="User_UpdateRecord" Member="UpdateRecords" ThisKey="ID" OtherKey="UserID" Type="UpdateRecord" />
+      <Association Name="User_Invite" Member="Invites" ThisKey="ID" OtherKey="UserID" Type="Invite" />
+      <Association Name="User_Invite1" Member="Invites1" ThisKey="ID" OtherKey="UserID" Type="Invite" />
+      <Association Name="User_SubscriptionPart" Member="SubscriptionParts" ThisKey="ID" OtherKey="UserID" Type="SubscriptionPart" />
+      <Association Name="User_Mail" Member="Mails" ThisKey="ID" OtherKey="UserID" Type="Mail" />
+      <Association Name="User_Event" Member="Events" ThisKey="ID" OtherKey="UserID" Type="Event" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogPostLike" Member="BlogPostLikes">
+    <Type Name="BlogPostLike">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="BlogPost_BlogPostLike" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_BlogPostLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Persons">
+    <Type Name="Person">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Patronymic" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Bio" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Person_BlogPostPerson" Member="BlogPostPersons" ThisKey="ID" OtherKey="PersonID" Type="BlogPostPerson" />
+      <Association Name="Person_EventPerson" Member="EventPersons" ThisKey="ID" OtherKey="PersonID" Type="EventPerson" />
+      <Association Name="Person_ImagePerson" Member="ImagePersons" ThisKey="ID" OtherKey="PersonID" Type="ImagePerson" />
+      <Association Name="Person_PersonAccess" Member="PersonAccesses" ThisKey="ID" OtherKey="PersonID" Type="PersonAccess" />
+      <Association Name="Person_PersonSubject" Member="PersonSubjects" ThisKey="ID" OtherKey="PersonID" Type="PersonSubject" />
+      <Association Name="Person_PersonContact" Member="PersonContacts" ThisKey="ID" OtherKey="PersonID" Type="PersonContact" />
+      <Association Name="Person_PersonLink" Member="PersonLinks" ThisKey="ID" OtherKey="PersonID" Type="PersonLink" />
+      <Association Name="Person_PersonOrganization" Member="PersonOrganizations" ThisKey="ID" OtherKey="PersonID" Type="PersonOrganization" />
+      <Association Name="Person_PublicationPerson" Member="PublicationPersons" ThisKey="ID" OtherKey="PersonID" Type="PublicationPerson" />
+      <Association Name="Person_StudyMaterialPerson" Member="StudyMaterialPersons" ThisKey="ID" OtherKey="PersonID" Type="StudyMaterialPerson" />
+      <Association Name="Person_PersonRegion" Member="PersonRegions" ThisKey="ID" OtherKey="PersonID" Type="PersonRegion" />
+      <Association Name="Person_PersonRecordRedirect" Member="PersonRecordRedirects" ThisKey="ID" OtherKey="PersonID" Type="PersonRecordRedirect" />
+      <Association Name="User_Person" Member="User" ThisKey="AuthorID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Person1" Member="User1" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BlogParser" Member="BlogParsers">
+    <Type Name="BlogParser">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Blog_BlogParser" Member="Blog" ThisKey="BlogID" OtherKey="ID" Type="Blog" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UpdateRecord" Member="UpdateRecords">
+    <Type Name="UpdateRecord">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaterialType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ResourceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_UpdateRecord" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Invite" Member="Invites">
+    <Type Name="Invite">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InvitedID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UsedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_Invite" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Invite1" Member="User1" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubscriptionTemplate" Member="SubscriptionTemplates">
+    <Type Name="SubscriptionTemplate">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TemplateSample" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="CountParameters" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Template" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SubscriptionPart" Member="SubscriptionParts">
+    <Type Name="SubscriptionPart">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsProcessed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="User_SubscriptionPart" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Distribution" Member="Distributions">
+    <Type Name="Distribution">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Body" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="IsStart" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Distribution_Mail" Member="Mails" ThisKey="ID" OtherKey="DistributionID" Type="Mail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Mail" Member="Mails">
+    <Type Name="Mail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DistributionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Body" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ProcessedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Distribution_Mail" Member="Distribution" ThisKey="DistributionID" OtherKey="ID" Type="Distribution" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="User_Mail" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Event" Member="Events">
+    <Type Name="Event">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Header" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Teaser" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Event_BlogPostEvent" Member="BlogPostEvents" ThisKey="ID" OtherKey="EventID" Type="BlogPostEvent" />
+      <Association Name="Event_EventAccess" Member="EventAccesses" ThisKey="ID" OtherKey="EventID" Type="EventAccess" />
+      <Association Name="Event_EventSubject" Member="EventSubjects" ThisKey="ID" OtherKey="EventID" Type="EventSubject" />
+      <Association Name="Event_EventComment" Member="EventComments" ThisKey="ID" OtherKey="EventID" Type="EventComment" />
+      <Association Name="Event_EventFile" Member="EventFiles" ThisKey="ID" OtherKey="EventID" Type="EventFile" />
+      <Association Name="Event_EventLike" Member="EventLikes" ThisKey="ID" OtherKey="EventID" Type="EventLike" />
+      <Association Name="Event_EventLink" Member="EventLinks" ThisKey="ID" OtherKey="EventID" Type="EventLink" />
+      <Association Name="Event_EventOrganization" Member="EventOrganizations" ThisKey="ID" OtherKey="EventID" Type="EventOrganization" />
+      <Association Name="Event_EventPerson" Member="EventPersons" ThisKey="ID" OtherKey="EventID" Type="EventPerson" />
+      <Association Name="Event_EventRegion" Member="EventRegions" ThisKey="ID" OtherKey="EventID" Type="EventRegion" />
+      <Association Name="Event_Document" Member="Documents" ThisKey="ID" OtherKey="EventID" Type="Document" />
+      <Association Name="Event_EventRecordRedirect" Member="EventRecordRedirects" ThisKey="ID" OtherKey="EventID" Type="EventRecordRedirect" />
+      <Association Name="Event_EventSubscription" Member="EventSubscriptions" ThisKey="ID" OtherKey="EventID" Type="EventSubscription" />
+      <Association Name="User_Event" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

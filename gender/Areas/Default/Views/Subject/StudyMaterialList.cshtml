@@ -1,0 +1,19 @@
+﻿@model IEnumerable<gender.Model.StudyMaterial>
+@{
+    var subject = (gender.Model.Subject)ViewBag.Subject;
+}
+@if (Model.Any())
+{
+    <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;Учебные материалы</h3>
+    <div class="white-card">
+        <ul class="icons-gree">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <i class="icon-briefcase"></i>&nbsp;<a href="@Url.Action("Item", "StudyMaterial", new { url = item.Url })">@item.Name</a>
+                </li>
+            }
+        </ul>
+        <a href="@Url.Action("Item", "Subject", new { path = subject.FullUrl })#studymaterial">Еще</a>
+    </div>
+}

@@ -1,0 +1,15 @@
+﻿@model gender.Model.Subject
+
+
+<li>
+    <i class="icon-tag"></i>&nbsp;<a href="@Url.Action("Item", "Subject", new { path = Model.FullUrl })">@Model.Name</a>
+    <ul class="custom-offset1">
+        @if (Model.SubSubjects.Any())
+        {
+            foreach (var item in Model.SubSubjects)
+            {
+            @Html.Partial("SubSubject", item)
+            }
+        }
+    </ul>
+</li>

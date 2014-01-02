@@ -1,0 +1,77 @@
+@model gender.Model.PageableData<gender.Model.Publication>
+
+@{
+    ViewBag.Title = "Публикации";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/admin/index-publication.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-user.js"></script>
+}
+<h2>Публикации</h2>
+@Html.ActionLink("Добавить статью", "CreateArticle", "Publication", null, new { @class = "btn" })
+@Html.ActionLink("Добавить книгу", "CreateBook", "Publication", null, new { @class = "btn" })
+@Html.ActionLink("Добавить диссертацию/реферат", "CreateThesis", "Publication", null, new { @class = "btn" })
+<table class="table">
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Тип
+            </th>
+            <th>Автор(ы)
+            </th>
+            <th>Заголовок
+            </th>
+            <th>Год
+            </th>
+            <th>Отмодерировано
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.List)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.TypeStr
+            </td>
+            <td>
+                @item.SubPersonsList
+            </td>
+            <td>
+                @item.Header
+            </td>
+            <td>
+                @item.Year
+            </td>
+            <td>
+                @if (item.ModeratedDate.HasValue)
+                {
+                    @item.ModeratedDate.Value.ToString("dd.MM.yyyy")
+                }
+                else
+                {
+                    <a href="@Url.Action("Moderate", "Publication", new { id = item.ID })" class="btn btn-mini">
+                        Отмодерировать</a>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", "Publication", new { id = item.ID }, new { @class = "btn" })
+                @Html.ActionLink("Удалить", "Delete", "Publication", new { id = item.ID }, new { @class = "btn btn-danger" })
+                <a href="@Url.Action("Access", "Publication", new { id = item.ID })" class="btn access" data-id="@item.ID">
+                    <i class="icon-user"></i></a>
+                <a href="@Url.Action("Redirects", "Publication", new { id = item.ID })" class="btn redirect" data-id="@item.ID">
+                    <i class="icon-resize-horizontal"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

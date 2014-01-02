@@ -1,0 +1,7 @@
+syntax: glob
+*/obj/
+*/bin/
+*gender/Content/files*
+gender/imagecache
+Test/gender.IntegrationTest/Sandbox
+gender/Content/logs

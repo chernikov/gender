@@ -1,0 +1,57 @@
+@model gender.Models.ViewModels.User.AddUserView
+@{
+    ViewBag.Title = "Создать пользователя";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/admin/create-user.js"></script>
+}
+<h2>Создать пользователя</h2>
+<p></p>
+@using (Html.BeginForm("AddUser", "Person", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        @Html.Hidden("ID", Model.ID)
+        @Html.Hidden("PersonID", Model.PersonID)
+        <div class="control-group">
+            <label class="control-label" for="Email">
+                Email
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Email")
+                @Html.TextBox("Email", Model.Email)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Category">
+                Категория
+            </label>
+            <div class="controls">
+                @Html.DropDownList("Category", Model.SelectListCategory)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="StartRating">
+                Стартовый рейтинг
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("StartRating")
+                @Html.TextBox("StartRating", Model.StartRating)
+            </div>
+        </div>
+         <div class="control-group">
+            <label class="control-label" for="Invited">
+                Приглашенный
+            </label>
+            <div class="controls">
+                @Html.CheckBox("Invited", Model.Invited)
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Добавить
+            </button>
+            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+        </div>
+    </fieldset>
+}

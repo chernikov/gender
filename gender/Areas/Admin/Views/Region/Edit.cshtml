@@ -1,0 +1,60 @@
+﻿@model gender.Models.ViewModels.RegionView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить регион" : "Изменить регион";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/admin/region-edit.js"></script>
+}
+
+<h2>@(Model.ID == 0 ? "Добавить регион" : "Изменить регион")</h2>
+<p></p>
+@using (Html.BeginForm("Edit", "Region", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        @Html.Hidden("_ID", Model._ID)
+        @Html.Hidden("ParentID", Model.ParentID)
+        <div class="control-group">
+            <label class="control-label" for="Name">
+                Наименование
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Name")
+                @Html.TextBox("Name", Model.Name, new { @class = "input-xxlarge"})
+            </div>
+        </div>
+       <div class="control-group">
+            <label class="control-label">
+                Карта</label>
+            <div class="controls">
+                @Html.TextArea("Map", Model.Map, new { @class = "input-xlarge textarea" })
+            </div>
+            @Html.ValidationMessage("ImagePath")
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Name">
+                Описание
+            </label>
+            <div class="controls">
+                @Html.TextArea("Description", Model.Description, new { @class = "input-xlarge textarea" })
+                @Html.ValidationMessage("Description")
+            </div>
+        </div>
+         <div class="control-group">
+            <label class="control-label" for="Name">
+                Ссылка
+            </label>
+            <div class="controls">
+                @Html.TextBox("Link", Model.Link, new { @class = "input-xlarge" })
+                @Html.ValidationMessage("Link")
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+            @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+        </div>
+    </fieldset>
+}

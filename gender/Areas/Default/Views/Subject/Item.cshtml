@@ -1,0 +1,242 @@
+﻿@model gender.Model.Subject
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/default/subject-subscription.js"></script>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header"><i class="icon-tags"></i>&nbsp;<a href="@Url.Action("Index", "Subject")">Темы</a>
+            </h3>
+        </div>
+        <div class="span8">
+            <div class="single-post-w">
+                <h2 class="post-title">@Model.Name
+                </h2>
+
+                @if (Model.SubArticles.Any())
+                {
+                    <a id="glossary" class="anchor">
+                        <h3 class="section-header"><i class="icon-bookmark"></i>&nbsp;Глоссарий
+                        </h3>
+                    </a>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubArticles)
+                        {
+                            <li>
+                                <i class="icon-bookmark"></i><a href="@Url.Action("Item", "Article", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubDocuments.Any())
+                {
+                    <a id="document" class="anchor">
+                        <h3 class="section-header"><i class="icon-file"></i>&nbsp;Документы</h3>
+                    </a>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubDocuments)
+                        {
+                            <li>
+                                <i class="icon-file"></i><a href="@Url.Action("Item", "Document", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubPublications.Any())
+                {
+                    <a id="publication" class="anchor">
+                        <h3 class="section-header"><i class="icon-book"></i>&nbsp;Публикации
+                        </h3>
+                    </a>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubPublications)
+                        {
+                            <li>
+                                <i class="icon-book"></i><a href="@Url.Action("Item", "Publication", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubPersons.Any())
+                {
+                    <a id="person" class="anchor">
+                        <h3 class="section-header"><i class="icon-user"></i>&nbsp;Люди
+                        </h3>
+                    </a>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubPersons)
+                        {
+                            <li>
+                                <i class="icon-user"></i><a href="@Url.Action("Item", "Person", new { url = item.Url })">@item.FullName</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubOrganizations.Any())
+                {
+                    <a id="organization" class="anchor">
+                        <h3 class="section-header"><i class="icon-group"></i>&nbsp;Организации
+                        </h3>
+                    </a>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubOrganizations)
+                        {
+                            <li>
+                                <i class="icon-group"></i><a href="@Url.Action("Item", "Organization", new { url = item.Url })">@item.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+
+                @if (Model.SubStudyMaterials.Any())
+                {
+                    <a id="studymaterial" class="anchor">
+                        <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;Учебные материалы
+                        </h3>
+                    </a>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubStudyMaterials)
+                        {
+                            <li>
+                                <i class="icon-briefcase"></i>
+                                <a href="@Url.Action("Item", "StudyMaterial", new { url = item.Url })">@item.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubEvents.Any())
+                {
+                    <a id="event" class="anchor">
+                        <h3 class="section-header"><i class="icon-flag"></i>&nbsp;События
+                        </h3>
+                    </a>
+                    <ul class="icons-gree">
+
+                        @foreach (var item in Model.SubEvents)
+                        {
+                            var year = item.EventDate.HasValue ? item.EventDate.Value.Year : (item.Year.HasValue ? item.Year.Value : 0);
+                           
+                            <li><i class="icon-flag"></i>@year | <a href="@Url.Action("Item", "Event", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubWebLinks.Any())
+                {
+                    <a id="weblink" class="anchor">
+                        <h3 class="section-header"><i class="icon-globe"></i>&nbsp;Веб-ресурсы
+                        </h3>
+                    </a>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubWebLinks)
+                        {
+                            <li>
+                                <i class="icon-globe"></i><a href="@Url.Action("Item", "WebLink", new { url = item.SiteUrl })">@item.Name</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubImages.Any())
+                {
+                    <a id="image" class="anchor">
+                        <h3 class="section-header"><i class="icon-picture"></i>&nbsp;Изображения</h3>
+                    </a>
+                    <ul class="section-img-list thumbnails">
+                        @foreach (var item in Model.SubImages)
+                        {
+                            <li class="span1">
+                                <a class="thumbnail" href="@Url.Action("Item", "Image", new { url = item.Url })">
+                                    <img src="@item.Path?width=100&height=100&mode=crop" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.SubBlogPosts.Any())
+                {
+                    <h3 class="section-header"><i class="icon-comment-alt"></i>&nbsp;Блоги
+                    </h3>
+                    <ul class="icons-gree">
+                        @foreach (var item in Model.SubBlogPosts)
+                        {
+                            <li>
+                                <i class="icon-comment-alt"></i><a href="@Url.Action("Item", "Blog", new { url = item.Url })">@item.Header</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+        <div class="span4">
+            @if (currentUser != null)
+            {
+                <button id="SubscribeBtn" class="btn @(currentUser.IsSubjectSubscribed(Model.ID) ? "active" : "")" data-id="@Model.ID" >
+                @(currentUser.IsSubjectSubscribed(Model.ID) ? "Отписаться от обновлений по этой теме" :"Подписаться на обновления по этой теме")
+                </button>
+            }
+            <div class="blog-side-bar clearfix">
+                @if (Model.Parent != null)
+                {
+                    <div class="blog-categories widget-tp">
+                        <h5 class="section-header"><i class="icon-tag gray"></i>&nbsp;Основная тема
+                        </h5>
+                        <ul class="icons-gree">
+                            <li>
+                                <a href="@Url.Action("Item", "Subject", new { path = Model.Parent.FullUrl })"><i
+                                    class="icon-tag"></i>&nbsp;@Model.Parent.Name</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                @if (Model.AnySubSubjects)
+                {
+                    <div class="blog-categories widget-tp">
+                        <h5 class="section-header"><i class="icon-tag gray"></i>&nbsp;Подтемы
+                        </h5>
+
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.SubSubjects)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i
+                                        class="icon-tag"></i>&nbsp;@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if (Model.Parent != null && Model.Neighboring.Any())
+                {
+                    <div class="blog-categories widget-tp">
+                        <h5 class="section-header"><i class="icon-tag gray"></i>&nbsp;Смежные темы
+                        </h5>
+
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Neighboring)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
+                                    </i>&nbsp;@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+</div>

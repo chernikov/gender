@@ -1,0 +1,27 @@
+﻿@model gender.Model.Organization
+
+<li class="organization-short short-item">
+    <div class="white-card no-border">
+        <h5><a href="@Url.Action("Item", "Organization", new { url = Model.Url })">@Model.Name</a>
+        </h5>
+        <div>
+            <ul>
+                @foreach (var document in Model.SubModeratedDocuments)
+                {
+                    <li>
+                        <a href="@Url.Action("Item", "Document", new { url = document.Url })">
+                            @document.Header
+                        </a>
+                        <div class="info">
+                            @foreach (var subject in document.SubSubjects)
+                            {
+                                <span class="subject"><i class="icon-tags gray"></i>&nbsp;@subject.Name</span>
+                            }
+                        </div>
+
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</li>

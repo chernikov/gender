@@ -1,0 +1,96 @@
+@model gender.Models.ViewModels.BlogPostView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить пост" : "Изменить пост";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header {
+    <script type="text/javascript" src="/Scripts/admin/edit-blogpost.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-region.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-organization.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-person.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-event.js"></script>
+}
+<h2>@(Model.ID == 0 ? "Добавить пост" : "Изменить пост")</h2>
+<p></p>
+@using (Html.BeginForm("Edit", "BlogPost", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        @Html.Hidden("_ID", Model._ID)
+        @Html.Hidden("BlogID", Model.BlogID)
+        <div class="control-group">
+            <label class="control-label" for="Header">
+                Заголовок
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Header")
+                @Html.TextBox("Header", Model.Header)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="OrganizationList">
+                Организации
+            </label>
+            <div class="controls">
+                @Html.ListBox("OrganizationList", Model.SelectListOrganizations, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="PersonList">
+                Люди
+            </label>
+            <div class="controls">
+                @Html.ListBox("PersonList", Model.SelectListPersons, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="EventList">
+                События 
+            </label>
+            <div class="controls">
+                @Html.ListBox("EventList", Model.SelectListEvents, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Content">
+                Содержимое
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Content")
+                @Html.TextArea("Content", Model.Content, new { @class = "htmltext ckeditor" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Source">
+                Источник 
+            </label>
+            <div class="controls">
+                @Html.ValidationMessage("Source")
+                @Html.TextBox("Source", Model.Source)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="SubjectList">
+                Темы 
+            </label>
+            <div class="controls">
+                @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="RegionList">
+                Страны и регионы
+            </label>
+            <div class="controls">
+                @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select" })
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+            @Html.ActionLink("Отмена", "Index", null, new { id = Model.BlogID }, new { @class = "btn" })
+        </div>
+    </fieldset>
+}

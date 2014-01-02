@@ -1,0 +1,17 @@
+﻿@model IEnumerable<gender.Model.BlogPost>
+
+<h3 class="section-header"><i class="icon-comment-alt"></i>&nbsp;Новое в блогах</h3>
+<ul class="icons-gree">
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.AddedDate.ToString("dd.MM.yy") | <a href="@Url.Action("Item", "Person", new { url = item.Blog.User.Person.Url })">@item.Blog.User.Person.FullName</a>:
+            <br/>
+            <i class="icon-comment-alt"></i>
+            &laquo;<a href="@Url.Action("Item", "Blog", new {url = item.Url })">@item.Header</a>&raquo;
+        </li>
+    }
+</ul>
+<div class="pull-right"><a href="@Url.Action("Index", "Blog")">>> Подробнее</a>
+</div>
+<div class="clearfix"></div>

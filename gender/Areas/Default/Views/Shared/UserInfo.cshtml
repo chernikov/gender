@@ -1,0 +1,55 @@
+﻿@model gender.Model.Person
+@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+<div class="single-post-w">
+    <div class="row clearfix">
+        <div class="span2">
+            @if (!string.IsNullOrWhiteSpace(Model.Photo))
+            {
+                <div class="white-card">
+                    <img src="@Model.Photo?width=200&height=200&scale=both&mode=crop" alt="@Model.FullName" />
+                </div>
+            }
+            else
+            {
+                <div class="white-card">
+                    <i class="icon-user big"></i>
+                </div>
+            }
+        </div>
+        <div class="span5">
+            <h2 class="post-title">@Model.LastName
+                <br />
+                @Model.FirstName @Model.Patronymic
+
+                @if (currentUser != null && currentUser.CanEdit(Model))
+                {
+                    <a href="@Url.Action("Edit", "Person", new { url = Model.Url })"><sup><i class="icon-edit">
+                    </i></sup></a>
+                }
+                @if (currentUser != null && currentUser.CanDelete(Model))
+                {
+                    <a href="@Url.Action("Delete", "Person", new { id = Model.ID })"><sup><i class="icon-remove delete-action">
+                    </i></sup></a>
+                }
+            </h2>
+            @if (Model.SiteUser != null)
+            {
+                <p>
+                    <span class="label label-info">+@Model.SiteUser.Rating</span>
+                </p>
+            }
+            @if (Model.SubRegions.Any())
+            {
+                <p>
+                    @foreach (var item in Model.SubRegions)
+                    {
+                        <span><i class="icon-map-marker"></i>&nbsp;@item.Name</span>
+                    }
+                </p>
+            }
+        </div>
+    </div>
+</div>

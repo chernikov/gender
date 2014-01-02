@@ -1,0 +1,9 @@
+﻿@model IEnumerable<gender.Model.Person>
+
+<ul>
+    @foreach (var person in Model)
+    {
+        <li><h5>@Html.ActionLink(person.FullName, "Author", "Publication", null, null, null, new { url = person.Url }, null)</h5></li>
+    }
+</ul>
+

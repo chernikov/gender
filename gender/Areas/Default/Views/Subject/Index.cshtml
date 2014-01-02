@@ -1,0 +1,49 @@
+﻿@model IList<gender.Model.Subject>
+@{
+    ViewBag.Title = "Темы";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+<div class="container subjects">
+    <div class="row">
+        <div class="span8">
+            <h3 class="section-header"><i class="icon-tags"></i>&nbsp;Темы</h3>
+            @Html.Action("Short", "Home", new {url = "subject-short"})
+            <div class="accordion" id="subjectsAcc">
+                @foreach (var item in Model)
+                {
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#subjectsAcc" href="#subject-@(item.ID)">
+                                @item.Name
+                            </a>
+                        </div>
+                        <div id="subject-@(item.ID)" class="accordion-body collapse">
+                            <div class="white-card recent-post">
+                                <ul class="icons-gree">
+                                    <li>
+                                        <i class="icon-tag"></i>&nbsp;<a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">@item.Name.ToUpper()</a>
+                                        <ul class="custom-offset1">
+                                            @foreach (var subItem in item.SubSubjects)
+                                            {
+                                                @Html.Partial("SubSubject", subItem)
+                                            }
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+</div>
+

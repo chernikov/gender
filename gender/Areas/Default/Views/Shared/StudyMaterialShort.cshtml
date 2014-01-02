@@ -1,0 +1,21 @@
+﻿@model gender.Model.StudyMaterial
+
+<div class="studymaterial-short  short-item">
+    <div class="white-card no-border">
+        @foreach (var item in Model.SubPersons)
+        {
+             <a href="@Url.Action("Item", "Person", new { url = item.Url })"><i class="icon-user"></i>&nbsp;@item.FullName</a>
+        }
+        <h5><a href="@Url.Action("Item", "StudyMaterial", new { url = Model.Url })">@Model.Name</a></h5>
+        <p>
+           @Html.Raw(Model.Teaser.NlToBr())
+        </p>
+        <div class="info">
+            
+            @foreach (var subject in Model.SubSubjects)
+            {
+               <span class="subject"><span class="icon-tags gray"></span>&nbsp;@subject.Name</span>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+﻿@{
+    var searchString = ViewContext.HttpContext.Request.Params["searchString"];
+}
+@using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.TextBox("searchString", searchString, new { @class = "input-xlarge", placeholder = "Введите поисковый запрос..." })
+    <button type="submit" class="btn">Искать</button>
+}

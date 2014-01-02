@@ -1,0 +1,163 @@
+@model gender.Models.ViewModels.ArticlePublicationView
+@{
+    ViewBag.Title = Model.ID == 0 ? "Добавить статью" : "Изменить статью";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    @Styles.Render("~/Content/css/chosen")
+    @Styles.Render("~/Content/css/jquery-ui")
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/default/edit-publication.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-subject.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-region.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-organization.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-person.js"></script>
+    <script type="text/javascript" src="/Scripts/common/select-link.js"></script>
+    <script type="text/javascript" src="/Scripts/common/upload-attach.js"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            selectLink.type = "url";
+            selectLink.prefix = "";
+        });
+    </script>
+}
+<div class="container">
+    <div class="row">
+        <div class="single-post-w">
+            <h2 class="post-title">@(Model.ID == 0 ? "Добавить статью" : "Изменить статью")</h2>
+            @using (Html.BeginForm("Edit", "Publication", FormMethod.Post))
+            {
+                <fieldset>
+                    @Html.Hidden("ID", Model.ID)
+                    @Html.Hidden("ParentID", Model.ParentID)
+                    @Html.Hidden("ModelTypeName", "ArticlePublicationView")
+                    <div class="control-group">
+                        <label class="control-label" for="PersonList">
+                            Автор(ы)
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("PersonList", Model.SelectListPersons, new { @class = "input-xlarge chzn-select", data_placeholder = "Введите имена авторов" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Header">
+                            Заглавие <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.TextBox("Header", Model.Header, new { @class = "input-xxlarge" })
+                            @Html.ValidationMessage("Header")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Bibliographic">
+                            Библиографическое описание <span class="required">*</span>
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Bibliographic")
+                            @Html.TextArea("Bibliographic", Model.Bibliographic, new { @class = "small-textarea" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Year">
+                            Год 
+                        </label>
+                        <div class="controls">
+                            @Html.TextBox("Year", Model.Year, new { @class = "input-small" })
+                            @Html.ValidationMessage("Year")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="Teaser">
+                            Аннотация
+                        </label>
+                        <div class="controls">
+                            @Html.ValidationMessage("Teaser")
+                            @Html.TextArea("Teaser", Model.Teaser, new { @class = "small-textarea" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span12">
+                           <h4>Содержимое</h4>
+                        </div>
+                        <div class="span12">
+                            <div class="control-group">
+                                <label class="control-label" for="Content">
+                                    Текст
+                                </label>
+                                <div class="controls">
+                                    @Html.ValidationMessage("Content")
+                                    @Html.TextArea("Content", Model.Content, new { @class = "htmltext ckeditor" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    Прикрепленные файлы
+                                </label>
+                                <div class="controls">
+                                    <div class="btn btn-primary" id="UploadAttach">Загрузить</div>
+                                    <ul id="FilesListWrapper" class="thumbnails">
+                                        @if (Model.Files != null)
+                                        {
+                                            foreach (var keyValuePair in Model.Files)
+                                            {
+                                            @Html.Partial("FileItem", keyValuePair)
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    Веб-ссылки
+                                </label>
+                                <div class="controls">
+                                    <div class="btn" id="AddLink"><i class="icon-plus"></i>Добавить</div>
+                                    <div id="LinkListWrapper">
+                                        @if (Model.Links != null)
+                                        {
+                                            foreach (var keyValuePair in Model.Links)
+                                            {
+                                            @Html.Partial("ShopLinkItem", keyValuePair)
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="ParentID">
+                            Опубликовано в книге/журнале</label>
+                        <div class="controls">
+                            @Html.TextBox("ParentName", Model.ParentName, new { @class = "input-xlarge", placeholder = "Введите наименование" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="SubjectList">
+                            Темы 
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="RegionList">
+                            Страны и регионы
+                        </label>
+                        <div class="controls">
+                            @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select" })
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Сохранить
+                        </button>
+                        @Html.ActionLink("Отмена", "Index", null, null, new { @class = "btn" })
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>

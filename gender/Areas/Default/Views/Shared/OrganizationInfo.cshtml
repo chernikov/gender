@@ -1,0 +1,54 @@
+﻿@model gender.Model.Organization
+@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<div class="single-post-w">
+    <div class="row clearfix">
+        <div class="span2">
+            @if (!string.IsNullOrWhiteSpace(Model.Logo))
+            {
+                <div class="white-card">
+                    <img src="@Model.Logo" alt="@Model.Name" />
+                </div>    
+            }
+            else
+            {
+                <div class="white-card">
+                    <i class="icon-group big"></i>
+                </div>    
+            }
+        </div>
+        <div class="span5">
+            <h2 class="post-title">@Model.Name
+                @if (currentUser != null && currentUser.CanEdit(Model))
+                {
+                    <a href="@Url.Action("Edit", "Organization", new { id = Model.ID })">
+                        <sup><i class="icon-edit"></i></sup>
+                    </a>
+                }
+
+                @if (currentUser != null && currentUser.CanDelete(Model))
+                {
+                    <a href="@Url.Action("Delete", "Organization", new { id = Model.ID })">
+                        <sup><i class="icon-remove delete-action"></i></sup>
+                    </a>
+                }
+            </h2>
+            <div class="clearfix">
+            </div>
+            <div class="post-info clearfix no-border">
+                <ul class="inline">
+                    @foreach (var item in Model.SubRegions)
+                    {
+                        <li><a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker gray">
+                        </i>&nbsp;@item.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="white-card organization-like-wrapper">
+    @Html.Partial("OrganizationLike", Model)
+</div>

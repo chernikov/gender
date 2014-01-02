@@ -1,0 +1,62 @@
+﻿@model gender.Model.Person
+@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+
+<div class="single-post">
+    <div class="row clearfix">
+        <div class="span2">
+            @if (!string.IsNullOrWhiteSpace(Model.Photo))
+            {
+                <div class="white-card">
+                    <img src="@Model.Photo?width=200&height=200&scale=both&mode=crop" alt="@Model.FullName" />
+                </div>
+            }
+            else
+            {
+                <div class="white-card">
+                    <i class="icon-user big"></i>
+                </div>
+            }
+        </div>
+        <div class="span5">
+            <h6 class="post-title">
+                <a href="@Url.Action("Item", "Person", new { url = Model.Url })">@Model.LastName
+                    @Model.FirstName @Model.Patronymic</a>
+            </h6>
+            @if (Model.SiteUser != null)
+            {
+                <p>
+                    <span class="label label-info">+@Model.SiteUser.Rating</span>
+                </p>
+            }
+            @if (Model.SubSubjects.Any())
+            {
+                <span class="info-item">Интересы: 
+                @foreach (var subject in Model.SubSubjects)
+                {
+                    <span><i class="icon-tag gray"></i>@subject.Name</span>
+                }
+                </span>    <br />
+            }
+            @if (Model.PublicationCount > 0)
+            {
+                <span class="info-item">Публикаций:&nbsp;@Model.PublicationCount</span><br />
+            }
+            @if (Model.StudyMaterialCount > 0)
+            {
+                <span class="info-item">Учебных&nbsp;материалов:&nbsp;@Model.StudyMaterialCount</span><br />
+            }
+            @if (Model.ImageCount > 0)
+            {
+                <span class="info-item">Изображений:&nbsp;@Model.ImageCount</span><br />
+            }
+            @if (Model.BlogPostCount > 0)
+            {
+                <span class="info-item">Сообщений&nbsp;в&nbsp;блоге:&nbsp;@Model.BlogPostCount</span><br />
+            }
+
+
+        </div>
+    </div>
+</div>

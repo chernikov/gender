@@ -1,0 +1,19 @@
+﻿@model gender.Model.Subject
+<div class="blog-categories widget-tp">
+    <h3>
+    <a id="NextSubject" data-id="@Model.ID" class="refresh-action">Еще по теме</a><br />
+        &nbsp;«@Model.Name»</h3>
+    <div class="pull-right">
+    </div>
+    <div class="clearfix"></div>
+</div>
+@Html.Action("ArticleList", "Subject", new { id = Model.ID })
+@Html.Action("BlogPostList", "Subject", new { id = Model.ID })
+@Html.Action("DocumentList", "Subject", new { id = Model.ID })
+@Html.Action("PublicationList", "Subject", new { id = Model.ID })
+@Html.Action("StudyMaterialList", "Subject", new { id = Model.ID })
+@Html.Action("PersonList", "Subject", new { id = Model.ID })
+@Html.Action("OrganizationList", "Subject", new { id = Model.ID })
+@Html.Action("EventList", "Subject", new { id = Model.ID })
+@Html.Action("WebLinkList", "Subject", new { id = Model.ID })
+@Html.Action("ImageList", "Subject", new { id = Model.ID })

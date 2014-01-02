@@ -1,0 +1,33 @@
+﻿@model gender.Model.WebLink
+
+<div class="span4 weblink-short short-item">
+    <div class="white-card">
+         <div class="img-w hover-fader">
+            <a href="@Url.Action("Item", "WebLink", new { url = Model.SiteUrl })">
+                <img alt="Photo-card" src="@Model.Screenshot?width=300&height=200&mode=auto&scale=both" />
+            </a>
+        </div>
+        <h5><a href="@Url.Action("Item", "WebLink", new { url = Model.SiteUrl })">@Model.Name</a></h5>
+        <ul class="inline">
+            <li><a href="@Model.Url">Ссылка</a></li>
+            @if (!string.IsNullOrEmpty(Model.ReservedUrl))
+            {
+                <li><a href="@Model.ReservedUrl">Копия</a></li>
+            }
+             @if (!string.IsNullOrEmpty(Model.RSS))
+            {
+                <li><a href="@Model.RSS">RSS</a></li>
+            }
+        </ul>
+        <p>
+            @Html.Raw(Model.Description.Teaser(300, "...").NlToBr()) &mdash; <a href="@Url.Action("Item", "WebLink", new { url = Model.SiteUrl })">Читать далее</a>
+        </p>
+        <div class="info">
+        @foreach (var subject in Model.SubSubjects)
+        {
+            <span class="subject"><i class="icon-tags"></i>&nbsp;@subject.Name</span>
+        }
+        </div>
+
+    </div>
+</div>

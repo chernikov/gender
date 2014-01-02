@@ -1,0 +1,208 @@
+﻿@model gender.Model.User
+
+@{
+    ViewBag.Title = @Model.Person.FullName;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <div class="single-post-w">
+                <div class="row clearfix">
+                    <div class="span2">
+                        @if (!string.IsNullOrWhiteSpace(Model.Person.Photo))
+                        {
+                            <div class="single-post-image bottom decor-image">
+                                <img src="@Model.Person.Photo" alt="@Model.Person.FullName" />
+                            </div>    
+                        }
+                    </div>
+                    <div class="span5">
+                        <h2 class="post-title">@Model.Person.FullName <span class="label label-info">+@Model.Rating</span>
+                        </h2>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a href="@Url.Action("Item", "Person", new { url = Model.Person.Url })">Инфо</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Author", "Publication", new { url = Model.Person.Url })"><i
+                            class="icon-book"></i>&nbsp;<span class="label label-inverse">+@Model.Person.PublicationCount</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Author", "StudyMaterial", new { url = Model.Person.Url })"><i
+                            class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.Person.StudyMaterialCount</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Author", "Image", new { url = Model.Person.Url })"><i class="icon-picture">
+                        </i>&nbsp;<span class="label label-inverse">+@Model.Person.ImageCount</span></a>
+                    </li>
+                    <li>
+                        <a title="Активность" href="@Url.Action("Author", "Activity", new { url = Model.Person.Url })">
+                            <i class="icon-bar-chart"></i>&nbsp;</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Author", "Blog", new { url = Model.Person.Url })"><i class="icon-comment">
+                        </i>&nbsp;<span class="label label-inverse">+@Model.Person.BlogPostCount</span></a>
+                    </li>
+                    @if (currentUser != null && currentUser.CanEdit(Model))
+                    {
+                        <li>
+                            <a href="@Url.Action("Edit", "User", new { url = Model.Person.Url })"><i class="icon-cogs">
+                            </i></a>
+                        </li>
+                    }
+                </ul>
+                <div class="post-content">
+                    @Html.Raw(Model.Person.Bio)
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="span4">
+                <div class="blog-side-bar clearfix">
+                    <div class="widget-tp">
+                        <h3>Контакты
+                        </h3>
+                        <ul>
+                            @foreach (var item in Model.Person.SubContacts)
+                            {
+                                <li>
+                                    @switch ((gender.Model.Contact.TypeEnum)item.Type)
+                                    {
+                                        case gender.Model.Contact.TypeEnum.Address: 
+                                        <i class="icon-map-marker"></i>
+                                            break;
+                                        case gender.Model.Contact.TypeEnum.Phone: 
+                                        <i class="icon-phone"></i>
+                                            break;
+                                        case gender.Model.Contact.TypeEnum.Email: 
+                                        <i class="icon-envelope"></i>
+                                            break;
+                                        case gender.Model.Contact.TypeEnum.Skype: 
+                                        <i class="icon-skype"></i>
+                                            break;
+                                    }
+                                    &nbsp;
+                                @if (item.Type == (int)gender.Model.Contact.TypeEnum.Email)
+                                {
+                                    <a href="mailto:@item.Value">@item.Value</a>   
+                                }
+                                else
+                                {
+                                    @item.Value
+                                }
+                                </li>
+                            }
+
+                            @foreach (var item in Model.Person.SubLinks)
+                            {
+                                <li>
+                                    <a href="@item.Url">
+                                        <img src="@item.Icon" class="image16" />&nbsp;@item.Title</a>
+                                </li>    
+                            }
+                        </ul>
+                    </div>
+                    @if (Model.Person.SubSubjects.Any())
+                    {
+                        <div class="blog-categories widget-tp">
+                            <h5 class="section-header"><i class="icon-tag"></i>&nbsp;Сфера интересов
+                            </h5>
+
+                            <ul class="icons-gree">
+                                @foreach (var item in Model.Person.SubSubjects)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
+                                        </i>@item.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    @if (Model.Person.SubOrganizations.Any())
+                    {
+                        <h5 class="section-header"><i class="icon-group"></i>&nbsp;Участие в организациях
+                        </h5>
+                        <div class="white-card">
+                            <ul class="icons-gree">
+                                @foreach (var item in Model.Person.SubOrganizations)
+                                {
+                                    <li>
+                                        <i class="icon-group"></i>&nbsp;<a href="@Url.Action("Item", "Organization", new { url = item.Url })">@item.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.Person.SubPublications.Any())
+                    {
+                        <h5 class="section-header"><i class="icon-book"></i>&nbsp;Публикации
+                        </h5>
+                        <div class="white-card">
+                            <ul class="icons-gree">
+                                @foreach (var item in Model.Person.SubPublications)
+                                {
+                                    <li>
+                                        <i class="icon-book"></i>&nbsp;<a href="@Url.Action("Item", "Publication", new { url = item.Url })">@item.Header</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.Person.SubStudyMaterials.Any())
+                    {
+                        <h5 class="section-header"><i class="icon-briefcase"></i>&nbsp;Учебные материалы
+                        </h5>
+                        <div class="white-card">
+                            <ul class="icons-gree">
+                                @foreach (var item in Model.Person.SubStudyMaterials)
+                                {
+                                    <li>
+                                        <i class="icon-briefcase"></i>&nbsp;<a href="@Url.Action("Item", "StudyMaterial", new { url = item.Url })">@item.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.Person.SubEvents.Any())
+                    {
+                        <h5 class="section-header"><i class="icon-flag"></i>&nbsp;События
+                        </h5>
+                        <div class="white-card">
+                            <ul class="icons-gree">
+                                @foreach (var item in Model.Person.SubEvents)
+                                {
+                                    <li>
+                                        <i class="icon-flag"></i>&nbsp;<a href="@Url.Action("Item", "Event", new { url = item.Url })">@item.Header</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.Person.SubImages.Any())
+                    {
+                        <h5 class="section-header"><i class="icon-picture"></i>Изображения </h5>
+                        <ul class="section-img-list thumbnails">
+                            @foreach (var item in Model.Person.SubImages)
+                            {
+                                <li class="span1">
+                                    <a class="thumbnail" href="@Url.Action("Item", "Image", new { url = item.Url })">
+                                        <img src="@item.Path?width=100&height=100&mode=crop" />
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

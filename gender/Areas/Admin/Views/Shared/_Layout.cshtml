@@ -1,0 +1,53 @@
+﻿@{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    @Styles.Render("~/Content/css/bootstrap")
+    @Styles.Render("~/Content/css/datepicker.css")
+    @Styles.Render("~/Content/css/admin")
+    @Styles.Render("~/Content/css/chosen")
+    @RenderSection("styles", false)
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <div class="btn-group pull-right">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user">
+                    </i>
+                        @currentUser.Email<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/">На сайт</a></li>
+                        <li class="divider"></li>
+                        <li><a href="@Url.Action("Logout", "Login", new { area = "Default" })">Выход</a></li>
+                    </ul>
+                </div>
+                <a class="brand" href="@Url.Action("Index", "Home")">gender</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        @Html.Action("AdminMenu", "Home")
+        <div class="span12">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div id="accessWrapper" class="modal big" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    </div>
+
+    <div id="redirectWrapper" class="modal big" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/chosen")
+    <script type="text/javascript" src="/Scripts/admin/common.js"></script>
+    <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
+    @RenderSection("header", false)
+</body>
+</html>

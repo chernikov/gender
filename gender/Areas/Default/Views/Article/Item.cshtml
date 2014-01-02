@@ -1,0 +1,59 @@
+﻿@model gender.Model.Article
+@{
+    ViewBag.Title = Model.Header;
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+@section header {
+    <script type="text/javascript" src="/Scripts/default/slide-subject.js"></script>
+}
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <h3 class="section-header"><i class="icon-bookmark"></i>&nbsp;<a href="@Url.Action("Index", "Article")">Глоссарий</a>
+            </h3>
+        </div>
+        <div class="span8">
+            <div class="single-post-w" itemscope itemtype="http://schema.org/ScholarlyArticle">
+                <h2 class="post-title" itemprop="headline">@Model.Header
+                </h2>
+                <meta itemprop="articleSection" content="Гендерные исследования">
+                @if (Model.MainSubjects.Any())
+                {
+                    foreach (var subject in Model.MainSubjects)
+                    {
+                    <meta itemprop="articleSection" content="@(subject.Name)">     
+                    }
+                }
+                @if (Model.SubSubjects.Any())
+                {
+                    foreach (var subject in Model.SubSubjects)
+                    {
+                    <meta itemprop=" keywords" content="@(subject.Name)">
+                    }
+                }
+                <div class="post-content" itemprop="articleBody">
+                    @Html.Raw(Model.Text)
+                </div>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="blog-side-bar clearfix">
+                <div class="blog-categories widget-tp">
+                    <h3>Темы</h3>
+                    <ul>
+                        @foreach (var item in Model.SubSubjects)
+                        {
+                            <li>
+                                <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
+                                </i>&nbsp;@item.Name</a>
+                            </li>    
+                        }
+                    </ul>
+                </div>
+                <div id="AlsoSubjectWrapper" data-type="Article" data-id="@Model.ID">
+                    @Html.Action("AlsoSubject", "Article", new { id = Model.ID })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

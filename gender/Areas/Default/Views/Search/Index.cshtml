@@ -1,0 +1,201 @@
+﻿@model gender.Models.Info.SearchResult
+@{
+    ViewBag.Title = "Поиск";
+    Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="span8">
+         <h3 class="section-header"><i class="icon-search"></i>&nbsp;Поиск</h3>
+            @using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.TextBox("searchString", Model.SearchString, new { @class = "input-xlarge", placeholder = "Введите поисковый запрос..." })
+                <button type="submit" class="btn">Искать</button>
+            }
+            @if (Model.Any)
+            {
+                <div class="single-post-w">
+                    <h2 class="post-title">Результаты поиска по запросу "@Model.SearchString"
+                    </h2>
+                    @if (Model.Subjects.Any())
+                    {
+                        <a id="subject" class="anchor">
+                            <h3 class="section-header"><i class="icon-tag"></i>&nbsp;Темы
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Subjects)
+                            {
+                                <li>
+                                    <i class="icon-tag"></i><a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Regions.Any())
+                    {
+                        <a id="region" class="anchor">
+                            <h3 class="section-header"><i class="icon-map-marker"></i>&nbsp;Регионы
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Regions)
+                            {
+                                <li>
+                                    <i class="icon-map-marker"></i><a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Articles.Any())
+                    {
+                        <a id="glossary" class="anchor">
+                            <h3 class="section-header"><i class="icon-bookmark"></i>&nbsp;Глоссарий
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Articles)
+                            {
+                                <li>
+                                    <i class="icon-bookmark"></i><a href="@Url.Action("Item", "Article", new { url = item.Url })">@item.Header</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Documents.Any())
+                    {
+                        <a id="document" class="anchor">
+                            <h3 class="section-header"><i class="icon-file"></i>&nbsp;Документы</h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Documents)
+                            {
+                                <li>
+                                    <i class="icon-file"></i><a href="@Url.Action("Item", "Document", new { url = item.Url })">@item.Header</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Publications.Any())
+                    {
+                        <a id="publication" class="anchor">
+                            <h3 class="section-header"><i class="icon-book"></i>&nbsp;Публикации
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Publications)
+                            {
+                                <li>
+                                    <i class="icon-book"></i><a href="@Url.Action("Item", "Publication", new { url = item.Url })">@item.Header</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Persons.Any())
+                    {
+                        <a id="person" class="anchor">
+                            <h3 class="section-header"><i class="icon-user"></i>&nbsp;Люди
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Persons)
+                            {
+                                <li>
+                                    <i class="icon-user"></i><a href="@Url.Action("Item", "Person", new { url = item.Url })">@item.FullName</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Organizations.Any())
+                    {
+                        <a id="organization" class="anchor">
+                            <h3 class="section-header"><i class="icon-group"></i>&nbsp;Организации
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Organizations)
+                            {
+                                <li>
+                                    <i class="icon-group"></i><a href="@Url.Action("Item", "Organization", new { url = item.Url })">@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                    @if (Model.StudyMaterials.Any())
+                    {
+                        <a id="studymaterial" class="anchor">
+                            <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;Учебные материалы
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.StudyMaterials)
+                            {
+                                <li>
+                                    <i class="icon-briefcase"></i>
+                                    <a href="@Url.Action("Item", "StudyMaterial", new { url = item.Url })">@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Events.Any())
+                    {
+                        <a id="event" class="anchor">
+                            <h3 class="section-header"><i class="icon-flag"></i>&nbsp;События
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.Events)
+                            {
+                                var year = item.EventDate.HasValue ? item.EventDate.Value.Year : (item.Year.HasValue ? item.Year.Value : 0);
+                                <li><i class="icon-flag"></i>@year | <a href="@Url.Action("Item", "Event", new { url = item.Url })">@item.Header</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.WebLinks.Any())
+                    {
+                        <a id="weblink" class="anchor">
+                            <h3 class="section-header"><i class="icon-globe"></i>&nbsp;Веб-ресурсы
+                            </h3>
+                        </a>
+                        <ul class="icons-gree">
+                            @foreach (var item in Model.WebLinks)
+                            {
+                                <li>
+                                    <i class="icon-globe"></i><a href="@Url.Action("Item", "WebLink", new { url = item.Url })">@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    @if (Model.Images.Any())
+                    {
+                        <a id="image" class="anchor">
+                            <h3 class="section-header"><i class="icon-picture"></i>&nbsp;Изображения</h3>
+                        </a>
+                        <ul class="section-img-list thumbnails">
+                            @foreach (var item in Model.Images)
+                            {
+                                <li class="span1">
+                                    <a class="thumbnail" href="@Url.Action("Item", "Image", new { url = item.Url })">
+                                        <img src="@item.Path?width=100&height=100&mode=crop" />
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+        </div>
+        <div class="span4">
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+        </div>
+    </div>
+</div>

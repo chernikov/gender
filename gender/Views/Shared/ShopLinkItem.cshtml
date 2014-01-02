@@ -1,0 +1,21 @@
+﻿@model KeyValuePair<string, gender.Models.ViewModels.LinkView>
+
+<div class="LinkWrapper">
+    <span class="row">
+        @Html.Hidden("ShopLinks[" + Model.Key + "].Icon", Model.Value.Icon, new { @class = "iconHidden" })
+        @Html.Hidden("ShopLinks[" + Model.Key + "].Title", Model.Value.Title, new { @class = "titleHidden" })
+        <span class="span1">
+        <span class="btn remove-line-link"><i class="icon-trash"></i></span>
+        </span>
+        <span class="span3 linkUrl">
+            @Html.TextBox("ShopLinks[" + Model.Key + "].Url", Model.Value.Url)
+            @Html.ValidationMessage("ShopLinks[" + Model.Key + "].Title")
+        </span>
+        <span class="span1 icon">
+            <img src="@Model.Value.Icon" class="big-favicon @(!string.IsNullOrWhiteSpace(Model.Value.Icon) ? "" : "hidden")" /> 
+        </span>
+        <span class="span4 title">
+            <a href="@Model.Value.Url" target="_blank">@Model.Value.Title</a>
+        </span>
+    </span>
+</div>
