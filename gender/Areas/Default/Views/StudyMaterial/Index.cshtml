@@ -8,14 +8,17 @@
 <div class="container">
     <div class="row">
         <div class="span8">
-         <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;Учебные материалы
+            <h3 class="section-header">
+                <i class="icon-briefcase"></i>&nbsp;Учебные материалы
             </h3>
-            @Html.Action("Short", "Home", new {url="study-materials-short" })
+            @Html.Action("Short", "Home", new { url = "study-materials-short" })
             @if (currentUser != null && currentUser.CanCreateStudyMaterial())
             {
                 <p>
-                    <a href="@Url.Action("Create", "StudyMaterial")" class="btn btn-primary">Добавить учебный
-                        материал</a>
+                    <a href="@Url.Action("Create", "StudyMaterial")" class="btn btn-primary">
+                        Добавить учебный
+                        материал
+                    </a>
                 </p>
             }
             <div class="white-card">
@@ -33,6 +36,7 @@
                 @Html.PageLinksBootstrap(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
             </div>
         </div>
+        <!--noindex-->
         <div class="span4">
             <h3 class='section-header'>Навигация</h3>
             <div class="nav-section">
@@ -41,5 +45,6 @@
                 @Html.Action("NavigationRegion", "Home")
             </div>
         </div>
+        <!--/noindex-->
     </div>
 </div>

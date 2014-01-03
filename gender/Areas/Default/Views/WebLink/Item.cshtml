@@ -61,9 +61,11 @@
             <div class="white-card web-link-like-wrapper">
                 @Html.Partial("WebLinkLike", Model)
             </div>
+            <!--noindex-->
             <div class="addthis-wrapper">
                 @Html.Partial("AddThis")
             </div>
+            <!--/noindex-->
             @Html.Action("Comments", "WebLink", new { id = Model.ID })
         </div>
         <div class="span4">
@@ -93,10 +95,20 @@
                         }
                     </ul>
                 </div>
+                <!--noindex-->
                 <div id="AlsoSubjectWrapper" data-type="WebLink" data-id="@Model.ID">
                     @Html.Action("AlsoSubject", "WebLink", new { id = Model.ID })
                 </div>
+                <!--/noindex-->
             </div>
+            <!--noindex-->
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+            <!--/noindex-->
         </div>
     </div>
 </div>

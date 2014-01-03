@@ -742,7 +742,9 @@ i.orange {
     }
 
 
-.author .publication-short .white-card {
+.author .publication-short .white-card,
+.author .studymaterial-short .white-card
+ {
     border: none;
     box-shadow: none;
 }

@@ -933,7 +933,7 @@ qq.FineUploaderBasic = function(o){
             noFilesError: "No files to upload.",
             tooManyItemsError: "Too many items ({netItems}) would be uploaded.  Item limit is {itemLimit}.",
             retryFailTooManyItems: "Retry failed - you have reached your file limit.",
-            onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."
+            onLeave: "Идет загрузка файла. Если Вы покинете страницу, загрузка прервется."
         },
         retry: {
             enableAuto: false,

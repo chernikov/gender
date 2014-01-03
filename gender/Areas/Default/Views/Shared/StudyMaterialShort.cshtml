@@ -1,7 +1,7 @@
 ﻿@model gender.Model.StudyMaterial
 
-<div class="studymaterial-short  short-item">
-    <div class="white-card no-border">
+<div class="studymaterial-short short-item">
+    <div class="white-card">
         @foreach (var item in Model.SubPersons)
         {
              <a href="@Url.Action("Item", "Person", new { url = item.Url })"><i class="icon-user"></i>&nbsp;@item.FullName</a>

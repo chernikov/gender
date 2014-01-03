@@ -9,17 +9,18 @@
             {
                 <div class="white-card">
                     <img src="@Model.Logo" alt="@Model.Name" />
-                </div>    
+                </div>
             }
             else
             {
                 <div class="white-card">
                     <i class="icon-group big"></i>
-                </div>    
+                </div>
             }
         </div>
         <div class="span5">
-            <h2 class="post-title">@Model.Name
+            <h2 class="post-title">
+                @Model.Name
                 @if (currentUser != null && currentUser.CanEdit(Model))
                 {
                     <a href="@Url.Action("Edit", "Organization", new { id = Model.ID })">
@@ -36,17 +37,19 @@
             </h2>
             <div class="clearfix">
             </div>
-            <div class="post-info clearfix no-border">
-                <ul class="inline">
+            @if (Model.SubRegions.Any())
+            {
+                <p>
                     @foreach (var item in Model.SubRegions)
                     {
-                        <li><a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker gray">
-                        </i>&nbsp;@item.Name</a></li>
+                        <span>
+                            <i class="icon-map-marker"></i>&nbsp;
+                            <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">@item.Name</a>
+                        </span>
                     }
-                </ul>
-            </div>
+                </p>
+            }
         </div>
-
     </div>
 </div>
 <div class="white-card organization-like-wrapper">

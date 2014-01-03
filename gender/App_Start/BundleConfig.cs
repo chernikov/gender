@@ -9,7 +9,8 @@ namespace gender
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                       "~/Scripts/jquery-1.*", 
-                      "~/Scripts/jquery-ui-1.*"));
+                      "~/Scripts/jquery-ui-1.*",
+                      "~/Scripts/jquery.blockUI*"));
             bundles.Add(new ScriptBundle("~/bundles/fineuploader").Include(
                       "~/Scripts/jquery.fineuploader*"));
 

@@ -1,6 +1,6 @@
 @model gender.Models.ViewModels.BlogPostView
 @{
-    ViewBag.Title = Model.ID == 0 ? "Добавить пост" : "Изменить пост";
+    ViewBag.Title = Model.ID == 0 ? "Добавить сообщение в блог" : "Изменить сообщение в блоге";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/Scripts/common/select-person.js"></script>
     <script type="text/javascript" src="/Scripts/common/select-event.js"></script>
 }
-<h2>@(Model.ID == 0 ? "Добавить пост" : "Изменить пост")</h2>
+<h2>@(Model.ID == 0 ? "Добавить сообщение в блог" : "Изменить сообщение в блоге")</h2>
 <p></p>
 @using (Html.BeginForm("Edit", "BlogPost", FormMethod.Post, new { @class = "form-horizontal" }))
 {

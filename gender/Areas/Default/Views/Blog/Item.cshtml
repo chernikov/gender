@@ -19,12 +19,14 @@
 <div class="container">
     <div class="row">
         <div class="span12">
-            <h3 class="section-header"><i class="icon-comment-alt"></i>&nbsp;<a href="@Url.Action("Index", "Blog")">Блоги</a>
+            <h3 class="section-header">
+                <i class="icon-comment-alt"></i>&nbsp;<a href="@Url.Action("Index", "Blog")">Блоги</a>
             </h3>
         </div>
         <div class="span8">
             <div class="single-post-w">
-                <h2 class="post-title">@Model.Header
+                <h2 class="post-title">
+                    @Model.Header
                     @if (currentUser != null && currentUser.CanEdit(Model))
                     {
                         <a href="@Url.Action("Edit", "Blog", new { id = Model.ID })">
@@ -40,22 +42,25 @@
                 </h2>
                 <p class="post-info clearfix no-border">
 
-                    <span class="info-item">Автор : <a href="@Url.Action("Item", "Person", new { url = Model.Blog.User.Person.Url })">
-                        <i class="icon-user"></i>&nbsp;@Model.Blog.User.Person.FullName</a>
+                    <span class="info-item">
+                        Автор : <a href="@Url.Action("Item", "Person", new { url = Model.Blog.User.Person.Url })">
+                            <i class="icon-user"></i>&nbsp;@Model.Blog.User.Person.FullName
+                        </a>
                     </span>
                     <span class="info-item pull-right">@Model.AddedDate.ToString("dd MMMM yyyy")</span>
                 </p>
                 <div class="post-content">
                     @Html.Raw(Model.Content)
                 </div>
-
             </div>
             <div class="white-card document-like-wrapper">
                 @Html.Partial("BlogPostLike", Model)
             </div>
+            <!--noindex-->
             <div class="addthis-wrapper">
                 @Html.Partial("AddThis")
             </div>
+            <!--/noindex-->
             @Html.Action("Comments", "Blog", new { id = Model.ID })
         </div>
         <div class="span4">
@@ -72,23 +77,37 @@
                         @foreach (var item in Model.SubSubjects)
                         {
                             <li>
-                                <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
-                                </i>&nbsp;@item.Name</a>
-                            </li>    
+                                <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                                    <i class="icon-tag">
+                                    </i>&nbsp;@item.Name
+                                </a>
+                            </li>
                         }
                         @foreach (var item in Model.SubRegions)
                         {
                             <li>
-                                <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
-                                </i>&nbsp;@item.Name</a>
-                            </li>    
+                                <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                    <i class="icon-map-marker">
+                                    </i>&nbsp;@item.Name
+                                </a>
+                            </li>
                         }
                     </ul>
                 </div>
+                <!--noindex-->
                 <div id="AlsoSubjectWrapper" data-type="Blog" data-id="@Model.ID">
                     @Html.Action("AlsoSubject", "Blog", new { id = Model.ID })
                 </div>
+                <!--/noindex-->
             </div>
+            <!--noindex-->
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+            <!--/noindex-->
         </div>
     </div>
 </div>

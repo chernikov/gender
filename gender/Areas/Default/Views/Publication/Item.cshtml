@@ -27,6 +27,10 @@
         {
             <div class="span8">
                 <div class="single-post-w">
+                    @if (!Model.ModeratedDate.HasValue)
+                    {
+                        <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
+                    }
                     <p class="post-info clearfix no-border">
 
                         @if (Model.SubPersons.Any())
@@ -77,56 +81,56 @@
                             <div class="span5">
                                 <h2 class="post-title">
                                     @Model.Header
-                                @if (currentUser != null && currentUser.CanEdit(Model))
+                                    @if (currentUser != null && currentUser.CanEdit(Model))
+                                    {
+                                        <a href="@Url.Action("Edit", "Publication", new { id = Model.ID })">
+                                            <sup><i class="icon-edit"></i></sup>
+                                        </a>
+                                    }
+                                    @if (currentUser != null && currentUser.CanDelete(Model))
+                                    {
+                                        <a href="@Url.Action("Delete", "Publication", new { id = Model.ID })">
+                                            <sup><i class="icon-remove delete-action"></i></sup>
+                                        </a>
+                                    }
+                                </h2>
+                                @if (!string.IsNullOrWhiteSpace(Model.Bibliographic))
                                 {
-                                    <a href="@Url.Action("Edit", "Publication", new { id = Model.ID })">
-                                        <sup><i class="icon-edit"></i></sup>
-                                    </a>
+                                    <p class="post-info clearfix no-border">
+                                        <span class="info-item">
+                                            @Html.Raw(Model.Bibliographic.NlToBr())
+                                        </span>
+                                    </p>
                                 }
-                                @if (currentUser != null && currentUser.CanDelete(Model))
-                                {
-                                    <a href="@Url.Action("Delete", "Publication", new { id = Model.ID })">
-                                        <sup><i class="icon-remove delete-action"></i></sup>
-                                    </a>
-                                }
-                            </h2>
-                            @if (!string.IsNullOrWhiteSpace(Model.Bibliographic))
-                            {
-                                <p class="post-info clearfix no-border">
-                                    <span class="info-item">
-                                        @Html.Raw(Model.Bibliographic.NlToBr())
-                                    </span>
-                                </p>
-                            }
-                        </div>
+                            </div>
                         }
                         else
                         {
                             <div class="span7">
                                 <h2 class="post-title">
                                     @Model.Header
-                                @if (currentUser != null && currentUser.CanEdit(Model))
+                                    @if (currentUser != null && currentUser.CanEdit(Model))
+                                    {
+                                        <a href="@Url.Action("Edit", "Publication", new { id = Model.ID })">
+                                            <sup><i class="icon-edit"></i></sup>
+                                        </a>
+                                    }
+                                    @if (currentUser != null && currentUser.CanDelete(Model))
+                                    {
+                                        <a href="@Url.Action("Delete", "Publication", new { id = Model.ID })">
+                                            <sup><i class="icon-remove delete-action"></i></sup>
+                                        </a>
+                                    }
+                                </h2>
+                                @if (!string.IsNullOrWhiteSpace(Model.Bibliographic))
                                 {
-                                    <a href="@Url.Action("Edit", "Publication", new { id = Model.ID })">
-                                        <sup><i class="icon-edit"></i></sup>
-                                    </a>
+                                    <p class="post-info clearfix no-border">
+                                        <span class="info-item">
+                                            @Html.Raw(Model.Bibliographic.NlToBr())
+                                        </span>
+                                    </p>
                                 }
-                                @if (currentUser != null && currentUser.CanDelete(Model))
-                                {
-                                    <a href="@Url.Action("Delete", "Publication", new { id = Model.ID })">
-                                        <sup><i class="icon-remove delete-action"></i></sup>
-                                    </a>
-                                }
-                            </h2>
-                            @if (!string.IsNullOrWhiteSpace(Model.Bibliographic))
-                            {
-                                <p class="post-info clearfix no-border">
-                                    <span class="info-item">
-                                        @Html.Raw(Model.Bibliographic.NlToBr())
-                                    </span>
-                                </p>
-                            }
-                        </div>
+                            </div>
                         }
                     </div>
                     @if (!string.IsNullOrEmpty(Model.Teaser))
@@ -146,7 +150,7 @@
 
                                 @foreach (var item in Model.SubFiles)
                                 {
-                                    <a href="@item.Path" target="_blank">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
+                                    <a href="@Url.Action("Download", "File", new { id = item.ID })?name=@item.Name">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
                                 }
                             </span>
                         </p>
@@ -191,9 +195,11 @@
                 <div class="white-card publication-like-wrapper">
                     @Html.Partial("PublicationLike", Model)
                 </div>
+                <!--noindex-->
                 <div class="addthis-wrapper">
                     @Html.Partial("AddThis")
                 </div>
+                <!--/noindex-->
                 @Html.Action("Comments", "Publication", new { id = Model.ID })
             </div>
             <div class="span4">
@@ -226,10 +232,20 @@
                             }
                         </ul>
                     </div>
+                    <!--noindex-->
                     <div id="AlsoSubjectWrapper" data-type="Publication" data-id="@Model.ID">
                         @Html.Action("AlsoSubject", "Publication", new { id = Model.ID })
                     </div>
+                    <!--/noindex-->
                 </div>
+                <!--noindex-->
+                <h3 class='section-header'>Навигация</h3>
+                <div class="nav-section">
+                    @Html.Partial("NavigationSection")
+                    @Html.Action("NavigationSubject", "Home")
+                    @Html.Action("NavigationRegion", "Home")
+                </div>
+                <!--/noindex-->
             </div>
         }
         else

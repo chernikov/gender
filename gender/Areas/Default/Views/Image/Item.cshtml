@@ -25,6 +25,10 @@
         {
             <div class="span8">
                 <div class="single-post-w">
+                    @if (!Model.ModeratedDate.HasValue)
+                    {
+                        <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
+                    }
                     <h2 class="post-title">@Model.Header
                         @if (currentUser != null && currentUser.CanEdit(Model))
                         {
@@ -75,9 +79,11 @@
                 <div class="white-card image-like-wrapper">
                     @Html.Partial("ImageLike", Model)
                 </div>
+                <!--noindex-->
                 <div class="addthis-wrapper">
                     @Html.Partial("AddThis")
                 </div>
+                <!--/noindex-->
                 @Html.Action("Comments", "Image", new { id = Model.ID })
             </div>
             <div class="span4">
@@ -107,10 +113,20 @@
                             }
                         </ul>
                     </div>
+                    <!--noindex-->
                     <div id="AlsoSubjectWrapper" data-type="Image" data-id="@Model.ID">
                         @Html.Action("AlsoSubject", "Image", new { id = Model.ID })
                     </div>
+                    <!--/noindex-->
                 </div>
+                <!--noindex-->
+                <h3 class='section-header'>Навигация</h3>
+                <div class="nav-section">
+                    @Html.Partial("NavigationSection")
+                    @Html.Action("NavigationSubject", "Home")
+                    @Html.Action("NavigationRegion", "Home")
+                </div>
+                <!--/noindex-->
             </div>
         }
         else

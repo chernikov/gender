@@ -44,7 +44,15 @@ function InitUpload(item, multiple, url, oncomplete, extensions, title) {
             responseProperty: 'error',
             enableTooltip: true
         }
-    }).on('complete', oncomplete);
+    }).on('complete', function (id, name, responseJSON, xhr) {
+        $.unblockUI();
+        oncomplete(id, name, responseJSON, xhr);
+    })
+    .on('upload', function () {
+        $.blockUI({ message: '<h1>Подождите, пожалуйста...</h1>' });
+    }).on('error', function () {
+        $.unblockUI();
+    });
 }
 
 function Common() 

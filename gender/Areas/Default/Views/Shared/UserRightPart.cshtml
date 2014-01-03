@@ -9,8 +9,9 @@
         <h3>
             Контакты
         </h3>
-        <ul class="icons-gree">
-            @foreach (var item in Model.SubContacts)
+        <div class="white-card">
+            <ul class="icons-gree">
+                @foreach (var item in Model.SubContacts)
             {
                 if (currentUser != null || (gender.Model.Contact.TypeEnum)item.Type != gender.Model.Contact.TypeEnum.Email)
                 {
@@ -42,13 +43,14 @@
                     </li>
                 }
             }
-            @foreach (var item in Model.SubLinks)
+                @foreach (var item in Model.SubLinks)
             {
-                <li>
-                    <img src="@item.Icon" class="image16" />&nbsp;<a href="@item.Url">@item.Title</a>
-                </li>
+                    <li>
+                        <img src="@item.Icon" class="image16" />&nbsp;<a href="@item.Url">@item.Title</a>
+                    </li>
             }
-        </ul>
+            </ul>
+        </div>
     </div>
     @if (Model.SubSubjects.Any())
     {

@@ -34,6 +34,7 @@
 </head>
 <body>
     @Html.Partial("GoogleAnalytics")
+    <!--noindex-->
     <header id='header'>
         <div class='navbar navbar-fixed-top navbar-inverse'>
             <div class='navbar-inner'>
@@ -62,9 +63,11 @@
             </div>
         </div>
     </header>
+    <!--/noindex-->
     <section class='section-wrapper' id="MainSection">
         @RenderBody()
     </section>
+    <!--noindex-->
     <footer>
         <div class='deep-footer'>
             <div class='container'>
@@ -92,6 +95,7 @@
             </div>
         </div>
     </footer>
+    <!--/noindex-->
     @MiniProfiler.RenderIncludes()
 
     @Scripts.Render("~/bundles/jquery")

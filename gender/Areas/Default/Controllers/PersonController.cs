@@ -26,8 +26,13 @@ namespace gender.Areas.Default.Controllers
 
         public ActionResult Item(string url)
         {
+            
             var person = Repository.Persons.FirstOrDefault(p => string.Compare(p.Url, url, true) == 0);
-            return View(person);
+            if (person != null)
+            {
+                return View(person);
+            }
+            return RedirectToNotFoundPage;
         }
 
         public ActionResult Organization(string url)

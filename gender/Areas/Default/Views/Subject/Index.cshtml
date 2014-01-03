@@ -7,7 +7,7 @@
     <div class="row">
         <div class="span8">
             <h3 class="section-header"><i class="icon-tags"></i>&nbsp;Темы</h3>
-            @Html.Action("Short", "Home", new {url = "subject-short"})
+            @Html.Action("Short", "Home", new { url = "subject-short" })
             <div class="accordion" id="subjectsAcc">
                 @foreach (var item in Model)
                 {
@@ -37,6 +37,7 @@
                 }
             </div>
         </div>
+        <!--noindex-->
         <div class="span4">
             <h3 class='section-header'>Навигация</h3>
             <div class="nav-section">
@@ -44,6 +45,6 @@
                 @Html.Action("NavigationRegion", "Home")
             </div>
         </div>
+        <!--/noindex-->
     </div>
 </div>
-

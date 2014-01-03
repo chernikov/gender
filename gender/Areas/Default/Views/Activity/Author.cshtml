@@ -23,17 +23,17 @@
                 </li>
                 <li>
                     <a title="Публикации" href="@Url.Action("Author", "Publication", new { url = Model.Url })">
-                        <i class="icon-book"></i>&nbsp;<span class="label label-inverse">+@Model.PublicationCount</span>
+                        <i class="icon-book"></i>&nbsp;<span class="label label-inverse">@Model.PublicationCount</span>
                     </a>
                 </li>
                 <li>
                     <a title="Учебные материалы" href="@Url.Action("Author", "StudyMaterial", new { url = Model.Url })">
-                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.StudyMaterialCount</span>
+                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@Model.StudyMaterialCount</span>
                     </a>
                 </li>
                 <li>
                     <a title="Изображения" href="@Url.Action("Author", "Image", new { url = Model.Url })">
-                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">+@Model.ImageCount</span>
+                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">@Model.ImageCount</span>
                     </a>
                 </li>
                 <li class="active">
@@ -45,7 +45,7 @@
                 {
                     <li>
                         <a title="Блог" href="@Url.Action("Author", "Blog", new { url = Model.Url })">
-                            <i class="icon-comment"></i>&nbsp;<span class="label label-inverse">+@Model.BlogPostCount</span>
+                            <i class="icon-comment"></i>&nbsp;<span class="label label-inverse">@Model.BlogPostCount</span>
                         </a>
                     </li>
                 }

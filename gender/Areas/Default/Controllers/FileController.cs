@@ -54,5 +54,17 @@ namespace gender.Areas.Default.Controllers
             return null;
         }
 
+        public ActionResult Download(int id)
+        {
+            var file = Repository.Files.FirstOrDefault(p => p.ID == id);
+            if (file != null)
+            {
+                Response.ContentType = "application/octet-stream";
+                Response.AppendHeader("Content-Disposition", string.Format("attachment; filename={0}", file.Name));
+                Response.TransmitFile(Server.MapPath(file.Path));
+                Response.End();
+            }
+            return null;
+        }
     }
 }

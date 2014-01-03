@@ -25,16 +25,16 @@
                 </li>
                 <li>
                     <a title="Публикации" href="@Url.Action("Author", "Publication", new { url = person.Url })">
-                        <i class="icon-book"></i>&nbsp;<span class="label label-inverse">+@person.PublicationCount</span>
+                        <i class="icon-book"></i>&nbsp;<span class="label label-inverse">@person.PublicationCount</span>
                     </a>
                 </li>
                 <li>
                     <a title="Учебные материалы" href="@Url.Action("Author", "StudyMaterial", new { url = person.Url })">
-                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@person.StudyMaterialCount</span></a>
+                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@person.StudyMaterialCount</span></a>
                 </li>
                 <li>
                     <a title="Изображения" href="@Url.Action("Author", "Image", new { url = person.Url })">
-                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">+@person.ImageCount</span></a>
+                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">@person.ImageCount</span></a>
                 </li>
                 @if (person.SiteUser != null)
                 {
@@ -45,7 +45,7 @@
                 }
                 <li class="active">
                     <a title="Блог" href="@Url.Action("Author", "Blog", new { url = person.Url })">Блог
-                        &nbsp;<span class="label label-inverse">+@person.BlogPostCount</span>
+                        &nbsp;<span class="label label-inverse">@person.BlogPostCount</span>
                     </a>
                 </li>
                 @if (currentUser != null && currentUser.CanEdit(person))

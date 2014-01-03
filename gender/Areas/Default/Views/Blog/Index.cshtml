@@ -18,7 +18,7 @@
             @if (currentUser != null && currentUser.CanCreateBlog())
             {
                 <p>
-                    <a href="@Url.Action("Create", "Blog")" class="btn btn-primary">Добавить пост</a>
+                    <a href="@Url.Action("Create", "Blog")" class="btn btn-primary">Добавить сообщение в блог</a>
                 </p>
             }
 
@@ -31,19 +31,15 @@
                 @Html.PageLinksBootstrap(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
             </div>
         </div>
+        <!--noindex-->
         <div class="span4">
             <h3 class='section-header'>Навигация</h3>
-
             <div class="nav-section">
                 @Html.Partial("NavigationSection")
                 @Html.Action("NavigationSubject", "Home")
                 @Html.Action("NavigationRegion", "Home")
             </div>
-
         </div>
+        <!--/noindex-->
     </div>
-
 </div>
-
-
-<h2>Index</h2>

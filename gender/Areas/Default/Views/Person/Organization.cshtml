@@ -21,7 +21,7 @@
                 </li>
                 <li class="active">
                     <a href="@Url.Action("Organization", "Person", new { url = Model.Url })">Участники&nbsp;<span
-                        class="label label-inverse">+@Model.PersonsCount</span></a>
+                        class="label label-inverse">@Model.PersonsCount</span></a>
                 </li>
                 <li>
                     <a title="События" href="@Url.Action("Organization", "Event", new { url = Model.Url })"><i class="icon-flag">
@@ -29,11 +29,11 @@
                 </li>
                 <li>
                     <a title="Публикации" href="@Url.Action("Organization", "Publication", new { url = Model.Url })"><i
-                        class="icon-book"></i>&nbsp;<span class="label label-inverse">+@Model.PublicationsCount</span></a>
+                        class="icon-book"></i>&nbsp;<span class="label label-inverse">@Model.PublicationsCount</span></a>
                 </li>
                 <li>
                     <a title="Учебные материалы" href="@Url.Action("Organization", "StudyMaterial", new { url = Model.Url })"><i
-                        class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.StudyMaterialsCount</span></a>
+                        class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@Model.StudyMaterialsCount</span></a>
                 </li>
                 @if (currentUser != null && currentUser.CanEdit(Model)) 
                 {

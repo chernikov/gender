@@ -19,105 +19,127 @@
 <div class="container">
     <div class="row">
         <div class="span12">
-            <h3 class="section-header"><i class="icon-briefcase"></i>&nbsp;<a href="@Url.Action("Index", "StudyMaterial")">Учебные
-                материалы</a>
+            <h3 class="section-header">
+                <i class="icon-briefcase"></i>&nbsp;<a href="@Url.Action("Index", "StudyMaterial")">
+                    Учебные
+                    материалы
+                </a>
             </h3>
         </div>
         @if (Model.ModeratedDate.HasValue || (currentUser != null && currentUser.CanEdit(Model)))
         {
             <div class="span8">
                 <div class="single-post-w">
-                    <h2 class="post-title">@Model.Name
-                        @if (currentUser != null && currentUser.CanEdit(Model))
-                        {
-                            <a href="@Url.Action("Edit", "StudyMaterial", new { id = Model.ID })">
-                                <sup><i class="icon-edit"></i></sup>
-                            </a>
-                        }
-                        @if (currentUser != null && currentUser.CanDelete(Model))
-                        {
-                            <a href="@Url.Action("Delete", "StudyMaterial", new { id = Model.ID })">
-                                <sup><i class="icon-remove delete-action"></i></sup>
-                            </a>
-                        }
-                    </h2>
-                    <p class="post-info clearfix no-border">
-                        <span class="info-item">Автор :
-                          @foreach (var item in Model.SubPersons)
-                          {
-                              <a href="@Url.Action("Item", "Person", new { url = item.Url })"><i class="icon-user">
-                              </i>&nbsp;@item.FullName</a>
-                          }
-                        </span>
-                        @if (Model.SubOrganizations.Any())
-                        {
-                            <br />
-                            <span class="info-item">Организация :
-                          @foreach (var item in Model.SubOrganizations)
-                          {
-                              <a href="@Url.Action("Item", "Organization", new { url = item.Url })"><i class="icon-group">
-                              </i>&nbsp;@item.Name</a>
-                          }
-                            </span>
-                        }
-                        @if (Model.SubRegions.Any())
-                        {
-                            <br />
-                            <span class="info-item">Регион :
-                          @foreach (var item in Model.SubRegions)
-                          {
-                              <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
-                              </i>&nbsp;@item.Name</a>
-                          }
-                            </span>
-                        }
-                    </p>
-                    @if (!string.IsNullOrWhiteSpace(Model.Teaser))
+                    @if (!Model.ModeratedDate.HasValue)
                     {
-                        <div class="widget-filled widget-yellow">
-                            @Html.Raw(Model.Teaser.NlToP())
-                        </div>
+                        <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
                     }
-                    <div class="post-content">
-                        @Html.Raw(Model.Content)
+                    <h2 class="post-title">
+                        @Model.Name
+                    @if (currentUser != null && currentUser.CanEdit(Model))
+                    {
+                        <a href="@Url.Action("Edit", "StudyMaterial", new { id = Model.ID })">
+                            <sup><i class="icon-edit"></i></sup>
+                        </a>
+                    }
+                    @if (currentUser != null && currentUser.CanDelete(Model))
+                    {
+                        <a href="@Url.Action("Delete", "StudyMaterial", new { id = Model.ID })">
+                            <sup><i class="icon-remove delete-action"></i></sup>
+                        </a>
+                    }
+                </h2>
+                <p class="post-info clearfix no-border">
+                    <span class="info-item">
+                        Автор :
+                        @foreach (var item in Model.SubPersons)
+                        {
+                            <a href="@Url.Action("Item", "Person", new { url = item.Url })">
+                                <i class="icon-user">
+                                </i>&nbsp;@item.FullName
+                            </a>
+                        }
+                    </span>
+                    @if (Model.SubOrganizations.Any())
+                    {
+                        <br />
+                        <span class="info-item">
+                            Организация :
+                            @foreach (var item in Model.SubOrganizations)
+                            {
+                                <a href="@Url.Action("Item", "Organization", new { url = item.Url })">
+                                    <i class="icon-group">
+                                    </i>&nbsp;@item.Name
+                                </a>
+                            }
+                        </span>
+                    }
+                    @if (Model.SubRegions.Any())
+                    {
+                        <br />
+                        <span class="info-item">
+                            Регион :
+                            @foreach (var item in Model.SubRegions)
+                            {
+                                <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                    <i class="icon-map-marker">
+                                    </i>&nbsp;@item.Name
+                                </a>
+                            }
+                        </span>
+                    }
+                </p>
+                @if (!string.IsNullOrWhiteSpace(Model.Teaser))
+                {
+                    <div class="widget-filled widget-yellow">
+                        @Html.Raw(Model.Teaser.NlToP())
                     </div>
-                    <div class="pull-right">
-                        <strong>Добавил(а): @Model.User.Person.FullName</strong><br />
-                        <strong>Последнее обновление: @Model.ChangedDate.ToString("dd.MM.yyyy")</strong>
-                    </div>
-                    <div class="clearfix"></div>
-                    <p class="post-info no-border">
-                        @if (Model.SubFiles.Any())
-                        {
-                            <span class="info-item">Скачать:
-                        
-                        @foreach (var item in Model.SubFiles)
-                        {
-                            <a href="@item.Path" target="_blank">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
-                        }
-                            </span>
-                            <br />
-                        }
-                        @if (Model.SubLinks.Any())
-                        {
-                            <span class="info-item">Читать:
-                        @foreach (var item in Model.SubLinks)
-                        {
-                            <a href="@item.Url" target="_blank">
-                                <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title</a>
-                        }
-                            </span>
-                        }
-                    </p>
+                }
+                <div class="post-content">
+                    @Html.Raw(Model.Content)
                 </div>
-                <div class="white-card study-material-like-wrapper">
-                    @Html.Partial("StudyMaterialLike", Model)
+                <div class="pull-right">
+                    <strong>Добавил(а): @Model.User.Person.FullName</strong><br />
+                    <strong>Последнее обновление: @Model.ChangedDate.ToString("dd.MM.yyyy")</strong>
                 </div>
-                <div class="addthis-wrapper">
-                    @Html.Partial("AddThis")
-                </div>
-                @Html.Action("Comments", "StudyMaterial", new { id = Model.ID })
+                <div class="clearfix"></div>
+                <p class="post-info no-border">
+                    @if (Model.SubFiles.Any())
+                    {
+                        <span class="info-item">
+                            Скачать:
+
+                            @foreach (var item in Model.SubFiles)
+                            {
+                                <a href="@Url.Action("Download", "File", new { id = item.ID })?name=@item.Name">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
+                            }
+                        </span>
+                        <br />
+                    }
+                    @if (Model.SubLinks.Any())
+                    {
+                        <span class="info-item">
+                            Читать:
+                            @foreach (var item in Model.SubLinks)
+                            {
+                                <a href="@item.Url" target="_blank">
+                                    <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title
+                                </a>
+                            }
+                        </span>
+                    }
+                </p>
             </div>
+            <div class="white-card study-material-like-wrapper">
+                @Html.Partial("StudyMaterialLike", Model)
+            </div>
+            <!--noindex-->
+            <div class="addthis-wrapper">
+                @Html.Partial("AddThis")
+            </div>
+            <!--/noindex-->
+            @Html.Action("Comments", "StudyMaterial", new { id = Model.ID })
+        </div>
             <div class="span4">
                 @if (currentUser != null)
                 {
@@ -132,23 +154,37 @@
                             @foreach (var item in Model.SubSubjects)
                             {
                                 <li>
-                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
-                                    </i>&nbsp;@item.Name</a>
-                                </li>    
+                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                                        <i class="icon-tag">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                </li>
                             }
                             @foreach (var item in Model.SubRegions)
                             {
                                 <li>
-                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
-                                    </i>&nbsp;@item.Name</a>
-                                </li>    
+                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                        <i class="icon-map-marker">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                </li>
                             }
                         </ul>
                     </div>
+                    <!--noindex-->
                     <div id="AlsoSubjectWrapper" data-type="StudyMaterial" data-id="@Model.ID">
                         @Html.Action("AlsoSubject", "StudyMaterial", new { id = Model.ID })
                     </div>
+                    <!--/noindex-->
                 </div>
+                <!--noindex-->
+                <h3 class='section-header'>Навигация</h3>
+                <div class="nav-section">
+                    @Html.Partial("NavigationSection")
+                    @Html.Action("NavigationSubject", "Home")
+                    @Html.Action("NavigationRegion", "Home")
+                </div>
+                <!--/noindex-->
             </div>
         }
         else

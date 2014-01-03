@@ -4,6 +4,7 @@
 }
 
 <div class="single-post-w">
+    
     <div class="row clearfix">
         <div class="span2">
             @if (!string.IsNullOrWhiteSpace(Model.Photo))
@@ -20,6 +21,10 @@
             }
         </div>
         <div class="span5">
+            @if (!Model.ModeratedDate.HasValue)
+            {
+                <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
+            }
             <h2 class="post-title">@Model.LastName
                 <br />
                 @Model.FirstName @Model.Patronymic
@@ -46,7 +51,8 @@
                 <p>
                     @foreach (var item in Model.SubRegions)
                     {
-                        <span><i class="icon-map-marker"></i>&nbsp;@item.Name</span>
+                        <span><i class="icon-map-marker"></i>&nbsp;
+                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">@item.Name</a></span>
                     }
                 </p>
             }

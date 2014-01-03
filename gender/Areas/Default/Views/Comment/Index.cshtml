@@ -28,6 +28,7 @@
                 @Html.PageLinksBootstrap(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
             </div>
         </div>
+        <!--noindex-->
         <div class="span4">
             <h3 class='section-header'>Навигация</h3>
             <div class="nav-section">
@@ -36,5 +37,6 @@
                 @Html.Action("NavigationRegion", "Home")
             </div>
         </div>
+        <!--/noindex-->
     </div>
 </div>

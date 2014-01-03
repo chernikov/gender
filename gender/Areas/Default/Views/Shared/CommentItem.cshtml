@@ -1,8 +1,8 @@
 ﻿@model gender.Model.Comment
-
 @{
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
     var level = Model.Level;
-    if (level > 4) 
+    if (level > 4)
     {
         level = 4;
     }
@@ -18,31 +18,61 @@
                 </div>
             </div>
         }
-        <div class="span1">
-            <div class="comment-author-photo hidden-phone">
-                <img alt="Avatar-2" src="@Model.User.Person.Photo?width=150&height=150" />
-            </div>
-        </div>
-        <div class="span@(7 - level)">
-            <div class="comment-author">
-                <a href="@Url.Action("Item", "Person", new { url = Model.User.Person.Url })" class="roll-link roll-red">
-                    <span data-title="@Model.User.Person.FullName">@Model.User.Person.FullName</span>
-                </a>
-
-                <div class="comment-like-wrapper pull-right">
-                    @Html.Partial("CommentLike", Model)
+        @if (!Model.IsBanned)
+        {
+            <div class="span1">
+                <div class="comment-author-photo hidden-phone">
+                    <img alt="Avatar-2" src="@Model.User.Person.Photo?width=150&height=150" />
                 </div>
             </div>
-            <div class="comment-content">
-                @Html.Raw(Model.Text.NlToBr())
+            <div class="span@(7 - level)">
+                <div class="comment-author">
+                    <a href="@Url.Action("Item", "Person", new { url = Model.User.Person.Url })" class="roll-link roll-red">
+                        <span data-title="@Model.User.Person.FullName">@Model.User.Person.FullName</span>
+                    </a>
+
+                    <div class="comment-like-wrapper pull-right">
+                        @Html.Partial("CommentLike", Model)
+                    </div>
+                </div>
+                <div class="comment-content">
+                    @Html.Raw(Model.Text.NlToBr())
+                </div>
+                <div class="comment-date pull-left">
+                    @Model.AddedDate.ToString("dd.MM.yyyy | HH:mm")
+                </div>
+                @if (currentUser != null && currentUser.InRoles("admin"))
+                {
+                    <a href="#form-remove-comment" class="pull-right remove-comment" data-id="@Model.ID">
+                        <span data-title="Удалить">
+                            Удалить
+                        </span>
+                    </a>
+                }
+                <a href="#form-add-comment" class="roll-link pull-right roll-red reply-comment" data-id="@Model.ID">
+                    <span data-title="Ответить">
+                        Ответить
+                    </span>
+                </a>
             </div>
-            <div class="comment-date pull-left">
-                @Model.AddedDate.ToString("dd.MM.yyyy | HH:mm")
+        }
+        else
+        {
+            <div class="span@(8 - level)">
+                <div class="comment-content">
+                    Комментарий удален
+                </div>
+                @if (currentUser != null && currentUser.InRoles("admin") && !Model.SubComments.Any())
+                {
+                    <a href="#form-remove-comment" class="pull-right remove-comment" data-id="@Model.ID">
+                        <span data-title="Удалить">
+                            Удалить
+                        </span>
+                    </a>
+                }
             </div>
-            <a href="#form-add-comment" class="roll-link pull-right roll-red reply-comment" data-id="@Model.ID"><span data-title="Ответить">
-                Ответить</span>
-            </a>
-        </div>
+
+        }
     </div>
 </li>
 @foreach (var comment in Model.SubComments)

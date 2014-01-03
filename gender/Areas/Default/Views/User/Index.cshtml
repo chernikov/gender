@@ -19,7 +19,7 @@
                         }
                     </div>
                     <div class="span5">
-                        <h2 class="post-title">@Model.Person.FullName <span class="label label-info">+@Model.Rating</span>
+                        <h2 class="post-title">@Model.Person.FullName <span class="label label-info">@Model.Rating</span>
                         </h2>
                     </div>
                 </div>
@@ -29,15 +29,15 @@
                     </li>
                     <li>
                         <a href="@Url.Action("Author", "Publication", new { url = Model.Person.Url })"><i
-                            class="icon-book"></i>&nbsp;<span class="label label-inverse">+@Model.Person.PublicationCount</span></a>
+                            class="icon-book"></i>&nbsp;<span class="label label-inverse">@Model.Person.PublicationCount</span></a>
                     </li>
                     <li>
                         <a href="@Url.Action("Author", "StudyMaterial", new { url = Model.Person.Url })"><i
-                            class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.Person.StudyMaterialCount</span></a>
+                            class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@Model.Person.StudyMaterialCount</span></a>
                     </li>
                     <li>
                         <a href="@Url.Action("Author", "Image", new { url = Model.Person.Url })"><i class="icon-picture">
-                        </i>&nbsp;<span class="label label-inverse">+@Model.Person.ImageCount</span></a>
+                        </i>&nbsp;<span class="label label-inverse">@Model.Person.ImageCount</span></a>
                     </li>
                     <li>
                         <a title="Активность" href="@Url.Action("Author", "Activity", new { url = Model.Person.Url })">
@@ -45,7 +45,7 @@
                     </li>
                     <li>
                         <a href="@Url.Action("Author", "Blog", new { url = Model.Person.Url })"><i class="icon-comment">
-                        </i>&nbsp;<span class="label label-inverse">+@Model.Person.BlogPostCount</span></a>
+                        </i>&nbsp;<span class="label label-inverse">@Model.Person.BlogPostCount</span></a>
                     </li>
                     @if (currentUser != null && currentUser.CanEdit(Model))
                     {

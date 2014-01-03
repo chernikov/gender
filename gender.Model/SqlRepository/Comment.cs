@@ -52,8 +52,16 @@ namespace gender.Model
             Comment instance = Db.Comments.FirstOrDefault(p => p.ID == idComment);
             if (instance != null)
             {
-                Db.Comments.DeleteOnSubmit(instance);
-                Db.Comments.Context.SubmitChanges();
+                if (!instance.Comments.Any())
+                {
+                    Db.Comments.DeleteOnSubmit(instance);
+                    Db.Comments.Context.SubmitChanges();
+                }
+                else
+                {
+                    instance.IsBanned = true;
+                    Db.Comments.Context.SubmitChanges();
+                }
                 return true;
             }
             return false;

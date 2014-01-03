@@ -53,7 +53,7 @@ namespace gender
                 auth.AuthCookieProvider = new HttpContextCookieProvider(Context);
             }
         }
-        /*
+        
         protected void Application_Error(object sender, EventArgs e)
         {
             logger.Debug("Application Error:" + Request.RawUrl);
@@ -105,7 +105,7 @@ namespace gender
             IController errorController = new ErrorController();
             errorController.Execute(new RequestContext(
                  new HttpContextWrapper(Context), routeData));
-        }*/
+        }
 
         private static void ThreadFunc()
         {

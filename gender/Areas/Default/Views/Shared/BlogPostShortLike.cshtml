@@ -2,7 +2,7 @@
 @{
     var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
 }
-
+ <!--noindex-->
 <div class="pull-right like blog-post-short-like" data-id="@Model.ID">
     <div class="set-like">
         @if (currentUser != null && currentUser.CanLikeComment)
@@ -30,3 +30,4 @@
         }
     </div>
 </div>
+<!--/noindex-->

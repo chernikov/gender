@@ -18,14 +18,21 @@
 <div class="container">
     <div class="row">
         <div class="span12">
-            <h3 class="section-header"><i class="icon-file"></i>&nbsp;<a href="@Url.Action("Index", "Document")">Документы</a>
+            <h3 class="section-header">
+                <i class="icon-file"></i>&nbsp;<a href="@Url.Action("Index", "Document")">Документы</a>
             </h3>
         </div>
         @if (Model.ModeratedDate.HasValue || (currentUser != null && currentUser.CanEdit(Model)))
         {
+
             <div class="span8">
                 <div class="single-post-w">
-                    <h2 class="post-title">@Model.Header
+                    @if (!Model.ModeratedDate.HasValue)
+                    {
+                        <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
+                    }
+                    <h2 class="post-title">
+                        @Model.Header
                         @if (currentUser != null && currentUser.CanEdit(Model))
                         {
                             <a href="@Url.Action("Edit", "Document", new { id = Model.ID })">
@@ -42,20 +49,24 @@
                     @if (Model.SubOrganizations.Any())
                     {
                         <p class="post-info clearfix no-border">
-                            <span class="info-item">Принявший орган:
-                          @foreach (var item in Model.SubOrganizations)
-                          {
-                              <a href="@Url.Action("Item", "Organization", new { url = item.Url })"><i class="icon-group">
-                              </i>&nbsp;@item.Name</a>
-                          }
+                            <span class="info-item">
+                                Принявший орган:
+                                @foreach (var item in Model.SubOrganizations)
+                                {
+                                    <a href="@Url.Action("Item", "Organization", new { url = item.Url })">
+                                        <i class="icon-group">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                }
                             </span>
                         </p>
                     }
                     @if (Model.EventID.HasValue)
                     {
                         <p class="post-info clearfix no-border">
-                            <span class="info-item">Событие:
-                              <i class="icon-flag"></i>&nbsp;<a href="@Url.Action("Item", "Event", new { url = Model.Event.Url })">@Model.Event.Header</a>
+                            <span class="info-item">
+                                Событие:
+                                <i class="icon-flag"></i>&nbsp;<a href="@Url.Action("Item", "Event", new { url = Model.Event.Url })">@Model.Event.Header</a>
                             </span>
                         </p>
                     }
@@ -68,12 +79,14 @@
                     @if (Model.SubLinks.Any())
                     {
                         <p class="post-info clearfix no-border">
-                            <span class="info-item">Читать на :
-                      @foreach (var item in Model.SubLinks)
-                      {
-                          <a href="@item.Url" target="_blank">
-                              <img src="@item.Icon" />&nbsp;@item.Title</a>   
-                      }
+                            <span class="info-item">
+                                Читать на :
+                                @foreach (var item in Model.SubLinks)
+                                {
+                                    <a href="@item.Url" target="_blank">
+                                        <img src="@item.Icon" />&nbsp;@item.Title
+                                    </a>
+                                }
                             </span>
                         </p>
                     }
@@ -83,16 +96,17 @@
                     @if (Model.SubFiles.Any())
                     {
                         <p class="post-info clearfix no-border">
-                            <span class="info-item">Скачать:
-                        @foreach (var item in Model.SubFiles)
-                        {
-                            <a href="@item.Path" target="_blank">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
-                        }
+                            <span class="info-item">
+                                Скачать:
+                                @foreach (var item in Model.SubFiles)
+                                {
+                                    <a href="@Url.Action("Download", "File", new { id = item.ID })?name=@item.Name">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
+                                }
                             </span>
                         </p>
                     }
                     <div class="pull-right">
-                        <strong>Добавил(а): @Model.User.Person.FullName</strong><br/>
+                        <strong>Добавил(а): @Model.User.Person.FullName</strong><br />
                         <strong>Последнее обновление: @Model.ChangedDate.ToString("dd.MM.yyyy")</strong>
                     </div>
                     <div class="clearfix"></div>
@@ -100,12 +114,13 @@
                 <div class="white-card document-like-wrapper">
                     @Html.Partial("DocumentLike", Model)
                 </div>
+                <!--noindex-->
                 <div class="addthis-wrapper">
                     @Html.Partial("AddThis")
                 </div>
+                <!--/noindex-->
                 @Html.Action("Comments", "Document", new { id = Model.ID })
             </div>
-        
             <div class="span4">
                 @if (currentUser != null)
                 {
@@ -120,23 +135,37 @@
                             @foreach (var item in Model.SubSubjects)
                             {
                                 <li>
-                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
-                                    </i>&nbsp;@item.Name</a>
-                                </li>    
+                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                                        <i class="icon-tag">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                </li>
                             }
                             @foreach (var item in Model.SubRegions)
                             {
                                 <li>
-                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
-                                    </i>&nbsp;@item.Name</a>
-                                </li>    
+                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                        <i class="icon-map-marker">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                </li>
                             }
                         </ul>
                     </div>
+                    <!--noindex-->
                     <div id="AlsoSubjectWrapper" data-type="Document" data-id="@Model.ID">
                         @Html.Action("AlsoSubject", "Document", new { id = Model.ID })
                     </div>
+                    <!--/noindex-->
                 </div>
+                <!--noindex-->
+                <h3 class='section-header'>Навигация</h3>
+                <div class="nav-section">
+                    @Html.Partial("NavigationSection")
+                    @Html.Action("NavigationSubject", "Home")
+                    @Html.Action("NavigationRegion", "Home")
+                </div>
+                <!--/noindex-->
             </div>
         }
         else

@@ -1,10 +1,11 @@
 ﻿@model gender.Models.ViewModels.BlogPostView
 
 @{
-    ViewBag.Title = Model.ID == 0 ? "Добавить пост" : "Изменить пост";
+    ViewBag.Title = Model.ID == 0 ? "Добавить сообщение в блог" : "Изменить сообщение в блоге";
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
 }
-@section header 
+@section header
 {
     <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="/Scripts/admin/edit-blogpost.js"></script>
@@ -17,7 +18,7 @@
 <div class="container">
     <div class="row">
         <div class="single-post-w">
-            <h2 class="post-title">@(Model.ID == 0 ? "Добавить пост" : "Изменить пост")</h2>
+            <h2 class="post-title">@(Model.ID == 0 ? "Добавить сообщение в блог" : "Изменить сообщение в блоге")</h2>
             @using (Html.BeginForm("Edit", "Blog", FormMethod.Post, new { @class = "form-horizontal" }))
             {
                 <fieldset>
@@ -32,30 +33,7 @@
                             @Html.TextBox("Header", Model.Header)
                         </div>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="OrganizationList">
-                            Организации
-                        </label>
-                        <div class="controls">
-                            @Html.ListBox("OrganizationList", Model.SelectListOrganizations, new { @class = "input-xlarge chzn-select" })
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="PersonList">
-                            Люди
-                        </label>
-                        <div class="controls">
-                            @Html.ListBox("PersonList", Model.SelectListPersons, new { @class = "input-xlarge chzn-select" })
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="EventList">
-                            События 
-                        </label>
-                        <div class="controls">
-                            @Html.ListBox("EventList", Model.SelectListEvents, new { @class = "input-xlarge chzn-select" })
-                        </div>
-                    </div>
+
                     <div class="control-group">
                         <label class="control-label" for="Content">
                             Содержимое
@@ -67,7 +45,7 @@
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="Source">
-                            Источник 
+                            Источник
                         </label>
                         <div class="controls">
                             @Html.ValidationMessage("Source")
@@ -76,7 +54,7 @@
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="SubjectList">
-                            Темы 
+                            Темы
                         </label>
                         <div class="controls">
                             @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select" })
@@ -90,6 +68,33 @@
                             @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select" })
                         </div>
                     </div>
+                    @if (currentUser.InRoles("admin"))
+                    {
+                        <div class="control-group">
+                            <label class="control-label" for="OrganizationList">
+                                Организации
+                            </label>
+                            <div class="controls">
+                                @Html.ListBox("OrganizationList", Model.SelectListOrganizations, new { @class = "input-xlarge chzn-select" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="PersonList">
+                                Люди
+                            </label>
+                            <div class="controls">
+                                @Html.ListBox("PersonList", Model.SelectListPersons, new { @class = "input-xlarge chzn-select" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="EventList">
+                                События
+                            </label>
+                            <div class="controls">
+                                @Html.ListBox("EventList", Model.SelectListEvents, new { @class = "input-xlarge chzn-select" })
+                            </div>
+                        </div>
+                    }
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">
                             Сохранить

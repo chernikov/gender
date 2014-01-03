@@ -22,19 +22,19 @@
                 </li>
                 <li>
                     <a href="@Url.Action("Organization", "Person", new { url = Model.Url })"><i class="icon-user">
-                    </i>&nbsp;<span class="label label-inverse">+@Model.PersonsCount</span></a>
+                    </i>&nbsp;<span class="label label-inverse">@Model.PersonsCount</span></a>
                 </li>
                 <li>
                     <a href="@Url.Action("Organization", "Event", new { url = Model.Url })"><i class="icon-flag">
-                    </i>&nbsp;<span class="label label-inverse">+@Model.EventsCount</span></a>
+                    </i>&nbsp;<span class="label label-inverse">@Model.EventsCount</span></a>
                 </li>
                 <li>
                     <a href="@Url.Action("Organization", "Publication", new { url = Model.Url })"><i
-                        class="icon-book"></i>&nbsp;<span class="label label-inverse">+@Model.PublicationsCount</span></a>
+                        class="icon-book"></i>&nbsp;<span class="label label-inverse">@Model.PublicationsCount</span></a>
                 </li>
                 <li>
                     <a href="@Url.Action("Organization", "StudyMaterial", new { url = Model.Url })"><i
-                        class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.StudyMaterialsCount</span></a>
+                        class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@Model.StudyMaterialsCount</span></a>
                 </li>
             </ul>
             <div class="single-post-w">
@@ -45,6 +45,15 @@
         </div>
         <div class="span4">
             @Html.Partial("OrganizationRightPart", Model)
+
+            <!--noindex-->
+            <h3 class='section-header'>Навигация</h3>
+            <div class="nav-section">
+                @Html.Partial("NavigationSection")
+                @Html.Action("NavigationSubject", "Home")
+                @Html.Action("NavigationRegion", "Home")
+            </div>
+            <!--/noindex-->
         </div>
     </div>
 </div>

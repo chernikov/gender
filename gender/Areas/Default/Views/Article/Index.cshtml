@@ -18,7 +18,7 @@
                 <p>
                     В России гендерная теория до сих пор находится в стадии становления и развития,
                     что приводит к значительной терминологической путанице, тавтологическому определению
-                    понятий, параллельному употреблению понятий гендерной и полоролевой теорий. 
+                    понятий, параллельному употреблению понятий гендерной и полоролевой теорий.
                 </p>
                 <p>
                     Цель данного глоссария в том, чтобы помочь преподавателям и исследователям в их
@@ -30,20 +30,25 @@
                     литературе определений и описаний:
                 </p>
                 <ul>
-                    <li>базовых терминов гендерной теории (слов и словосочетаний) и сопряженных с ними понятий;
+                    <li>
+                        базовых терминов гендерной теории (слов и словосочетаний) и сопряженных с ними понятий;
                     </li>
-                    <li>основных направлений развития гендерной теории и методологии;
+                    <li>
+                        основных направлений развития гендерной теории и методологии;
                     </li>
-                    <li>основных идей, понятий и направлений феминистской теории как предтечи гендерной
+                    <li>
+                        основных идей, понятий и направлений феминистской теории как предтечи гендерной
                         теории;
                     </li>
-                    <li>важнейших международных институций по правам женщин и гендерному равенству (отделы
+                    <li>
+                        важнейших международных институций по правам женщин и гендерному равенству (отделы
                         ООН), мероприятий (например, конференции ООН по положению женщин), международно-правовых
                         документов;
                     </li>
-                    <li>некоторых других явлений или процессов, знание о которых необходимо для работы в
+                    <li>
+                        некоторых других явлений или процессов, знание о которых необходимо для работы в
                         данном интеллектуальном поле (например, понятие феминистской социальной работы,
-                        феминистское определение порнографии и др.). 
+                        феминистское определение порнографии и др.).
                     </li>
                 </ul>
                 <p>
@@ -58,23 +63,29 @@
                 </p>
                 <p>
                     При подготовке глоссария использованы собственные наработки автора, а также такие
-                    источники, как: 
+                    источники, как:
                 </p>
                 <ul>
-                    <li>Словарь гендерных терминов. Под ред. А. Денисовой. –  М. : Информация XXI век,  2002.
+                    <li>
+                        Словарь гендерных терминов. Под ред. А. Денисовой. –  М. : Информация XXI век,  2002.
                     </li>
-                    <li>Andermahr S., Lovell T., Wolkowitz C. A Concise Glossary of Feminist Theory. – London
+                    <li>
+                        Andermahr S., Lovell T., Wolkowitz C. A Concise Glossary of Feminist Theory. – London
                         etc.: Arnold,  1997.
                     </li>
-                    <li>One Hundred Words for Equality. A Glossary of Terms on Equality between Women and
-                        Men. – European Commission, 1998.  
+                    <li>
+                        One Hundred Words for Equality. A Glossary of Terms on Equality between Women and
+                        Men. – European Commission, 1998.
                     </li>
-                    <li>Tuttle L. Encyclopedia of Feminism. – New York: Facts on File Publication, 1986.
+                    <li>
+                        Tuttle L. Encyclopedia of Feminism. – New York: Facts on File Publication, 1986.
                     </li>
-                    <li>The Routledge International Encyclopedia of Women's Studies. Ed. by Dale Spender.
-                        Vol. 1-4. – New York: Routledge, 2001. 
+                    <li>
+                        The Routledge International Encyclopedia of Women's Studies. Ed. by Dale Spender.
+                        Vol. 1-4. – New York: Routledge, 2001.
                     </li>
-                    <li>Women’s Studies Encyclopedia. 2nd edition. Ed. by H.Tierney. Vol. 1-3. – Westport
+                    <li>
+                        Women’s Studies Encyclopedia. 2nd edition. Ed. by H.Tierney. Vol. 1-3. – Westport
                         (Conn.): Greenwood Press, 1999.
                     </li>
                 </ul>
@@ -94,17 +105,19 @@
                         {
                             current = item.Header.ClearHeader().ToUpper()[0];
                             <li>
-                            @current
+                                @current
                             </li>
                         }
                         <li>
-                            <h5>@Html.ActionLink(item.Header, "Item", "Article", new { url = item.Url }, null)
-                            </h5>
-                        </li>
+                            <h5>
+                                @Html.ActionLink(item.Header, "Item", "Article", new { url = item.Url }, null)
+                        </h5>
+                    </li>
                     }
                 </ul>
             </div>
         </div>
+        <!--noindex-->
         <div class="span4">
             <h3 class='section-header'>Навигация</h3>
             <div class="nav-section">
@@ -113,5 +126,6 @@
                 @Html.Action("NavigationRegion", "Home")
             </div>
         </div>
+        <!--/noindex-->
     </div>
 </div>

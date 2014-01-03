@@ -24,6 +24,23 @@
             $("#Text").closest(".control-group").removeClass("error");
         });
 
+        $(".remove-comment").click(function () {
+            if (confirm("Удалить этот комментарий?"))
+            {
+                $.ajax({
+                    type : "POST",
+                    url: "/Comment/RemoveComment",
+                    data: {
+                        id: $(this).data("id")
+                    },
+                    success: function (data) {
+                        if (data.result == "ok") {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        });
 
         $("#SubscribeCommentBtn").click(function () {
             

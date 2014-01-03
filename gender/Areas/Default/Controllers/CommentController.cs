@@ -184,5 +184,16 @@ namespace gender.Areas.Default.Controllers
             }
             return Json(new { result = "ok" }, JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize(Roles="admin")]
+        public ActionResult RemoveComment(int id)
+        {
+            if (Repository.RemoveComment(id))
+            {
+                return Json(new { result = "ok" }, JsonRequestBehavior.AllowGet);
+            };
+
+            return Json(new { result = "error" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

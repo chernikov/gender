@@ -36,7 +36,7 @@ function InitUpload(item, multiple, url, oncomplete, extensions, title) {
         text: {
             uploadButton: title
         },
-        sizeLimit: 4000000,
+        sizeLimit: 4000000000,
         allowedExtensions: extensions,
         failedUploadTextDisplay: {
             mode: 'custom',
@@ -46,14 +46,20 @@ function InitUpload(item, multiple, url, oncomplete, extensions, title) {
         },
         callbacks: {
             onComplete: function (id, fileName, responseJSON) {
+                $.unblockUI();
                 oncomplete("event", id, fileName, responseJSON);
+            },
+            onUpload: function () {
+                $.blockUI({ message: '<h1>Подождите, пожалуйста...</h1>' });
+            },
+            onError: function () {
+                $.unblockUI();
             }
         }
     });
 }
 
-function Common()
-{
+function Common() {
     var _this = this;
 
     this.init = function () {

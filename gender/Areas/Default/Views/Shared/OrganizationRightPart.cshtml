@@ -4,46 +4,48 @@
         <h3>
             Контакты
         </h3>
-        <ul>
-            @foreach (var item in Model.SubContacts)
-            {
-                <li>
-                    @switch ((gender.Model.Contact.TypeEnum)item.Type)
-                    {
-                        case gender.Model.Contact.TypeEnum.Address:
-                            <i class="icon-map-marker"></i>
-                            break;
-                        case gender.Model.Contact.TypeEnum.Phone:
-                        <i class="icon-phone"></i>
-                            break;
-                        case gender.Model.Contact.TypeEnum.Email:
-                        <i class="icon-envelope"></i>
-                            break;
-                        case gender.Model.Contact.TypeEnum.Skype:
-                        <i class="icon-skype"></i>
-                            break;
-                    }
-                    &nbsp;
-                    @if (item.Type == (int)gender.Model.Contact.TypeEnum.Email)
-                    {
-                        <a href="mailto:@item.Value">@item.Value</a>
-                    }
-                    else
-                    {
-                        @item.Value
-                    }
-                </li>
-            }
+        <div class="white-card">
+            <ul class="icons-gree">
+                @foreach (var item in Model.SubContacts)
+                {
+                    <li>
+                        @switch ((gender.Model.Contact.TypeEnum)item.Type)
+                        {
+                            case gender.Model.Contact.TypeEnum.Address:
+                                <i class="icon-map-marker"></i>
+                                break;
+                            case gender.Model.Contact.TypeEnum.Phone:
+                            <i class="icon-phone"></i>
+                                break;
+                            case gender.Model.Contact.TypeEnum.Email:
+                            <i class="icon-envelope"></i>
+                                break;
+                            case gender.Model.Contact.TypeEnum.Skype:
+                            <i class="icon-skype"></i>
+                                break;
+                        }
+                        &nbsp;
+                        @if (item.Type == (int)gender.Model.Contact.TypeEnum.Email)
+                        {
+                            <a href="mailto:@item.Value">@item.Value</a>
+                        }
+                        else
+                        {
+                            @item.Value
+                        }
+                    </li>
+                }
 
-            @foreach (var item in Model.SubLinks)
-            {
-                <li>
-                    <a href="@item.Url">
-                        <img src="@item.Icon" class="image16" />&nbsp;@item.Title
-                    </a>
-                </li>
-            }
-        </ul>
+                @foreach (var item in Model.SubLinks)
+                {
+                    <li>
+                        <a href="@item.Url">
+                            <img src="@item.Icon" class="image16" />&nbsp;@item.Title
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
     @if (Model.SubSubjects.Any())
     {

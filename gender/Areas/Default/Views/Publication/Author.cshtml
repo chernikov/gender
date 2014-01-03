@@ -22,17 +22,17 @@
                 </li>
                 <li class="active">
                     <a href="@Url.Action("Author", "Publication", new { url = Model.Url })">
-                        Публикации <span class="label label-inverse">+@Model.ModeratedPublicationCount</span>
+                        Публикации <span class="label label-inverse">@Model.ModeratedPublicationCount</span>
                     </a>
                 </li>
                 <li>
                     <a title="Учебные материалы" href="@Url.Action("Author", "StudyMaterial", new { url = Model.Url })">
-                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">+@Model.ModeratedStudyMaterialCount</span>
+                        <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@Model.ModeratedStudyMaterialCount</span>
                     </a>
                 </li>
                 <li>
                     <a title="Изображения" href="@Url.Action("Author", "Image", new { url = Model.Url })">
-                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">+@Model.ModeratedImageCount</span>
+                        <i class="icon-picture"></i>&nbsp;<span class="label label-inverse">@Model.ModeratedImageCount</span>
                     </a>
                 </li>
                 @if (Model.SiteUser != null)
@@ -47,7 +47,7 @@
                 {
                     <li>
                         <a title="Блог" href="@Url.Action("Author", "Blog", new { url = Model.Url })">
-                            <i class="icon-comment"></i>&nbsp;<span class="label label-inverse">+@Model.BlogPostCount</span>
+                            <i class="icon-comment"></i>&nbsp;<span class="label label-inverse">@Model.BlogPostCount</span>
                         </a>
                     </li>
                 }
