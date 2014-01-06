@@ -212,25 +212,34 @@
                 <div class="blog-side-bar clearfix">
                     <div class="blog-categories widget-tp">
                         <h3>Темы&nbsp;/&nbsp;Страны и регионы</h3>
-                        <ul>
-                            @foreach (var item in Model.SubSubjects)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
-                                        <i class="icon-tag">
-                                        </i>&nbsp;@item.Name
-                                    </a>
-                                </li>
-                            }
-                            @foreach (var item in Model.SubRegions)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
-                                        <i class="icon-map-marker"></i>&nbsp;@item.Name
-                                    </a>
-                                </li>
-                            }
-                        </ul>
+                        @if (Model.SubSubjects.Any() || Model.SubRegions.Any())
+                        {
+                            <ul>
+                                @foreach (var item in Model.SubSubjects)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                                            <i class="icon-tag">
+                                            </i>&nbsp;@item.Name
+                                        </a>
+                                    </li>
+                                }
+                                @foreach (var item in Model.SubRegions)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                            <i class="icon-map-marker"></i>&nbsp;@item.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>
+                                Этот материал пока не привязан ни к одной теме и не отображается ни в одной тематической рубрике. <br>Если Вы — автор, Вы можете отредактировать материал самостоятельно либо подождать, пока это сделает модератор. Авторизуйтесь или <a href="/persons/moderator-genderru">свяжитесь с модератором</a> для получения доступа.
+                            </p>
+                        }
                     </div>
                     <!--noindex-->
                     <div id="AlsoSubjectWrapper" data-type="Publication" data-id="@Model.ID">

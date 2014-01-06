@@ -36,110 +36,110 @@
                     }
                     <h2 class="post-title">
                         @Model.Name
-                    @if (currentUser != null && currentUser.CanEdit(Model))
-                    {
-                        <a href="@Url.Action("Edit", "StudyMaterial", new { id = Model.ID })">
-                            <sup><i class="icon-edit"></i></sup>
-                        </a>
-                    }
-                    @if (currentUser != null && currentUser.CanDelete(Model))
-                    {
-                        <a href="@Url.Action("Delete", "StudyMaterial", new { id = Model.ID })">
-                            <sup><i class="icon-remove delete-action"></i></sup>
-                        </a>
-                    }
-                </h2>
-                <p class="post-info clearfix no-border">
-                    <span class="info-item">
-                        Автор :
-                        @foreach (var item in Model.SubPersons)
+                        @if (currentUser != null && currentUser.CanEdit(Model))
                         {
-                            <a href="@Url.Action("Item", "Person", new { url = item.Url })">
-                                <i class="icon-user">
-                                </i>&nbsp;@item.FullName
+                            <a href="@Url.Action("Edit", "StudyMaterial", new { id = Model.ID })">
+                                <sup><i class="icon-edit"></i></sup>
                             </a>
                         }
-                    </span>
-                    @if (Model.SubOrganizations.Any())
-                    {
-                        <br />
+                        @if (currentUser != null && currentUser.CanDelete(Model))
+                        {
+                            <a href="@Url.Action("Delete", "StudyMaterial", new { id = Model.ID })">
+                                <sup><i class="icon-remove delete-action"></i></sup>
+                            </a>
+                        }
+                    </h2>
+                    <p class="post-info clearfix no-border">
                         <span class="info-item">
-                            Организация :
-                            @foreach (var item in Model.SubOrganizations)
+                            Автор :
+                            @foreach (var item in Model.SubPersons)
                             {
-                                <a href="@Url.Action("Item", "Organization", new { url = item.Url })">
-                                    <i class="icon-group">
-                                    </i>&nbsp;@item.Name
+                                <a href="@Url.Action("Item", "Person", new { url = item.Url })">
+                                    <i class="icon-user">
+                                    </i>&nbsp;@item.FullName
                                 </a>
                             }
                         </span>
-                    }
-                    @if (Model.SubRegions.Any())
+                        @if (Model.SubOrganizations.Any())
+                        {
+                            <br />
+                            <span class="info-item">
+                                Организация :
+                                @foreach (var item in Model.SubOrganizations)
+                                {
+                                    <a href="@Url.Action("Item", "Organization", new { url = item.Url })">
+                                        <i class="icon-group">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                }
+                            </span>
+                        }
+                        @if (Model.SubRegions.Any())
+                        {
+                            <br />
+                            <span class="info-item">
+                                Регион :
+                                @foreach (var item in Model.SubRegions)
+                                {
+                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                        <i class="icon-map-marker">
+                                        </i>&nbsp;@item.Name
+                                    </a>
+                                }
+                            </span>
+                        }
+                    </p>
+                    @if (!string.IsNullOrWhiteSpace(Model.Teaser))
                     {
-                        <br />
-                        <span class="info-item">
-                            Регион :
-                            @foreach (var item in Model.SubRegions)
-                            {
-                                <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
-                                    <i class="icon-map-marker">
-                                    </i>&nbsp;@item.Name
-                                </a>
-                            }
-                        </span>
+                        <div class="widget-filled widget-yellow">
+                            @Html.Raw(Model.Teaser.NlToP())
+                        </div>
                     }
-                </p>
-                @if (!string.IsNullOrWhiteSpace(Model.Teaser))
-                {
-                    <div class="widget-filled widget-yellow">
-                        @Html.Raw(Model.Teaser.NlToP())
+                    <div class="post-content">
+                        @Html.Raw(Model.Content)
                     </div>
-                }
-                <div class="post-content">
-                    @Html.Raw(Model.Content)
-                </div>
-                <div class="pull-right">
-                    <strong>Добавил(а): @Model.User.Person.FullName</strong><br />
-                    <strong>Последнее обновление: @Model.ChangedDate.ToString("dd.MM.yyyy")</strong>
-                </div>
-                <div class="clearfix"></div>
-                <p class="post-info no-border">
-                    @if (Model.SubFiles.Any())
-                    {
-                        <span class="info-item">
-                            Скачать:
+                    <div class="pull-right">
+                        <strong>Добавил(а): @Model.User.Person.FullName</strong><br />
+                        <strong>Последнее обновление: @Model.ChangedDate.ToString("dd.MM.yyyy")</strong>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p class="post-info no-border">
+                        @if (Model.SubFiles.Any())
+                        {
+                            <span class="info-item">
+                                Скачать:
 
-                            @foreach (var item in Model.SubFiles)
-                            {
-                                <a href="@Url.Action("Download", "File", new { id = item.ID })?name=@item.Name">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
-                            }
-                        </span>
-                        <br />
-                    }
-                    @if (Model.SubLinks.Any())
-                    {
-                        <span class="info-item">
-                            Читать:
-                            @foreach (var item in Model.SubLinks)
-                            {
-                                <a href="@item.Url" target="_blank">
-                                    <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title
-                                </a>
-                            }
-                        </span>
-                    }
-                </p>
+                                @foreach (var item in Model.SubFiles)
+                                {
+                                    <a href="@Url.Action("Download", "File", new { id = item.ID })?name=@item.Name">@Html.Action("MimeType", "Home", new { mime = item.MimeType })&nbsp;@item.Name</a>
+                                }
+                            </span>
+                            <br />
+                        }
+                        @if (Model.SubLinks.Any())
+                        {
+                            <span class="info-item">
+                                Читать:
+                                @foreach (var item in Model.SubLinks)
+                                {
+                                    <a href="@item.Url" target="_blank">
+                                        <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title
+                                    </a>
+                                }
+                            </span>
+                        }
+                    </p>
+                </div>
+                <div class="white-card study-material-like-wrapper">
+                    @Html.Partial("StudyMaterialLike", Model)
+                </div>
+                <!--noindex-->
+                <div class="addthis-wrapper">
+                    @Html.Partial("AddThis")
+                </div>
+                <!--/noindex-->
+                @Html.Action("Comments", "StudyMaterial", new { id = Model.ID })
             </div>
-            <div class="white-card study-material-like-wrapper">
-                @Html.Partial("StudyMaterialLike", Model)
-            </div>
-            <!--noindex-->
-            <div class="addthis-wrapper">
-                @Html.Partial("AddThis")
-            </div>
-            <!--/noindex-->
-            @Html.Action("Comments", "StudyMaterial", new { id = Model.ID })
-        </div>
             <div class="span4">
                 @if (currentUser != null)
                 {
@@ -150,26 +150,35 @@
                 <div class="blog-side-bar clearfix">
                     <div class="blog-categories widget-tp">
                         <h3>Темы&nbsp;/&nbsp;Страны и регионы</h3>
-                        <ul>
-                            @foreach (var item in Model.SubSubjects)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
-                                        <i class="icon-tag">
-                                        </i>&nbsp;@item.Name
-                                    </a>
-                                </li>
-                            }
-                            @foreach (var item in Model.SubRegions)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
-                                        <i class="icon-map-marker">
-                                        </i>&nbsp;@item.Name
-                                    </a>
-                                </li>
-                            }
-                        </ul>
+                        @if (Model.SubSubjects.Any() || Model.SubRegions.Any())
+                        {
+                            <ul>
+                                @foreach (var item in Model.SubSubjects)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                                            <i class="icon-tag">
+                                            </i>&nbsp;@item.Name
+                                        </a>
+                                    </li>
+                                }
+                                @foreach (var item in Model.SubRegions)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                            <i class="icon-map-marker">
+                                            </i>&nbsp;@item.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>
+                                Этот материал пока не привязан ни к одной теме и не отображается ни в одной тематической рубрике. <br>Если Вы — автор, Вы можете отредактировать материал самостоятельно либо подождать, пока это сделает модератор. Авторизуйтесь или <a href="/persons/moderator-genderru">свяжитесь с модератором</a> для получения доступа.
+                            </p>
+                        }
                     </div>
                     <!--noindex-->
                     <div id="AlsoSubjectWrapper" data-type="StudyMaterial" data-id="@Model.ID">

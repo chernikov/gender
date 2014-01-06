@@ -18,7 +18,8 @@
 <div class="container">
     <div class="row">
         <div class="span12">
-            <h3 class="section-header"><i class="icon-picture"></i>&nbsp;<a href="@Url.Action("Index", "Image")">Изображения</a>
+            <h3 class="section-header">
+                <i class="icon-picture"></i>&nbsp;<a href="@Url.Action("Index", "Image")">Изображения</a>
             </h3>
         </div>
         @if (Model.ModeratedDate.HasValue || (currentUser != null && currentUser.CanEdit(Model)))
@@ -29,63 +30,69 @@
                     {
                         <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
                     }
-                    <h2 class="post-title">@Model.Header
-                        @if (currentUser != null && currentUser.CanEdit(Model))
-                        {
-                            <a href="@Url.Action("Edit", "Image", new { id = Model.ID })">
-                                <sup><i class="icon-edit"></i></sup>
-                            </a>
-                        }
-                        @if (currentUser != null && currentUser.CanDelete(Model))
-                        {
-                            <a href="@Url.Action("Delete", "Image", new { id = Model.ID })">
-                                <sup><i class="icon-remove delete-action"></i></sup>
-                            </a>
-                        }
-                    </h2>
-                    @if (Model.SubPersons.Any())
+                    <h2 class="post-title">
+                        @Model.Header
+                    @if (currentUser != null && currentUser.CanEdit(Model))
                     {
-                        <p class="post-info clearfix no-border">
-
-                            <span class="info-item">Участники :
-                          @foreach (var item in Model.SubPersons)
-                          {
-                              <a href="@Url.Action("Item", "Person", new { url = item.Url })"><i class="icon-user">
-                              </i>&nbsp;@item.FullName</a>
-                          }
-                            </span>
-                        </p>
+                        <a href="@Url.Action("Edit", "Image", new { id = Model.ID })">
+                            <sup><i class="icon-edit"></i></sup>
+                        </a>
                     }
-                    <div class="white-card">
-                        <img src="@Model.Path" alt="" />
-                    </div>
-
-                    <div class="post-content">
-                        @Html.Raw(Model.Description.NlToP())
-                    </div>
-                    @if (Model.SubLinks.Any())
+                    @if (currentUser != null && currentUser.CanDelete(Model))
                     {
-                        <p class="post-info clearfix no-border">
-                            <span class="info-item">См. также:
-                      @foreach (var item in Model.SubLinks)
-                      {
-                          <a href="@item.Url" target="_blank">
-                              <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title</a>   
-                      }
-                            </span>
-                        </p>
+                        <a href="@Url.Action("Delete", "Image", new { id = Model.ID })">
+                            <sup><i class="icon-remove delete-action"></i></sup>
+                        </a>
                     }
+                </h2>
+                @if (Model.SubPersons.Any())
+                {
+                    <p class="post-info clearfix no-border">
+
+                        <span class="info-item">
+                            Участники :
+                            @foreach (var item in Model.SubPersons)
+                            {
+                                <a href="@Url.Action("Item", "Person", new { url = item.Url })">
+                                    <i class="icon-user">
+                                    </i>&nbsp;@item.FullName
+                                </a>
+                            }
+                        </span>
+                    </p>
+                }
+                <div class="white-card">
+                    <img src="@Model.Path" alt="" />
                 </div>
-                <div class="white-card image-like-wrapper">
-                    @Html.Partial("ImageLike", Model)
+
+                <div class="post-content">
+                    @Html.Raw(Model.Description.NlToP())
                 </div>
-                <!--noindex-->
-                <div class="addthis-wrapper">
-                    @Html.Partial("AddThis")
-                </div>
-                <!--/noindex-->
-                @Html.Action("Comments", "Image", new { id = Model.ID })
+                @if (Model.SubLinks.Any())
+                {
+                    <p class="post-info clearfix no-border">
+                        <span class="info-item">
+                            См. также:
+                            @foreach (var item in Model.SubLinks)
+                            {
+                                <a href="@item.Url" target="_blank">
+                                    <img src="@item.Icon" class="big-favicon" />&nbsp;@item.Title
+                                </a>
+                            }
+                        </span>
+                    </p>
+                }
             </div>
+            <div class="white-card image-like-wrapper">
+                @Html.Partial("ImageLike", Model)
+            </div>
+            <!--noindex-->
+            <div class="addthis-wrapper">
+                @Html.Partial("AddThis")
+            </div>
+            <!--/noindex-->
+            @Html.Action("Comments", "Image", new { id = Model.ID })
+        </div>
             <div class="span4">
                 @if (currentUser != null)
                 {
@@ -96,22 +103,35 @@
                 <div class="blog-side-bar clearfix">
                     <div class="blog-categories widget-tp">
                         <h3>Темы&nbsp;/&nbsp;Страны и регионы</h3>
-                        <ul>
-                            @foreach (var item in Model.SubSubjects)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })"><i class="icon-tag">
-                                    </i>&nbsp;@item.Name</a>
-                                </li>    
-                            }
-                            @foreach (var item in Model.SubRegions)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })"><i class="icon-map-marker">
-                                    </i>&nbsp;@item.Name</a>
-                                </li>    
-                            }
-                        </ul>
+                        @if (Model.SubSubjects.Any() || Model.SubRegions.Any())
+                        {
+                            <ul>
+                                @foreach (var item in Model.SubSubjects)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Item", "Subject", new { path = item.FullUrl })">
+                                            <i class="icon-tag">
+                                            </i>&nbsp;@item.Name
+                                        </a>
+                                    </li>
+                                }
+                                @foreach (var item in Model.SubRegions)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">
+                                            <i class="icon-map-marker">
+                                            </i>&nbsp;@item.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>
+                                Этот материал пока не привязан ни к одной теме и не отображается ни в одной тематической рубрике. <br>Если Вы — автор, Вы можете отредактировать материал самостоятельно либо подождать, пока это сделает модератор. Авторизуйтесь или <a href="/persons/moderator-genderru">свяжитесь с модератором</a> для получения доступа.
+                            </p>
+                        }
                     </div>
                     <!--noindex-->
                     <div id="AlsoSubjectWrapper" data-type="Image" data-id="@Model.ID">
@@ -137,4 +157,3 @@
         }
     </div>
 </div>
-
