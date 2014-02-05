@@ -3,57 +3,74 @@
     ViewBag.Title = Model.Name;
     ViewBag.Keywords = Model.Keywords;
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    var currentUser = ((gender.Controllers.BaseController)ViewContext.Controller).CurrentUser;
 }
-@section header 
+@section header
 {
     <script type="text/javascript" src="/Scripts/default/like.js"></script>
 }
 <div class="container">
     <div class="row">
         <div class="span12">
-            <h3 class="section-header"><i class="icon-group"></i>&nbsp;<a href="@Url.Action("Index", "Organization")">Организации</a>
+            <h3 class="section-header">
+                <i class="icon-group"></i>&nbsp;<a href="@Url.Action("Index", "Organization")">Организации</a>
             </h3>
         </div>
-        <div class="span8">
-            @Html.Partial("OrganizationInfo", Model)
-            <ul class="nav nav-tabs" id="myTab">
-                <li class="active">
-                    <a href="@Url.Action("Item", "Organization", new { url = Model.Url })">Инфо</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Organization", "Person", new { url = Model.Url })"><i class="icon-user">
-                    </i>&nbsp;<span class="label label-inverse">@Model.PersonsCount</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Organization", "Event", new { url = Model.Url })"><i class="icon-flag">
-                    </i>&nbsp;<span class="label label-inverse">@Model.EventsCount</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Organization", "Publication", new { url = Model.Url })"><i
-                        class="icon-book"></i>&nbsp;<span class="label label-inverse">@Model.PublicationsCount</span></a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Organization", "StudyMaterial", new { url = Model.Url })"><i
-                        class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@Model.StudyMaterialsCount</span></a>
-                </li>
-            </ul>
-            <div class="single-post-w">
-                <div class="post-content">
-                    @Html.Raw(Model.Info)
+        @if (Model.ModeratedDate.HasValue || (currentUser != null && currentUser.CanEdit(Model)))
+        {
+            <div class="span8">
+                @Html.Partial("OrganizationInfo", Model)
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a href="@Url.Action("Item", "Organization", new { url = Model.Url })">Инфо</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Organization", "Person", new { url = Model.Url })">
+                            <i class="icon-user">
+                            </i>&nbsp;<span class="label label-inverse">@Model.PersonsCount</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Organization", "Event", new { url = Model.Url })">
+                            <i class="icon-flag">
+                            </i>&nbsp;<span class="label label-inverse">@Model.EventsCount</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Organization", "Publication", new { url = Model.Url })">
+                            <i class="icon-book"></i>&nbsp;<span class="label label-inverse">@Model.PublicationsCount</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Organization", "StudyMaterial", new { url = Model.Url })">
+                            <i class="icon-briefcase"></i>&nbsp;<span class="label label-inverse">@Model.StudyMaterialsCount</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="single-post-w">
+                    <div class="post-content">
+                        @Html.Raw(Model.Info)
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="span4">
-            @Html.Partial("OrganizationRightPart", Model)
+            <div class="span4">
+                @Html.Partial("OrganizationRightPart", Model)
 
-            <!--noindex-->
-            <h3 class='section-header'>Навигация</h3>
-            <div class="nav-section">
-                @Html.Partial("NavigationSection")
-                @Html.Action("NavigationSubject", "Home")
-                @Html.Action("NavigationRegion", "Home")
+                <!--noindex-->
+                <h3 class='section-header'>Навигация</h3>
+                <div class="nav-section">
+                    @Html.Partial("NavigationSection")
+                    @Html.Action("NavigationSubject", "Home")
+                    @Html.Action("NavigationRegion", "Home")
+                </div>
+                <!--/noindex-->
             </div>
-            <!--/noindex-->
-        </div>
+        }
+        else
+        {
+            <div class="span8">
+                <h2>Материал на модерации</h2>
+            </div>
+        }
     </div>
 </div>

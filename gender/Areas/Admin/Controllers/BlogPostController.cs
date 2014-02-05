@@ -98,7 +98,6 @@ namespace gender.Areas.Admin.Controllers
             {
                 var blogId = blogpost.BlogID;
                 Repository.RemoveBlogPost(blogpost.ID);
-                return RedirectToAction("Index", new { id = blogId });
             }
             return RedirectBack;
         }

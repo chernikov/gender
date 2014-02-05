@@ -17,8 +17,9 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 <div class="btn-group pull-right">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user">
-                    </i>
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="icon-user">
+                        </i>
                         @currentUser.Email<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -34,6 +35,14 @@
     <div class="container-fluid">
         @Html.Action("AdminMenu", "Home")
         <div class="span12">
+
+            @if (TempData["error"] != null)
+            {
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    @TempData["error"]
+                </div>
+            }
             @RenderBody()
         </div>
     </div>

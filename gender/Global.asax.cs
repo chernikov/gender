@@ -56,6 +56,7 @@ namespace gender
         
         protected void Application_Error(object sender, EventArgs e)
         {
+
             logger.Debug("Application Error:" + Request.RawUrl);
 
             //try find redirect 
@@ -81,6 +82,10 @@ namespace gender
 
             logger.Error(exception);
 
+            if (Request.IsLocal)
+            {
+                return;
+            }
             Response.Clear();
 
 

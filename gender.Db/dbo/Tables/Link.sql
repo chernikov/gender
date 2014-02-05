@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Link] (
+    [ID]    INT            IDENTITY (1, 1) NOT NULL,
+    [Url]   NVARCHAR (500) NOT NULL,
+    [Icon]  NVARCHAR (150) NOT NULL,
+    [Title] NVARCHAR (150) NOT NULL,
+    CONSTRAINT [PK_Link] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

@@ -70,7 +70,7 @@ namespace gender.Controllers
             {
                 if (Request.UrlReferrer != null)
                 {
-                    return Redirect(Request.UrlReferrer.AbsolutePath);
+                    return Redirect(Request.UrlReferrer.ToString());
                 }
                 return RedirectToNotFoundPage;
             }

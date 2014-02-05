@@ -243,9 +243,6 @@ namespace gender.Model
     partial void InsertFile(File instance);
     partial void UpdateFile(File instance);
     partial void DeleteFile(File instance);
-    partial void InsertOrganization(Organization instance);
-    partial void UpdateOrganization(Organization instance);
-    partial void DeleteOrganization(Organization instance);
     partial void InsertArticle(Article instance);
     partial void UpdateArticle(Article instance);
     partial void DeleteArticle(Article instance);
@@ -393,6 +390,9 @@ namespace gender.Model
     partial void InsertEvent(Event instance);
     partial void UpdateEvent(Event instance);
     partial void DeleteEvent(Event instance);
+    partial void InsertOrganization(Organization instance);
+    partial void UpdateOrganization(Organization instance);
+    partial void DeleteOrganization(Organization instance);
     #endregion
 		
 		public genderDbDataContext() : 
@@ -993,14 +993,6 @@ namespace gender.Model
 			}
 		}
 		
-		public System.Data.Linq.Table<Organization> Organizations
-		{
-			get
-			{
-				return this.GetTable<Organization>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Article> Articles
 		{
 			get
@@ -1390,6 +1382,14 @@ namespace gender.Model
 			get
 			{
 				return this.GetTable<Event>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Organization> Organizations
+		{
+			get
+			{
+				return this.GetTable<Organization>();
 			}
 		}
 	}
@@ -4110,9 +4110,9 @@ namespace gender.Model
 		
 		private int _OrganizationID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<BlogPost> _BlogPost;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4128,8 +4128,8 @@ namespace gender.Model
 		
 		public BlogPostOrganization()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._BlogPost = default(EntityRef<BlogPost>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -4201,40 +4201,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_BlogPostOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.BlogPostOrganizations.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.BlogPostOrganizations.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPost_BlogPostOrganization", Storage="_BlogPost", ThisKey="BlogPostID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public BlogPost BlogPost
 		{
@@ -4265,6 +4231,40 @@ namespace gender.Model
 						this._BlogPostID = default(int);
 					}
 					this.SendPropertyChanged("BlogPost");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_BlogPostOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.BlogPostOrganizations.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.BlogPostOrganizations.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -5478,9 +5478,9 @@ namespace gender.Model
 		
 		private int _OrganizationID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<Document> _Document;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5496,8 +5496,8 @@ namespace gender.Model
 		
 		public DocumentOrganization()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._Document = default(EntityRef<Document>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -5569,40 +5569,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_DocumentOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.DocumentOrganizations.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentOrganizations.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_DocumentOrganization", Storage="_Document", ThisKey="DocumentID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Document Document
 		{
@@ -5633,6 +5599,40 @@ namespace gender.Model
 						this._DocumentID = default(int);
 					}
 					this.SendPropertyChanged("Document");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_DocumentOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.DocumentOrganizations.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentOrganizations.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -7038,9 +7038,9 @@ namespace gender.Model
 		
 		private int _OrganizationID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<Event> _Event;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -7056,8 +7056,8 @@ namespace gender.Model
 		
 		public EventOrganization()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._Event = default(EntityRef<Event>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -7129,40 +7129,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_EventOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.EventOrganizations.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.EventOrganizations.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Event_EventOrganization", Storage="_Event", ThisKey="EventID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Event Event
 		{
@@ -7193,6 +7159,40 @@ namespace gender.Model
 						this._EventID = default(int);
 					}
 					this.SendPropertyChanged("Event");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_EventOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.EventOrganizations.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.EventOrganizations.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -8982,9 +8982,9 @@ namespace gender.Model
 		
 		private int _UserID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<User> _User;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9000,8 +9000,8 @@ namespace gender.Model
 		
 		public OrganizationAccess()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._User = default(EntityRef<User>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -9073,40 +9073,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationAccess", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.OrganizationAccesses.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.OrganizationAccesses.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_OrganizationAccess", Storage="_User", ThisKey="UserID", OtherKey="ID", IsForeignKey=true)]
 		public User User
 		{
@@ -9137,6 +9103,40 @@ namespace gender.Model
 						this._UserID = default(int);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationAccess", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.OrganizationAccesses.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.OrganizationAccesses.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -9174,9 +9174,9 @@ namespace gender.Model
 		
 		private int _SubjectID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<Subject> _Subject;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9192,8 +9192,8 @@ namespace gender.Model
 		
 		public OrganizationSubject()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._Subject = default(EntityRef<Subject>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -9265,40 +9265,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationSubject", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.OrganizationSubjects.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.OrganizationSubjects.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Subject_OrganizationSubject", Storage="_Subject", ThisKey="SubjectID", OtherKey="ID", IsForeignKey=true)]
 		public Subject Subject
 		{
@@ -9329,6 +9295,40 @@ namespace gender.Model
 						this._SubjectID = default(int);
 					}
 					this.SendPropertyChanged("Subject");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationSubject", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.OrganizationSubjects.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.OrganizationSubjects.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -9560,9 +9560,9 @@ namespace gender.Model
 		
 		private bool _IsLike;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<User> _User;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9580,8 +9580,8 @@ namespace gender.Model
 		
 		public OrganizationLike()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._User = default(EntityRef<User>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -9673,40 +9673,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationLike", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.OrganizationLikes.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.OrganizationLikes.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_OrganizationLike", Storage="_User", ThisKey="UserID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public User User
 		{
@@ -9737,6 +9703,40 @@ namespace gender.Model
 						this._UserID = default(int);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationLike", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.OrganizationLikes.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.OrganizationLikes.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -9966,9 +9966,9 @@ namespace gender.Model
 		
 		private int _RegionID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<Region> _Region;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9984,8 +9984,8 @@ namespace gender.Model
 		
 		public OrganizationRegion()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._Region = default(EntityRef<Region>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -10057,40 +10057,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRegion", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.OrganizationRegions.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.OrganizationRegions.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Region_OrganizationRegion", Storage="_Region", ThisKey="RegionID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Region Region
 		{
@@ -10121,6 +10087,40 @@ namespace gender.Model
 						this._RegionID = default(int);
 					}
 					this.SendPropertyChanged("Region");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRegion", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.OrganizationRegions.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.OrganizationRegions.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -10926,9 +10926,9 @@ namespace gender.Model
 		
 		private int _OrganizationID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<Person> _Person;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -10944,8 +10944,8 @@ namespace gender.Model
 		
 		public PersonOrganization()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._Person = default(EntityRef<Person>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -11017,40 +11017,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PersonOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.PersonOrganizations.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.PersonOrganizations.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Person_PersonOrganization", Storage="_Person", ThisKey="PersonID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Person Person
 		{
@@ -11081,6 +11047,40 @@ namespace gender.Model
 						this._PersonID = default(int);
 					}
 					this.SendPropertyChanged("Person");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PersonOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.PersonOrganizations.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.PersonOrganizations.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -12318,9 +12318,9 @@ namespace gender.Model
 		
 		private int _PublicationID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<Publication> _Publication;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -12336,8 +12336,8 @@ namespace gender.Model
 		
 		public PublicationOrganization()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._Publication = default(EntityRef<Publication>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -12409,40 +12409,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PublicationOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.PublicationOrganizations.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.PublicationOrganizations.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Publication_PublicationOrganization", Storage="_Publication", ThisKey="PublicationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Publication Publication
 		{
@@ -12473,6 +12439,40 @@ namespace gender.Model
 						this._PublicationID = default(int);
 					}
 					this.SendPropertyChanged("Publication");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PublicationOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.PublicationOrganizations.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.PublicationOrganizations.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -15246,9 +15246,9 @@ namespace gender.Model
 		
 		private int _OrganizationID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<StudyMaterial> _StudyMaterial;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -15264,8 +15264,8 @@ namespace gender.Model
 		
 		public StudyMaterialOrganization()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._StudyMaterial = default(EntityRef<StudyMaterial>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -15337,40 +15337,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_StudyMaterialOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.StudyMaterialOrganizations.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.StudyMaterialOrganizations.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StudyMaterial_StudyMaterialOrganization", Storage="_StudyMaterial", ThisKey="StudyMaterialID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public StudyMaterial StudyMaterial
 		{
@@ -15401,6 +15367,40 @@ namespace gender.Model
 						this._StudyMaterialID = default(int);
 					}
 					this.SendPropertyChanged("StudyMaterial");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_StudyMaterialOrganization", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.StudyMaterialOrganizations.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.StudyMaterialOrganizations.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -15717,665 +15717,6 @@ namespace gender.Model
 		{
 			this.SendPropertyChanging();
 			entity.File = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Organization")]
-	public partial class Organization : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private int _UserID;
-		
-		private string _Name;
-		
-		private string _Url;
-		
-		private string _Logo;
-		
-		private string _Info;
-		
-		private System.DateTime _AddedDate;
-		
-		private System.DateTime _ChangedDate;
-		
-		private int _TotalLikes;
-		
-		private EntitySet<BlogPostOrganization> _BlogPostOrganizations;
-		
-		private EntitySet<DocumentOrganization> _DocumentOrganizations;
-		
-		private EntitySet<EventOrganization> _EventOrganizations;
-		
-		private EntitySet<OrganizationAccess> _OrganizationAccesses;
-		
-		private EntitySet<OrganizationSubject> _OrganizationSubjects;
-		
-		private EntitySet<OrganizationContact> _OrganizationContacts;
-		
-		private EntitySet<OrganizationLike> _OrganizationLikes;
-		
-		private EntitySet<OrganizationLink> _OrganizationLinks;
-		
-		private EntitySet<OrganizationRegion> _OrganizationRegions;
-		
-		private EntitySet<PersonOrganization> _PersonOrganizations;
-		
-		private EntitySet<PublicationOrganization> _PublicationOrganizations;
-		
-		private EntitySet<StudyMaterialOrganization> _StudyMaterialOrganizations;
-		
-		private EntitySet<OrganizationRecordRedirect> _OrganizationRecordRedirects;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnUserIDChanging(int value);
-    partial void OnUserIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnUrlChanging(string value);
-    partial void OnUrlChanged();
-    partial void OnLogoChanging(string value);
-    partial void OnLogoChanged();
-    partial void OnInfoChanging(string value);
-    partial void OnInfoChanged();
-    partial void OnAddedDateChanging(System.DateTime value);
-    partial void OnAddedDateChanged();
-    partial void OnChangedDateChanging(System.DateTime value);
-    partial void OnChangedDateChanged();
-    partial void OnTotalLikesChanging(int value);
-    partial void OnTotalLikesChanged();
-    #endregion
-		
-		public Organization()
-		{
-			this._BlogPostOrganizations = new EntitySet<BlogPostOrganization>(new Action<BlogPostOrganization>(this.attach_BlogPostOrganizations), new Action<BlogPostOrganization>(this.detach_BlogPostOrganizations));
-			this._DocumentOrganizations = new EntitySet<DocumentOrganization>(new Action<DocumentOrganization>(this.attach_DocumentOrganizations), new Action<DocumentOrganization>(this.detach_DocumentOrganizations));
-			this._EventOrganizations = new EntitySet<EventOrganization>(new Action<EventOrganization>(this.attach_EventOrganizations), new Action<EventOrganization>(this.detach_EventOrganizations));
-			this._OrganizationAccesses = new EntitySet<OrganizationAccess>(new Action<OrganizationAccess>(this.attach_OrganizationAccesses), new Action<OrganizationAccess>(this.detach_OrganizationAccesses));
-			this._OrganizationSubjects = new EntitySet<OrganizationSubject>(new Action<OrganizationSubject>(this.attach_OrganizationSubjects), new Action<OrganizationSubject>(this.detach_OrganizationSubjects));
-			this._OrganizationContacts = new EntitySet<OrganizationContact>(new Action<OrganizationContact>(this.attach_OrganizationContacts), new Action<OrganizationContact>(this.detach_OrganizationContacts));
-			this._OrganizationLikes = new EntitySet<OrganizationLike>(new Action<OrganizationLike>(this.attach_OrganizationLikes), new Action<OrganizationLike>(this.detach_OrganizationLikes));
-			this._OrganizationLinks = new EntitySet<OrganizationLink>(new Action<OrganizationLink>(this.attach_OrganizationLinks), new Action<OrganizationLink>(this.detach_OrganizationLinks));
-			this._OrganizationRegions = new EntitySet<OrganizationRegion>(new Action<OrganizationRegion>(this.attach_OrganizationRegions), new Action<OrganizationRegion>(this.detach_OrganizationRegions));
-			this._PersonOrganizations = new EntitySet<PersonOrganization>(new Action<PersonOrganization>(this.attach_PersonOrganizations), new Action<PersonOrganization>(this.detach_PersonOrganizations));
-			this._PublicationOrganizations = new EntitySet<PublicationOrganization>(new Action<PublicationOrganization>(this.attach_PublicationOrganizations), new Action<PublicationOrganization>(this.detach_PublicationOrganizations));
-			this._StudyMaterialOrganizations = new EntitySet<StudyMaterialOrganization>(new Action<StudyMaterialOrganization>(this.attach_StudyMaterialOrganizations), new Action<StudyMaterialOrganization>(this.detach_StudyMaterialOrganizations));
-			this._OrganizationRecordRedirects = new EntitySet<OrganizationRecordRedirect>(new Action<OrganizationRecordRedirect>(this.attach_OrganizationRecordRedirects), new Action<OrganizationRecordRedirect>(this.detach_OrganizationRecordRedirects));
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
-		public int UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
-		public string Url
-		{
-			get
-			{
-				return this._Url;
-			}
-			set
-			{
-				if ((this._Url != value))
-				{
-					this.OnUrlChanging(value);
-					this.SendPropertyChanging();
-					this._Url = value;
-					this.SendPropertyChanged("Url");
-					this.OnUrlChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Logo", DbType="NVarChar(150)")]
-		public string Logo
-		{
-			get
-			{
-				return this._Logo;
-			}
-			set
-			{
-				if ((this._Logo != value))
-				{
-					this.OnLogoChanging(value);
-					this.SendPropertyChanging();
-					this._Logo = value;
-					this.SendPropertyChanged("Logo");
-					this.OnLogoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Info", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Info
-		{
-			get
-			{
-				return this._Info;
-			}
-			set
-			{
-				if ((this._Info != value))
-				{
-					this.OnInfoChanging(value);
-					this.SendPropertyChanging();
-					this._Info = value;
-					this.SendPropertyChanged("Info");
-					this.OnInfoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddedDate", DbType="DateTime NOT NULL")]
-		public System.DateTime AddedDate
-		{
-			get
-			{
-				return this._AddedDate;
-			}
-			set
-			{
-				if ((this._AddedDate != value))
-				{
-					this.OnAddedDateChanging(value);
-					this.SendPropertyChanging();
-					this._AddedDate = value;
-					this.SendPropertyChanged("AddedDate");
-					this.OnAddedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChangedDate", DbType="DateTime NOT NULL")]
-		public System.DateTime ChangedDate
-		{
-			get
-			{
-				return this._ChangedDate;
-			}
-			set
-			{
-				if ((this._ChangedDate != value))
-				{
-					this.OnChangedDateChanging(value);
-					this.SendPropertyChanging();
-					this._ChangedDate = value;
-					this.SendPropertyChanged("ChangedDate");
-					this.OnChangedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalLikes", DbType="Int NOT NULL")]
-		public int TotalLikes
-		{
-			get
-			{
-				return this._TotalLikes;
-			}
-			set
-			{
-				if ((this._TotalLikes != value))
-				{
-					this.OnTotalLikesChanging(value);
-					this.SendPropertyChanging();
-					this._TotalLikes = value;
-					this.SendPropertyChanged("TotalLikes");
-					this.OnTotalLikesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_BlogPostOrganization", Storage="_BlogPostOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<BlogPostOrganization> BlogPostOrganizations
-		{
-			get
-			{
-				return this._BlogPostOrganizations;
-			}
-			set
-			{
-				this._BlogPostOrganizations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_DocumentOrganization", Storage="_DocumentOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<DocumentOrganization> DocumentOrganizations
-		{
-			get
-			{
-				return this._DocumentOrganizations;
-			}
-			set
-			{
-				this._DocumentOrganizations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_EventOrganization", Storage="_EventOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<EventOrganization> EventOrganizations
-		{
-			get
-			{
-				return this._EventOrganizations;
-			}
-			set
-			{
-				this._EventOrganizations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationAccess", Storage="_OrganizationAccesses", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<OrganizationAccess> OrganizationAccesses
-		{
-			get
-			{
-				return this._OrganizationAccesses;
-			}
-			set
-			{
-				this._OrganizationAccesses.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationSubject", Storage="_OrganizationSubjects", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<OrganizationSubject> OrganizationSubjects
-		{
-			get
-			{
-				return this._OrganizationSubjects;
-			}
-			set
-			{
-				this._OrganizationSubjects.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationContact", Storage="_OrganizationContacts", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<OrganizationContact> OrganizationContacts
-		{
-			get
-			{
-				return this._OrganizationContacts;
-			}
-			set
-			{
-				this._OrganizationContacts.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationLike", Storage="_OrganizationLikes", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<OrganizationLike> OrganizationLikes
-		{
-			get
-			{
-				return this._OrganizationLikes;
-			}
-			set
-			{
-				this._OrganizationLikes.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationLink", Storage="_OrganizationLinks", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<OrganizationLink> OrganizationLinks
-		{
-			get
-			{
-				return this._OrganizationLinks;
-			}
-			set
-			{
-				this._OrganizationLinks.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRegion", Storage="_OrganizationRegions", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<OrganizationRegion> OrganizationRegions
-		{
-			get
-			{
-				return this._OrganizationRegions;
-			}
-			set
-			{
-				this._OrganizationRegions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PersonOrganization", Storage="_PersonOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<PersonOrganization> PersonOrganizations
-		{
-			get
-			{
-				return this._PersonOrganizations;
-			}
-			set
-			{
-				this._PersonOrganizations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PublicationOrganization", Storage="_PublicationOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<PublicationOrganization> PublicationOrganizations
-		{
-			get
-			{
-				return this._PublicationOrganizations;
-			}
-			set
-			{
-				this._PublicationOrganizations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_StudyMaterialOrganization", Storage="_StudyMaterialOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<StudyMaterialOrganization> StudyMaterialOrganizations
-		{
-			get
-			{
-				return this._StudyMaterialOrganizations;
-			}
-			set
-			{
-				this._StudyMaterialOrganizations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRecordRedirect", Storage="_OrganizationRecordRedirects", ThisKey="ID", OtherKey="OrganizationID")]
-		public EntitySet<OrganizationRecordRedirect> OrganizationRecordRedirects
-		{
-			get
-			{
-				return this._OrganizationRecordRedirects;
-			}
-			set
-			{
-				this._OrganizationRecordRedirects.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Organization", Storage="_User", ThisKey="UserID", OtherKey="ID", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Organizations.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Organizations.Add(this);
-						this._UserID = value.ID;
-					}
-					else
-					{
-						this._UserID = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_BlogPostOrganizations(BlogPostOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_BlogPostOrganizations(BlogPostOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_DocumentOrganizations(DocumentOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_DocumentOrganizations(DocumentOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_EventOrganizations(EventOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_EventOrganizations(EventOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_OrganizationAccesses(OrganizationAccess entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_OrganizationAccesses(OrganizationAccess entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_OrganizationSubjects(OrganizationSubject entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_OrganizationSubjects(OrganizationSubject entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_OrganizationContacts(OrganizationContact entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_OrganizationContacts(OrganizationContact entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_OrganizationLikes(OrganizationLike entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_OrganizationLikes(OrganizationLike entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_OrganizationLinks(OrganizationLink entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_OrganizationLinks(OrganizationLink entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_OrganizationRegions(OrganizationRegion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_OrganizationRegions(OrganizationRegion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_PersonOrganizations(PersonOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_PersonOrganizations(PersonOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_PublicationOrganizations(PublicationOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_PublicationOrganizations(PublicationOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_StudyMaterialOrganizations(StudyMaterialOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_StudyMaterialOrganizations(StudyMaterialOrganization entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
-		}
-		
-		private void attach_OrganizationRecordRedirects(OrganizationRecordRedirect entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = this;
-		}
-		
-		private void detach_OrganizationRecordRedirects(OrganizationRecordRedirect entity)
-		{
-			this.SendPropertyChanging();
-			entity.Organization = null;
 		}
 	}
 	
@@ -21577,9 +20918,9 @@ namespace gender.Model
 		
 		private int _RecordRedirectID;
 		
-		private EntityRef<Organization> _Organization;
-		
 		private EntityRef<RecordRedirect> _RecordRedirect;
+		
+		private EntityRef<Organization> _Organization;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -21595,8 +20936,8 @@ namespace gender.Model
 		
 		public OrganizationRecordRedirect()
 		{
-			this._Organization = default(EntityRef<Organization>);
 			this._RecordRedirect = default(EntityRef<RecordRedirect>);
+			this._Organization = default(EntityRef<Organization>);
 			OnCreated();
 		}
 		
@@ -21668,40 +21009,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRecordRedirect", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Organization Organization
-		{
-			get
-			{
-				return this._Organization.Entity;
-			}
-			set
-			{
-				Organization previousValue = this._Organization.Entity;
-				if (((previousValue != value) 
-							|| (this._Organization.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Organization.Entity = null;
-						previousValue.OrganizationRecordRedirects.Remove(this);
-					}
-					this._Organization.Entity = value;
-					if ((value != null))
-					{
-						value.OrganizationRecordRedirects.Add(this);
-						this._OrganizationID = value.ID;
-					}
-					else
-					{
-						this._OrganizationID = default(int);
-					}
-					this.SendPropertyChanged("Organization");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RecordRedirect_OrganizationRecordRedirect", Storage="_RecordRedirect", ThisKey="RecordRedirectID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public RecordRedirect RecordRedirect
 		{
@@ -21732,6 +21039,40 @@ namespace gender.Model
 						this._RecordRedirectID = default(int);
 					}
 					this.SendPropertyChanged("RecordRedirect");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRecordRedirect", Storage="_Organization", ThisKey="OrganizationID", OtherKey="ID", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Organization Organization
+		{
+			get
+			{
+				return this._Organization.Entity;
+			}
+			set
+			{
+				Organization previousValue = this._Organization.Entity;
+				if (((previousValue != value) 
+							|| (this._Organization.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Organization.Entity = null;
+						previousValue.OrganizationRecordRedirects.Remove(this);
+					}
+					this._Organization.Entity = value;
+					if ((value != null))
+					{
+						value.OrganizationRecordRedirects.Add(this);
+						this._OrganizationID = value.ID;
+					}
+					else
+					{
+						this._OrganizationID = default(int);
+					}
+					this.SendPropertyChanged("Organization");
 				}
 			}
 		}
@@ -27613,8 +26954,6 @@ namespace gender.Model
 		
 		private EntitySet<WebLinkLike> _WebLinkLikes;
 		
-		private EntitySet<Organization> _Organizations;
-		
 		private EntitySet<Document> _Documents;
 		
 		private EntitySet<StudyMaterial> _StudyMaterials;
@@ -27662,6 +27001,8 @@ namespace gender.Model
 		private EntitySet<Mail> _Mails;
 		
 		private EntitySet<Event> _Events;
+		
+		private EntitySet<Organization> _Organizations;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -27717,7 +27058,6 @@ namespace gender.Model
 			this._StudyMaterialLikes = new EntitySet<StudyMaterialLike>(new Action<StudyMaterialLike>(this.attach_StudyMaterialLikes), new Action<StudyMaterialLike>(this.detach_StudyMaterialLikes));
 			this._WebLinkAccesses = new EntitySet<WebLinkAccess>(new Action<WebLinkAccess>(this.attach_WebLinkAccesses), new Action<WebLinkAccess>(this.detach_WebLinkAccesses));
 			this._WebLinkLikes = new EntitySet<WebLinkLike>(new Action<WebLinkLike>(this.attach_WebLinkLikes), new Action<WebLinkLike>(this.detach_WebLinkLikes));
-			this._Organizations = new EntitySet<Organization>(new Action<Organization>(this.attach_Organizations), new Action<Organization>(this.detach_Organizations));
 			this._Documents = new EntitySet<Document>(new Action<Document>(this.attach_Documents), new Action<Document>(this.detach_Documents));
 			this._StudyMaterials = new EntitySet<StudyMaterial>(new Action<StudyMaterial>(this.attach_StudyMaterials), new Action<StudyMaterial>(this.detach_StudyMaterials));
 			this._StudyMaterialAccesses = new EntitySet<StudyMaterialAccess>(new Action<StudyMaterialAccess>(this.attach_StudyMaterialAccesses), new Action<StudyMaterialAccess>(this.detach_StudyMaterialAccesses));
@@ -27742,6 +27082,7 @@ namespace gender.Model
 			this._SubscriptionParts = new EntitySet<SubscriptionPart>(new Action<SubscriptionPart>(this.attach_SubscriptionParts), new Action<SubscriptionPart>(this.detach_SubscriptionParts));
 			this._Mails = new EntitySet<Mail>(new Action<Mail>(this.attach_Mails), new Action<Mail>(this.detach_Mails));
 			this._Events = new EntitySet<Event>(new Action<Event>(this.attach_Events), new Action<Event>(this.detach_Events));
+			this._Organizations = new EntitySet<Organization>(new Action<Organization>(this.attach_Organizations), new Action<Organization>(this.detach_Organizations));
 			OnCreated();
 		}
 		
@@ -28265,19 +27606,6 @@ namespace gender.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Organization", Storage="_Organizations", ThisKey="ID", OtherKey="UserID")]
-		public EntitySet<Organization> Organizations
-		{
-			get
-			{
-				return this._Organizations;
-			}
-			set
-			{
-				this._Organizations.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Document", Storage="_Documents", ThisKey="ID", OtherKey="UserID")]
 		public EntitySet<Document> Documents
 		{
@@ -28590,6 +27918,19 @@ namespace gender.Model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Organization", Storage="_Organizations", ThisKey="ID", OtherKey="UserID")]
+		public EntitySet<Organization> Organizations
+		{
+			get
+			{
+				return this._Organizations;
+			}
+			set
+			{
+				this._Organizations.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -28845,18 +28186,6 @@ namespace gender.Model
 		}
 		
 		private void detach_WebLinkLikes(WebLinkLike entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
-		}
-		
-		private void attach_Organizations(Organization entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_Organizations(Organization entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
@@ -29145,6 +28474,18 @@ namespace gender.Model
 		}
 		
 		private void detach_Events(Event entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_Organizations(Organization entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Organizations(Organization entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
@@ -32472,6 +31813,689 @@ namespace gender.Model
 		{
 			this.SendPropertyChanging();
 			entity.Event = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Organization")]
+	public partial class Organization : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _UserID;
+		
+		private string _Name;
+		
+		private string _Url;
+		
+		private string _Logo;
+		
+		private string _Info;
+		
+		private System.DateTime _AddedDate;
+		
+		private System.DateTime _ChangedDate;
+		
+		private System.Nullable<System.DateTime> _ModeratedDate;
+		
+		private int _TotalLikes;
+		
+		private EntitySet<BlogPostOrganization> _BlogPostOrganizations;
+		
+		private EntitySet<DocumentOrganization> _DocumentOrganizations;
+		
+		private EntitySet<EventOrganization> _EventOrganizations;
+		
+		private EntitySet<OrganizationAccess> _OrganizationAccesses;
+		
+		private EntitySet<OrganizationSubject> _OrganizationSubjects;
+		
+		private EntitySet<OrganizationContact> _OrganizationContacts;
+		
+		private EntitySet<OrganizationLike> _OrganizationLikes;
+		
+		private EntitySet<OrganizationLink> _OrganizationLinks;
+		
+		private EntitySet<OrganizationRegion> _OrganizationRegions;
+		
+		private EntitySet<PersonOrganization> _PersonOrganizations;
+		
+		private EntitySet<PublicationOrganization> _PublicationOrganizations;
+		
+		private EntitySet<StudyMaterialOrganization> _StudyMaterialOrganizations;
+		
+		private EntitySet<OrganizationRecordRedirect> _OrganizationRecordRedirects;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnUrlChanging(string value);
+    partial void OnUrlChanged();
+    partial void OnLogoChanging(string value);
+    partial void OnLogoChanged();
+    partial void OnInfoChanging(string value);
+    partial void OnInfoChanged();
+    partial void OnAddedDateChanging(System.DateTime value);
+    partial void OnAddedDateChanged();
+    partial void OnChangedDateChanging(System.DateTime value);
+    partial void OnChangedDateChanged();
+    partial void OnModeratedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnModeratedDateChanged();
+    partial void OnTotalLikesChanging(int value);
+    partial void OnTotalLikesChanged();
+    #endregion
+		
+		public Organization()
+		{
+			this._BlogPostOrganizations = new EntitySet<BlogPostOrganization>(new Action<BlogPostOrganization>(this.attach_BlogPostOrganizations), new Action<BlogPostOrganization>(this.detach_BlogPostOrganizations));
+			this._DocumentOrganizations = new EntitySet<DocumentOrganization>(new Action<DocumentOrganization>(this.attach_DocumentOrganizations), new Action<DocumentOrganization>(this.detach_DocumentOrganizations));
+			this._EventOrganizations = new EntitySet<EventOrganization>(new Action<EventOrganization>(this.attach_EventOrganizations), new Action<EventOrganization>(this.detach_EventOrganizations));
+			this._OrganizationAccesses = new EntitySet<OrganizationAccess>(new Action<OrganizationAccess>(this.attach_OrganizationAccesses), new Action<OrganizationAccess>(this.detach_OrganizationAccesses));
+			this._OrganizationSubjects = new EntitySet<OrganizationSubject>(new Action<OrganizationSubject>(this.attach_OrganizationSubjects), new Action<OrganizationSubject>(this.detach_OrganizationSubjects));
+			this._OrganizationContacts = new EntitySet<OrganizationContact>(new Action<OrganizationContact>(this.attach_OrganizationContacts), new Action<OrganizationContact>(this.detach_OrganizationContacts));
+			this._OrganizationLikes = new EntitySet<OrganizationLike>(new Action<OrganizationLike>(this.attach_OrganizationLikes), new Action<OrganizationLike>(this.detach_OrganizationLikes));
+			this._OrganizationLinks = new EntitySet<OrganizationLink>(new Action<OrganizationLink>(this.attach_OrganizationLinks), new Action<OrganizationLink>(this.detach_OrganizationLinks));
+			this._OrganizationRegions = new EntitySet<OrganizationRegion>(new Action<OrganizationRegion>(this.attach_OrganizationRegions), new Action<OrganizationRegion>(this.detach_OrganizationRegions));
+			this._PersonOrganizations = new EntitySet<PersonOrganization>(new Action<PersonOrganization>(this.attach_PersonOrganizations), new Action<PersonOrganization>(this.detach_PersonOrganizations));
+			this._PublicationOrganizations = new EntitySet<PublicationOrganization>(new Action<PublicationOrganization>(this.attach_PublicationOrganizations), new Action<PublicationOrganization>(this.detach_PublicationOrganizations));
+			this._StudyMaterialOrganizations = new EntitySet<StudyMaterialOrganization>(new Action<StudyMaterialOrganization>(this.attach_StudyMaterialOrganizations), new Action<StudyMaterialOrganization>(this.detach_StudyMaterialOrganizations));
+			this._OrganizationRecordRedirects = new EntitySet<OrganizationRecordRedirect>(new Action<OrganizationRecordRedirect>(this.attach_OrganizationRecordRedirects), new Action<OrganizationRecordRedirect>(this.detach_OrganizationRecordRedirects));
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
+		public int UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Url
+		{
+			get
+			{
+				return this._Url;
+			}
+			set
+			{
+				if ((this._Url != value))
+				{
+					this.OnUrlChanging(value);
+					this.SendPropertyChanging();
+					this._Url = value;
+					this.SendPropertyChanged("Url");
+					this.OnUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Logo", DbType="NVarChar(150)")]
+		public string Logo
+		{
+			get
+			{
+				return this._Logo;
+			}
+			set
+			{
+				if ((this._Logo != value))
+				{
+					this.OnLogoChanging(value);
+					this.SendPropertyChanging();
+					this._Logo = value;
+					this.SendPropertyChanged("Logo");
+					this.OnLogoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Info", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Info
+		{
+			get
+			{
+				return this._Info;
+			}
+			set
+			{
+				if ((this._Info != value))
+				{
+					this.OnInfoChanging(value);
+					this.SendPropertyChanging();
+					this._Info = value;
+					this.SendPropertyChanged("Info");
+					this.OnInfoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddedDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AddedDate
+		{
+			get
+			{
+				return this._AddedDate;
+			}
+			set
+			{
+				if ((this._AddedDate != value))
+				{
+					this.OnAddedDateChanging(value);
+					this.SendPropertyChanging();
+					this._AddedDate = value;
+					this.SendPropertyChanged("AddedDate");
+					this.OnAddedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChangedDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ChangedDate
+		{
+			get
+			{
+				return this._ChangedDate;
+			}
+			set
+			{
+				if ((this._ChangedDate != value))
+				{
+					this.OnChangedDateChanging(value);
+					this.SendPropertyChanging();
+					this._ChangedDate = value;
+					this.SendPropertyChanged("ChangedDate");
+					this.OnChangedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModeratedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ModeratedDate
+		{
+			get
+			{
+				return this._ModeratedDate;
+			}
+			set
+			{
+				if ((this._ModeratedDate != value))
+				{
+					this.OnModeratedDateChanging(value);
+					this.SendPropertyChanging();
+					this._ModeratedDate = value;
+					this.SendPropertyChanged("ModeratedDate");
+					this.OnModeratedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalLikes", DbType="Int NOT NULL")]
+		public int TotalLikes
+		{
+			get
+			{
+				return this._TotalLikes;
+			}
+			set
+			{
+				if ((this._TotalLikes != value))
+				{
+					this.OnTotalLikesChanging(value);
+					this.SendPropertyChanging();
+					this._TotalLikes = value;
+					this.SendPropertyChanged("TotalLikes");
+					this.OnTotalLikesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_BlogPostOrganization", Storage="_BlogPostOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<BlogPostOrganization> BlogPostOrganizations
+		{
+			get
+			{
+				return this._BlogPostOrganizations;
+			}
+			set
+			{
+				this._BlogPostOrganizations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_DocumentOrganization", Storage="_DocumentOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<DocumentOrganization> DocumentOrganizations
+		{
+			get
+			{
+				return this._DocumentOrganizations;
+			}
+			set
+			{
+				this._DocumentOrganizations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_EventOrganization", Storage="_EventOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<EventOrganization> EventOrganizations
+		{
+			get
+			{
+				return this._EventOrganizations;
+			}
+			set
+			{
+				this._EventOrganizations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationAccess", Storage="_OrganizationAccesses", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<OrganizationAccess> OrganizationAccesses
+		{
+			get
+			{
+				return this._OrganizationAccesses;
+			}
+			set
+			{
+				this._OrganizationAccesses.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationSubject", Storage="_OrganizationSubjects", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<OrganizationSubject> OrganizationSubjects
+		{
+			get
+			{
+				return this._OrganizationSubjects;
+			}
+			set
+			{
+				this._OrganizationSubjects.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationContact", Storage="_OrganizationContacts", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<OrganizationContact> OrganizationContacts
+		{
+			get
+			{
+				return this._OrganizationContacts;
+			}
+			set
+			{
+				this._OrganizationContacts.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationLike", Storage="_OrganizationLikes", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<OrganizationLike> OrganizationLikes
+		{
+			get
+			{
+				return this._OrganizationLikes;
+			}
+			set
+			{
+				this._OrganizationLikes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationLink", Storage="_OrganizationLinks", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<OrganizationLink> OrganizationLinks
+		{
+			get
+			{
+				return this._OrganizationLinks;
+			}
+			set
+			{
+				this._OrganizationLinks.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRegion", Storage="_OrganizationRegions", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<OrganizationRegion> OrganizationRegions
+		{
+			get
+			{
+				return this._OrganizationRegions;
+			}
+			set
+			{
+				this._OrganizationRegions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PersonOrganization", Storage="_PersonOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<PersonOrganization> PersonOrganizations
+		{
+			get
+			{
+				return this._PersonOrganizations;
+			}
+			set
+			{
+				this._PersonOrganizations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_PublicationOrganization", Storage="_PublicationOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<PublicationOrganization> PublicationOrganizations
+		{
+			get
+			{
+				return this._PublicationOrganizations;
+			}
+			set
+			{
+				this._PublicationOrganizations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_StudyMaterialOrganization", Storage="_StudyMaterialOrganizations", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<StudyMaterialOrganization> StudyMaterialOrganizations
+		{
+			get
+			{
+				return this._StudyMaterialOrganizations;
+			}
+			set
+			{
+				this._StudyMaterialOrganizations.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Organization_OrganizationRecordRedirect", Storage="_OrganizationRecordRedirects", ThisKey="ID", OtherKey="OrganizationID")]
+		public EntitySet<OrganizationRecordRedirect> OrganizationRecordRedirects
+		{
+			get
+			{
+				return this._OrganizationRecordRedirects;
+			}
+			set
+			{
+				this._OrganizationRecordRedirects.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Organization", Storage="_User", ThisKey="UserID", OtherKey="ID", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Organizations.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Organizations.Add(this);
+						this._UserID = value.ID;
+					}
+					else
+					{
+						this._UserID = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_BlogPostOrganizations(BlogPostOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_BlogPostOrganizations(BlogPostOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_DocumentOrganizations(DocumentOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_DocumentOrganizations(DocumentOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_EventOrganizations(EventOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_EventOrganizations(EventOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_OrganizationAccesses(OrganizationAccess entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_OrganizationAccesses(OrganizationAccess entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_OrganizationSubjects(OrganizationSubject entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_OrganizationSubjects(OrganizationSubject entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_OrganizationContacts(OrganizationContact entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_OrganizationContacts(OrganizationContact entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_OrganizationLikes(OrganizationLike entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_OrganizationLikes(OrganizationLike entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_OrganizationLinks(OrganizationLink entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_OrganizationLinks(OrganizationLink entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_OrganizationRegions(OrganizationRegion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_OrganizationRegions(OrganizationRegion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_PersonOrganizations(PersonOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_PersonOrganizations(PersonOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_PublicationOrganizations(PublicationOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_PublicationOrganizations(PublicationOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_StudyMaterialOrganizations(StudyMaterialOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_StudyMaterialOrganizations(StudyMaterialOrganization entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
+		}
+		
+		private void attach_OrganizationRecordRedirects(OrganizationRecordRedirect entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = this;
+		}
+		
+		private void detach_OrganizationRecordRedirects(OrganizationRecordRedirect entity)
+		{
+			this.SendPropertyChanging();
+			entity.Organization = null;
 		}
 	}
 }

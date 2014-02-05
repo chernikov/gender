@@ -13,10 +13,15 @@ namespace gender.Model
 
         string TypeUrl { get; }
 
+        string ClassName { get; }
+
         string Name { get; }
 
         string MaterialType { get; }
 
         IList<User> CommentSubscribers { get; }
+
+        string DefaultUrl { get; }
+
     }
 }

@@ -13,7 +13,8 @@
                _this.ajaxUploadAttach,
                function (event, id, name, responseJSON)
                {
-                   if (responseJSON.success) {
+                   if (responseJSON.success)
+                   {
                        _this.createFile(responseJSON);
                    } else {
                        alert(responseJSON.error);

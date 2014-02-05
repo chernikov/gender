@@ -22,13 +22,13 @@ namespace gender.Areas.Default.Controllers
             switch ((Organization.Type)type)
             {
                 case Organization.Type.World :
-                    list = Repository.Organizations.Where(p => p.OrganizationRegions.Any(r => r.Region.ID == 1));
+                    list = Repository.Organizations.Where(p => p.ModeratedDate.HasValue && p.OrganizationRegions.Any(r => r.Region.ID == 1));
                     break;
                 case Organization.Type.Russia:
-                    list = Repository.Organizations.Where(p => p.OrganizationRegions.Any(r => r.Region.ID == 2 || r.Region.ParentID == 2));
+                    list = Repository.Organizations.Where(p => p.ModeratedDate.HasValue &&  p.OrganizationRegions.Any(r => r.Region.ID == 2 || r.Region.ParentID == 2));
                     break;
                 case Organization.Type.Other:
-                    list = Repository.Organizations.Where(p => p.OrganizationRegions.Any(r => r.Region.ParentID == 1 && r.Region.ID != 2 && r.Region.ParentID != 2));
+                    list = Repository.Organizations.Where(p => p.ModeratedDate.HasValue &&  p.OrganizationRegions.Any(r => r.Region.ParentID == 1 && r.Region.ID != 2 && r.Region.ParentID != 2));
                     break;
             }
 

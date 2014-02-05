@@ -97,7 +97,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemoveImage(image.ID);
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult Access(int id)

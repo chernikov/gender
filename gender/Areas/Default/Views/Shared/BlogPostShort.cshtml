@@ -16,26 +16,25 @@
             <div class="pull-right">
                 <a class="btn" href="@Url.Action("Item", "Blog", new { url = Model.Url })">Читать далее &raquo;</a>
             </div>
-
-            @if (Model.SubSubjects.Any())
-            {
+        </p>
+        @if (Model.SubSubjects.Any())
+        {
             <p class="commas">
                 @foreach (var subject in Model.SubSubjects)
                 {
                     <span class="subject"><i class="icon-tags gray"></i>&nbsp;@subject.Name</span>
                 }
             </p>
-            }
-            @if (Model.SubRegions.Any())
-            {
-                <p class="commas">
-                    @foreach (var region in Model.SubRegions)
-                    {
-                        <span class="subject"><i class="icon-map-marker gray"></i>&nbsp;@region.Name</span>
-                    }
-                </p>
-            }
+        }
+        @if (Model.SubRegions.Any())
+        {
+            <p class="commas">
+                @foreach (var region in Model.SubRegions)
+                {
+                    <span class="subject"><i class="icon-map-marker gray"></i>&nbsp;@region.Name</span>
+                }
             </p>
-            <div class="clearfix"></div>
-        </div>
+        }
+        <div class="clearfix"></div>
     </div>
+</div>

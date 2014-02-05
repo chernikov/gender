@@ -186,9 +186,12 @@ namespace gender.Areas.Admin.Controllers
         {
             if (id != CurrentUser.Person.ID)
             {
-                Repository.RemoveUser(id);
+                if (!Repository.RemoveUser(id))
+                {
+                    TempData["error"] = "Не удалось удалить";
+                }
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         [Authorize(Roles = "admin")]

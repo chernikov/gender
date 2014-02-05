@@ -114,7 +114,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemoveStudyMaterial(studymaterial.ID);
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult Access(int id)

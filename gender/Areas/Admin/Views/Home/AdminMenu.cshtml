@@ -4,6 +4,7 @@
             <li class="nav-header">Пользователи</li>
             <li>@Html.ActionLink("Пользователи", "Index", "User")</li>
             <li>@Html.ActionLink("Блоги", "Index", "Blog")</li>
+            <li>@Html.ActionLink("Все посты", "Posts", "Blog")</li>
             <li class="nav-header">Темы</li>
             <li>@Html.ActionLink("Страны и регионы", "Index", "Region")</li>
             <li>@Html.ActionLink("Темы", "Index", "Subject")</li>
@@ -17,6 +18,9 @@
             <li>@Html.ActionLink("Учебные материалы", "Index", "StudyMaterial")</li>
             <li>@Html.ActionLink("Веб-ресурсы", "Index", "WebLink")</li>
             <li>@Html.ActionLink("Статьи в глоссарии", "Index", "Article")</li>
+            <li>
+                <a href="@Url.Action("Index", "Moderate")">Модерация @Html.Action("Count", "Moderate")</a>
+            </li>
             <li class="nav-header">Редиректы</li>
             <li>@Html.ActionLink("Обычные", "Index", "Redirect")</li>
             <li>@Html.ActionLink("Для карточек", "Index", "RecordRedirect")</li>

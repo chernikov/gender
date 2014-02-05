@@ -73,7 +73,7 @@ namespace gender.Areas.Admin.Controllers
             {
                     Repository.RemoveSubscriptionTemplate(subscriptiontemplate.ID);
             }
-			return RedirectToAction("Index");
+            return RedirectBack;
         }
 	}
 }

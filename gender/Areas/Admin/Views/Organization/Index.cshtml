@@ -4,29 +4,37 @@
     ViewBag.Title = "Организации";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@section header 
+@section header
 {
     <script type="text/javascript" src="/Scripts/admin/index-organization.js"></script>
     <script type="text/javascript" src="/Scripts/common/select-user.js"></script>
 }
-<h2>Организации
+<h2>
+    Организации
 </h2>
 @Html.ActionLink("Добавить", "Create", "Organization", null, new { @class = "btn" })
 <table class="table">
     <thead>
         <tr>
-            <th>#
+            <th>
+                #
             </th>
-            <th>Автор
+            <th>
+                Автор
             </th>
-            <th>Наименование
+            <th>
+                Наименование
             </th>
-            <th>Логотип
+            <th>
+                Логотип
             </th>
-            <th>Страна или регион
+            <th>
+                Страна или регион
             </th>
-            <th>Тема
+            <th>
+                Тема
             </th>
+            <th>Отмодерировано</th>
             <th></th>
         </tr>
     </thead>
@@ -44,21 +52,37 @@
                 <a href="@Url.Action("Item", "Organization", new {url = item.Url })">@item.Name</a>
             </td>
             <td>
-                @if (!string.IsNullOrWhiteSpace(item.Logo)) 
+                @if (!string.IsNullOrWhiteSpace(item.Logo))
                 {
-                <img src="@item.Logo?width=200&height=100" />
+                    <img src="@item.Logo?width=200&height=100" />
                 }
             </td>
-             <td>
+            <td>
                 @foreach (var city in item.SubRegions)
                 {
                     <span class="label">@city.Name</span>
                 }
             </td>
-             <td>
-                @foreach (var subject in item.SubSubjects)
+            <td>
+                <dl>
+
+                    @foreach (var subject in item.SubSubjects)
+                    {
+                        <dd> @subject.Name </dd>
+                    }
+
+                </dl>
+            </td>
+            <td>
+                @if (item.ModeratedDate.HasValue)
                 {
-                    <span class="label">@subject.Name</span>
+                    @item.ModeratedDate.Value.ToString("dd.MM.yyyy")
+                }
+                else
+                {
+                    <a href="@Url.Action("Moderate", "Organization", new { id = item.ID})" class="btn btn-mini">
+                        Отмодерировать
+                    </a>
                 }
             </td>
             <td>

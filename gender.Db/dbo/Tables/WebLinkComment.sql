@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[WebLinkComment] (
+    [ID]        INT IDENTITY (1, 1) NOT NULL,
+    [WebLinkID] INT NOT NULL,
+    [CommentID] INT NOT NULL,
+    CONSTRAINT [PK_WebLinkComment] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_WebLinkComment_Comment] FOREIGN KEY ([CommentID]) REFERENCES [dbo].[Comment] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_WebLinkComment_WebLink] FOREIGN KEY ([WebLinkID]) REFERENCES [dbo].[WebLink] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+

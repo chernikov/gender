@@ -105,6 +105,11 @@ namespace gender.Model
             get { return "blog"; }
         }
 
+        public string ClassName
+        {
+            get { return "BlogPost"; }
+        }
+
         public string Name
         {
             get { return Header; }
@@ -120,6 +125,14 @@ namespace gender.Model
             get
             {
                 return BlogPostSubscriptions.Select(p => p.User).ToList(); 
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/blog/" + Url;
             }
         }
     }

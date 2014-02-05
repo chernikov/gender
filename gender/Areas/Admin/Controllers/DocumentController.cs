@@ -112,7 +112,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemoveDocument(document.ID);
             }
-			return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult Moderate(int id)

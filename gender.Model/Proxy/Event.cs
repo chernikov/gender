@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace gender.Model
-{ 
-    public partial class Event : IMaterial
+{
+    public partial class Event : IModerable, IMaterial
     {
         public enum Type
         {
@@ -137,6 +137,11 @@ namespace gender.Model
             get { return Header; }
         }
 
+        public string ClassName
+        {
+            get { return "Event"; }
+        }
+
         public string MaterialType
         {
             get { return "События"; }
@@ -147,6 +152,14 @@ namespace gender.Model
             get
             {
                 return EventSubscriptions.Select(p => p.User).ToList();
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/events/" + Url;
             }
         }
     }

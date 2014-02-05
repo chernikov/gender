@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace gender.Model
-{ 
-    public partial class Organization : IMaterial
+{
+    public partial class Organization : IModerable, IMaterial
     {
         public enum Type : int
         {
@@ -209,11 +209,24 @@ namespace gender.Model
             get { return "Организации"; }
         }
 
+        public string ClassName
+        {
+            get { return "Organization"; }
+        }
+
         public IList<User> CommentSubscribers
         {
             get
             {
                 return null;
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/organization/" + Url;
             }
         }
     }

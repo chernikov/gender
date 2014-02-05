@@ -120,7 +120,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemoveEvent(@event.ID);
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult SelectEvent(string term)

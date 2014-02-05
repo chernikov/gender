@@ -19,6 +19,10 @@
             }
         </div>
         <div class="span5">
+            @if (!Model.ModeratedDate.HasValue)
+            {
+                <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
+            }
             <h2 class="post-title">
                 @Model.Name
                 @if (currentUser != null && currentUser.CanEdit(Model))

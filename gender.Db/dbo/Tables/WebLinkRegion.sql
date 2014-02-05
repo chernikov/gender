@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[WebLinkRegion] (
+    [ID]        INT IDENTITY (1, 1) NOT NULL,
+    [WebLinkID] INT NOT NULL,
+    [RegionID]  INT NOT NULL,
+    CONSTRAINT [PK_WebLinkRegion] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_WebLinkRegion_Region] FOREIGN KEY ([RegionID]) REFERENCES [dbo].[Region] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_WebLinkRegion_WebLink] FOREIGN KEY ([WebLinkID]) REFERENCES [dbo].[WebLink] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+

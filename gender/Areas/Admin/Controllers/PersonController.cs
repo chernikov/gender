@@ -111,9 +111,12 @@ namespace gender.Areas.Admin.Controllers
             var person = Repository.Persons.FirstOrDefault(p => p.ID == id);
             if (person != null)
             {
-                Repository.RemovePerson(person.ID);
+                if (!Repository.RemovePerson(person.ID))
+                {
+                    TempData["error"] = "Не удалось удалить";
+                }
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult Access(int id)

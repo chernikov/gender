@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[WebLinkLike] (
+    [ID]        INT IDENTITY (1, 1) NOT NULL,
+    [WebLinkID] INT NOT NULL,
+    [UserID]    INT NOT NULL,
+    [IsLike]    BIT NOT NULL,
+    CONSTRAINT [PK_WebLinkLike] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_WebLinkLike_User] FOREIGN KEY ([UserID]) REFERENCES [dbo].[User] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_WebLinkLike_WebLink] FOREIGN KEY ([WebLinkID]) REFERENCES [dbo].[WebLink] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+

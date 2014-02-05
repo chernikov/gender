@@ -1,0 +1,21 @@
+﻿@model gender.Models.ViewModels.BlogPostTagsView
+
+@using (Html.BeginForm("Edit", "Blog", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.Hidden("_ID", Model._ID)
+        <label class="control-label" for="SubjectList">
+            Темы
+        </label>
+        <div class="controls">
+            @Html.ListBox("SubjectList", Model.SelectListSubjects, new { @class = "input-xlarge chzn-select SubjectList", id = "SubjectList_"+ Model._ID})
+        </div>
+        <label class="control-label" for="RegionList">
+            Страны и регионы
+        </label>
+        <div class="controls">
+            @Html.ListBox("RegionList", Model.SelectListRegions, new { @class = "input-xlarge chzn-select RegionList", id = "RegionList_" + Model._ID })
+        </div>
+        <button type="submit" class="btn btn-primary btn-mini SubmitBlogTagForm">
+            Сохранить
+        </button>
+}

@@ -93,5 +93,18 @@ namespace gender.Model
             }
             return false;
         }
+
+        public bool ModerateOrganization(int idOrganization)
+        {
+            var instance = Db.Organizations.FirstOrDefault(p => p.ID == idOrganization);
+            if (instance != null)
+            {
+                instance.ModeratedDate = DateTime.Now;
+                Db.Organizations.Context.SubmitChanges();
+                return true;
+            }
+            return false;
+        }
+
     }
 }

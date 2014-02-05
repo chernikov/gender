@@ -1,32 +1,60 @@
 ﻿@model gender.Model.Person
-<div class="span4 short-item">
-    <div class="white-card">
-        <div class="img-w clearfix">
-            <div class="white-card">
-                @if (!string.IsNullOrWhiteSpace(Model.Photo))
-                {
-                    <a href="@Url.Action("Item", "Person", new { url = Model.Url })">
-                        <img alt="Photo-card" src="@Model.Photo?width=150&height=200&scale=both&mode=crop">
-                    </a>
-                }
-                else
-                {
-                    <i class='icon-user big'></i>
-                }
-            </div>
+
+
+<div class="single-post-w">
+
+    <div class="row clearfix">
+        <div class="span2">
+            @if (!string.IsNullOrWhiteSpace(Model.Photo))
+            {
+                <div class="white-card">
+                    <img src="@Model.Photo?width=200&height=200&scale=both&mode=crop" alt="@Model.FullName" />
+                </div>
+            }
+            else
+            {
+                <div class="white-card">
+                    <i class="icon-user big"></i>
+                </div>
+            }
         </div>
-        <h5>
-            <a href="@Url.Action("Item", "Person", new { url = Model.Url })">@Model.FullName</a>
-        </h5>
-        <div class="info">
+        <div class="span5">
+            @if (!Model.ModeratedDate.HasValue)
+            {
+                <div class="value label label-info">Страница на модерации!</div><p>&nbsp;</p>
+            }
+            <h2 class="post-title">
+                <a href="@Url.Action("Item", "Person", new { url = Model.Url })">
+                    @Model.LastName
+                    @Model.FirstName @Model.Patronymic
+                </a>
+            </h2>
+            @if (Model.SiteUser != null)
+            {
+                <p>
+                    <span class="label label-info">+@Model.SiteUser.Rating</span>
+                </p>
+            }
+            @if (Model.SubRegions.Any())
+            {
+                <p>
+                    @foreach (var item in Model.SubRegions)
+                    {
+                        <span>
+                            <i class="icon-map-marker"></i>&nbsp;
+                            <a href="@Url.Action("Item", "Region", new { path = item.FullUrl })">@item.Name</a>
+                        </span>
+                    }
+                </p>
+            }
             @if (Model.SubSubjects.Any())
             {
                 <span class="info-item commas">
                     Интересы:
                     @foreach (var subject in Model.SubSubjects)
-{
-    <span class="subject"><i class="icon-tags gray"></i>@subject.Name</span>
-}
+                    {
+                        <span class="subject"><i class="icon-tags gray"></i>@subject.Name</span>
+                    }
                 </span>     <br />
             }
             @if (Model.PublicationCount > 0)

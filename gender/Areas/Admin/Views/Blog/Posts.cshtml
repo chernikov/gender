@@ -1,0 +1,41 @@
+﻿@model gender.Model.PageableData<gender.Model.BlogPost>
+
+@{
+    ViewBag.Title = "Посты";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutChosenOld.cshtml";
+}
+
+@section header 
+{
+    <script type="text/javascript" src="/Scripts/admin/blogpost-tags.js"></script>
+}
+<h2>Посты</h2>
+
+@foreach (var post in Model.List)
+{
+    <div class="blog-short">
+        <div class="white-card">
+            <h5><a href="@Url.Action("Item", "Blog", new { url = post.Url, area="Default" })">@post.Header</a></h5>
+            <p>
+                <i class="icon-calendar"></i>&nbsp;@post.AddedDate.ToString("dd MMMM yyyy") | <i class="icon-user"></i>&nbsp;@post.Blog.User.Person.FullName | <i class="icon-comments-alt">
+                </i>&nbsp;@post.CommentCount  @post.CommentCount.CountWord("комментарий", "комментария", "комментариев")
+            </p>
+            <p>
+                @Html.Raw(post.Teaser.NlToBr())
+            </p>
+            <hr />
+            <p>
+                <div class="pull-right">
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "BlogPost", new { id = post.ID })">Редактировать</a>
+                </div>
+            </p>
+            @Html.Action("BlogTags", "Blog", new {id = post.ID })
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+}
+
+<div class="pager">
+    @Html.PageLinks(Model.PageNo, Model.CountPage, x => Url.Action(Model.Action, new { page = x }))
+</div>

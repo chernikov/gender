@@ -133,8 +133,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="BlogPostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_BlogPostOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="BlogPost_BlogPostOrganization" Member="BlogPost" ThisKey="BlogPostID" OtherKey="ID" Type="BlogPost" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_BlogPostOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.BlogPostPerson" Member="BlogPostPersons">
@@ -197,8 +197,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_DocumentOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Document_DocumentOrganization" Member="Document" ThisKey="DocumentID" OtherKey="ID" Type="Document" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_DocumentOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.DocumentComment" Member="DocumentComments">
@@ -270,8 +270,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_EventOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Event_EventOrganization" Member="Event" ThisKey="EventID" OtherKey="ID" Type="Event" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_EventOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.EventPerson" Member="EventPersons">
@@ -361,8 +361,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_OrganizationAccess" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="User_OrganizationAccess" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+      <Association Name="Organization_OrganizationAccess" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.OrganizationSubject" Member="OrganizationSubjects">
@@ -370,8 +370,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_OrganizationSubject" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Subject_OrganizationSubject" Member="Subject" ThisKey="SubjectID" OtherKey="ID" Type="Subject" IsForeignKey="true" />
+      <Association Name="Organization_OrganizationSubject" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.OrganizationContact" Member="OrganizationContacts">
@@ -389,8 +389,8 @@
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IsLike" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_OrganizationLike" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="User_OrganizationLike" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_OrganizationLike" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.OrganizationLink" Member="OrganizationLinks">
@@ -407,8 +407,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_OrganizationRegion" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Region_OrganizationRegion" Member="Region" ThisKey="RegionID" OtherKey="ID" Type="Region" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_OrganizationRegion" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.PersonAccess" Member="PersonAccesses">
@@ -452,8 +452,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_PersonOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Person_PersonOrganization" Member="Person" ThisKey="PersonID" OtherKey="ID" Type="Person" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_PersonOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.PublicationAccess" Member="PublicationAccesses">
@@ -517,8 +517,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PublicationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_PublicationOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Publication_PublicationOrganization" Member="Publication" ThisKey="PublicationID" OtherKey="ID" Type="Publication" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_PublicationOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.PublicationPerson" Member="PublicationPersons">
@@ -654,8 +654,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="StudyMaterialID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_StudyMaterialOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="StudyMaterial_StudyMaterialOrganization" Member="StudyMaterial" ThisKey="StudyMaterialID" OtherKey="ID" Type="StudyMaterial" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_StudyMaterialOrganization" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.[File]" Member="Files">
@@ -670,33 +670,6 @@
       <Association Name="File_EventFile" Member="EventFiles" ThisKey="ID" OtherKey="FileID" Type="EventFile" />
       <Association Name="File_PublicationFile" Member="PublicationFiles" ThisKey="ID" OtherKey="FileID" Type="PublicationFile" />
       <Association Name="File_StudyMaterialFile" Member="StudyMaterialFiles" ThisKey="ID" OtherKey="FileID" Type="StudyMaterialFile" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Organization" Member="Organizations">
-    <Type Name="Organization">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
-      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
-      <Column Name="Logo" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Column Name="Info" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_BlogPostOrganization" Member="BlogPostOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="BlogPostOrganization" />
-      <Association Name="Organization_DocumentOrganization" Member="DocumentOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="DocumentOrganization" />
-      <Association Name="Organization_EventOrganization" Member="EventOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="EventOrganization" />
-      <Association Name="Organization_OrganizationAccess" Member="OrganizationAccesses" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationAccess" />
-      <Association Name="Organization_OrganizationSubject" Member="OrganizationSubjects" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationSubject" />
-      <Association Name="Organization_OrganizationContact" Member="OrganizationContacts" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationContact" />
-      <Association Name="Organization_OrganizationLike" Member="OrganizationLikes" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationLike" />
-      <Association Name="Organization_OrganizationLink" Member="OrganizationLinks" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationLink" />
-      <Association Name="Organization_OrganizationRegion" Member="OrganizationRegions" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationRegion" />
-      <Association Name="Organization_PersonOrganization" Member="PersonOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="PersonOrganization" />
-      <Association Name="Organization_PublicationOrganization" Member="PublicationOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="PublicationOrganization" />
-      <Association Name="Organization_StudyMaterialOrganization" Member="StudyMaterialOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="StudyMaterialOrganization" />
-      <Association Name="Organization_OrganizationRecordRedirect" Member="OrganizationRecordRedirects" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationRecordRedirect" />
-      <Association Name="User_Organization" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Article" Member="Articles">
@@ -933,8 +906,8 @@
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="OrganizationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RecordRedirectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Organization_OrganizationRecordRedirect" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="RecordRedirect_OrganizationRecordRedirect" Member="RecordRedirect" ThisKey="RecordRedirectID" OtherKey="ID" Type="RecordRedirect" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Organization_OrganizationRecordRedirect" Member="Organization" ThisKey="OrganizationID" OtherKey="ID" Type="Organization" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.PersonRecordRedirect" Member="PersonRecordRedirects">
@@ -1233,7 +1206,6 @@
       <Association Name="User_StudyMaterialLike" Member="StudyMaterialLikes" ThisKey="ID" OtherKey="UserID" Type="StudyMaterialLike" />
       <Association Name="User_WebLinkAccess" Member="WebLinkAccesses" ThisKey="ID" OtherKey="UserID" Type="WebLinkAccess" />
       <Association Name="User_WebLinkLike" Member="WebLinkLikes" ThisKey="ID" OtherKey="UserID" Type="WebLinkLike" />
-      <Association Name="User_Organization" Member="Organizations" ThisKey="ID" OtherKey="UserID" Type="Organization" />
       <Association Name="User_Document" Member="Documents" ThisKey="ID" OtherKey="UserID" Type="Document" />
       <Association Name="User_StudyMaterial" Member="StudyMaterials" ThisKey="ID" OtherKey="UserID" Type="StudyMaterial" />
       <Association Name="User_StudyMaterialAccess" Member="StudyMaterialAccesses" ThisKey="ID" OtherKey="UserID" Type="StudyMaterialAccess" />
@@ -1258,6 +1230,7 @@
       <Association Name="User_SubscriptionPart" Member="SubscriptionParts" ThisKey="ID" OtherKey="UserID" Type="SubscriptionPart" />
       <Association Name="User_Mail" Member="Mails" ThisKey="ID" OtherKey="UserID" Type="Mail" />
       <Association Name="User_Event" Member="Events" ThisKey="ID" OtherKey="UserID" Type="Event" />
+      <Association Name="User_Organization" Member="Organizations" ThisKey="ID" OtherKey="UserID" Type="Organization" />
     </Type>
   </Table>
   <Table Name="dbo.BlogPostLike" Member="BlogPostLikes">
@@ -1408,6 +1381,34 @@
       <Association Name="Event_EventRecordRedirect" Member="EventRecordRedirects" ThisKey="ID" OtherKey="EventID" Type="EventRecordRedirect" />
       <Association Name="Event_EventSubscription" Member="EventSubscriptions" ThisKey="ID" OtherKey="EventID" Type="EventSubscription" />
       <Association Name="User_Event" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Organization" Member="Organizations">
+    <Type Name="Organization">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Info" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AddedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ModeratedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalLikes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_BlogPostOrganization" Member="BlogPostOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="BlogPostOrganization" />
+      <Association Name="Organization_DocumentOrganization" Member="DocumentOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="DocumentOrganization" />
+      <Association Name="Organization_EventOrganization" Member="EventOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="EventOrganization" />
+      <Association Name="Organization_OrganizationAccess" Member="OrganizationAccesses" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationAccess" />
+      <Association Name="Organization_OrganizationSubject" Member="OrganizationSubjects" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationSubject" />
+      <Association Name="Organization_OrganizationContact" Member="OrganizationContacts" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationContact" />
+      <Association Name="Organization_OrganizationLike" Member="OrganizationLikes" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationLike" />
+      <Association Name="Organization_OrganizationLink" Member="OrganizationLinks" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationLink" />
+      <Association Name="Organization_OrganizationRegion" Member="OrganizationRegions" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationRegion" />
+      <Association Name="Organization_PersonOrganization" Member="PersonOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="PersonOrganization" />
+      <Association Name="Organization_PublicationOrganization" Member="PublicationOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="PublicationOrganization" />
+      <Association Name="Organization_StudyMaterialOrganization" Member="StudyMaterialOrganizations" ThisKey="ID" OtherKey="OrganizationID" Type="StudyMaterialOrganization" />
+      <Association Name="Organization_OrganizationRecordRedirect" Member="OrganizationRecordRedirects" ThisKey="ID" OtherKey="OrganizationID" Type="OrganizationRecordRedirect" />
+      <Association Name="User_Organization" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

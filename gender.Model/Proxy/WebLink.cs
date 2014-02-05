@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace gender.Model
-{ 
-    public partial class WebLink : IMaterial
+{
+    public partial class WebLink : IModerable, IMaterial
     {
         public IEnumerable<Subject> SubSubjects
         {
@@ -83,6 +83,11 @@ namespace gender.Model
             get { return "web-link"; }
         }
 
+        public string ClassName
+        {
+            get { return "WebLink"; }
+        }
+
         public string MaterialType
         {
             get { return "Веб-ресурсы"; }
@@ -93,6 +98,14 @@ namespace gender.Model
             get
             {
                 return WebLinkSubscriptions.Select(p => p.User).ToList();
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/web-links/" + Url;
             }
         }
     }

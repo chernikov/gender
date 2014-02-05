@@ -238,7 +238,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemovePublication(publication.ID);
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult Access(int id)

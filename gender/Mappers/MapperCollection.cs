@@ -299,7 +299,10 @@ namespace gender.Mappers
                     .ForMember(dest => dest.OrganizationList, opt => opt.MapFrom(p => p.BlogPostOrganizations.Select(r => r.OrganizationID)))
                     .ForMember(dest => dest.PersonList, opt => opt.MapFrom(p => p.BlogPostPersons.Select(r => r.PersonID)))
                     .ForMember(dest => dest.EventList, opt => opt.MapFrom(p => p.BlogPostEvents.Select(r => r.EventID)));
-        		Mapper.CreateMap<BlogPostView, BlogPost>();
+                Mapper.CreateMap<BlogPost, BlogPostTagsView>()
+                   .ForMember(dest => dest.SubjectList, opt => opt.MapFrom(p => p.BlogPostSubjects.Select(r => r.SubjectID)))
+                   .ForMember(dest => dest.RegionList, opt => opt.MapFrom(p => p.BlogPostRegions.Select(r => r.RegionID)));
+                Mapper.CreateMap<BlogPostView, BlogPost>();
 
                 Mapper.CreateMap<ParseBlogPostView, BlogPost>();
         	}

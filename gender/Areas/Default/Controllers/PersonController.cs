@@ -19,7 +19,7 @@ namespace gender.Areas.Default.Controllers
                 list = list.Where(p => p.LastName.StartsWith(letter));
             }
             var data = new PageableData<Person>();
-            data.Init(list, page, "Index", itemPerPage : 20);
+            data.Init(list, page, "Index", itemPerPage : 50);
             ViewBag.Letter = letter;
             return View(data);
         }

@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Blog] (
+    [ID]         INT      IDENTITY (1, 1) NOT NULL,
+    [UserID]     INT      NOT NULL,
+    [LastUpdate] DATETIME NOT NULL,
+    CONSTRAINT [PK_Blog] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_Blog_User] FOREIGN KEY ([UserID]) REFERENCES [dbo].[User] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+

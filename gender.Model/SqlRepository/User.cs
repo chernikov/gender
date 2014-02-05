@@ -70,27 +70,37 @@ namespace gender.Model
 
         public bool RemoveUser(int idUser)
         {
-            User instance = Db.Users.FirstOrDefault(p => p.ID == idUser);
-            if (instance != null)
+            try
             {
-                if (instance.Person != null)
+                User instance = Db.Users.FirstOrDefault(p => p.ID == idUser);
+                if (instance != null)
                 {
-                    foreach (var person in instance.Persons1.ToList())
+                    Db.Users.DeleteOnSubmit(instance);
+                    if (instance.Person != null)
                     {
-                        person.UserID = null;
-                        Db.Persons.Context.SubmitChanges();
+                        foreach (var person in instance.Persons1.ToList())
+                        {
+                            person.UserID = null;
+                        }
                     }
+                    if (instance.Persons.Any())
+                    {
+                        Db.Persons.DeleteAllOnSubmit(instance.Persons.ToList());
+                    }
+                    if (instance.Mails.Any())
+                    {
+                        Db.Mails.DeleteAllOnSubmit(instance.Mails.ToList());
+                    }
+
+                    Db.Users.Context.SubmitChanges();
+                    return true;
                 }
-                if (instance.Persons.Any())
-                {
-                    Db.Persons.DeleteAllOnSubmit(instance.Persons.ToList());
-                    Db.Persons.Context.SubmitChanges();
-                }
-                Db.Users.DeleteOnSubmit(instance);
-                Db.Users.Context.SubmitChanges();
-                return true;
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public User GetUser(string login)

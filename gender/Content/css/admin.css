@@ -229,3 +229,21 @@
 {
     background : #ffe2e2 !important;
 }
+
+.white-card
+{
+    padding: 10px;
+    background-color: #f8f9f4;
+    -webkit-box-shadow: 0px 1px 4px 1px #b4b6a9, 2px 2px 1px 0px #fff inset;
+    -moz-box-shadow: 0px 1px 4px 1px #b4b6a9, 2px 2px 1px 0px #fff inset;
+    box-shadow: 0px 1px 4px 1px #b4b6a9, 2px 2px 1px 0px #fff inset;
+    margin-bottom: 20px;
+    background-color: #fafbf7;
+    background-image: -moz-linear-gradient(top, #f8f9f4, #fdfdfb);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f9f4), to(#fdfdfb));
+    background-image: -webkit-linear-gradient(top, #f8f9f4, #fdfdfb);
+    background-image: -o-linear-gradient(top, #f8f9f4, #fdfdfb);
+    background-image: linear-gradient(to bottom, #f8f9f4, #fdfdfb);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f9f4', endColorstr='#fffdfdfb', GradientType=0);
+}

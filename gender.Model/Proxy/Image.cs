@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace gender.Model
-{ 
-    public partial class Image : IMaterial
+{
+    public partial class Image : IModerable, IMaterial
     {
         public IEnumerable<Subject> SubSubjects
         {
@@ -99,6 +99,12 @@ namespace gender.Model
             get { return "image"; }
         }
 
+        public string ClassName
+        {
+            get { return "Image"; }
+        }
+
+
         public string Name
         {
             get { return Header; }
@@ -114,6 +120,14 @@ namespace gender.Model
             get
             {
                 return ImageSubscriptions.Select(p => p.User).ToList();
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/images/" + Url;
             }
         }
     }

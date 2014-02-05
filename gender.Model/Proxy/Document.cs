@@ -5,7 +5,7 @@ using System.Text;
 
 namespace gender.Model
 {
-    public partial class Document : IMaterial
+    public partial class Document : IModerable, IMaterial
     {
         public IEnumerable<Subject> SubSubjects
         {
@@ -117,6 +117,11 @@ namespace gender.Model
             get { return "Документы"; }
         }
 
+        public string ClassName
+        {
+            get { return "Document"; }
+        }
+
         public IList<User> CommentSubscribers
         {
             get
@@ -125,5 +130,12 @@ namespace gender.Model
             }
         }
 
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/documents/" + Url;
+            }
+        }
     }
 }

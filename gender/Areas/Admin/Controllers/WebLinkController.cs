@@ -77,7 +77,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemoveWebLink(weblink.ID);
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult GetScreenshot(string url)

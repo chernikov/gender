@@ -2,7 +2,7 @@
 @{
     Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Вход";
-    
+
 }
 
 
@@ -32,35 +32,46 @@
                             <button type="submit" class="btn btn-primary" style="margin-right: 15px;">Вход</button>
                             @Html.ActionLink("Забыли пароль?", "ForgotPassword", "Login")
                             <p>
-                            <br/>
-                               <a class="btn" @*href="@Url.Action("Register", "User")"*@>Регистрация</a>
+                                <br />
+                                <a class="btn" href="@Url.Action("Register", "User")">Регистрация</a>
                             </p>
                         </div>
-                        
+
                     </div>
                 </fieldset>
             }
         </div>
-         
-        <div class="span6">
-            <h3 class='section-header'><i class="icon-user"></i>&nbsp;Вход через социальные сети
-            </h3>
 
-            <p>Авторизуясь на портале Гендер.ру с помощью соцальных сетей,
-             Вы тем самым подтверждаете свое согласие следовать <a href="/pages/rules">Правилам портала</a></p>
+        <div class="span6">
+            <h3 class='section-header'>
+                <i class="icon-user"></i>&nbsp;Вход через социальные сети
+            </h3>
+            <p>
+                Авторизуясь на портале Гендер.ру с помощью соцальных сетей,
+                Вы тем самым подтверждаете свое согласие следовать <a href="/pages/rules">Правилам портала</a>
+            </p>
+            <p>
+                Прежде чем регистрироваться, рекомендуем проверить поиском, нет ли на портале Вашего аккаунта (мы могли создать Вам аккаунт, если у Вас есть публикации гендерной тематики). Если аккаунт уже создан, свяжитесь с модератором, и он предоставит Вам доступ к нему.
+            </p>
+
             <p>
                 <a class="" href="@Url.Action("GoogleLogin", "OAuth")">
-                    <img src="/Content/images/login/google.png" alt="Google" /></a>&nbsp;
+                    <img src="/Content/images/login/google.png" alt="Google" />
+                </a>&nbsp;
                 <a class="" href="@Url.Action("YandexLogin", "OAuth")">
-                    <img src="/Content/images/login/yandex.png" alt="Яндекс" /></a>&nbsp;&nbsp;
+                    <img src="/Content/images/login/yandex.png" alt="Яндекс" />
+                </a>&nbsp;&nbsp;
                 <a class="" href="@Url.Action("MailruLogin", "OAuth")">
-                    <img src="/Content/images/login/mailru.png" alt="Мейл.ру" /></a>
+                    <img src="/Content/images/login/mailru.png" alt="Мейл.ру" />
+                </a>
             </p>
             <p>
                 <a class="" href="@Url.Action("FacebookLogin", "OAuth")">
-                    <img src="/Content/images/login/fb.png" alt="Фейсбук" /></a>&nbsp;&nbsp;
+                    <img src="/Content/images/login/fb.png" alt="Фейсбук" />
+                </a>&nbsp;&nbsp;
                 <a class="" href="@Url.Action("VkontakteLogin", "OAuth")">
-                    <img src="/Content/images/login/vk.png" alt="Вконтакте" /></a>
+                    <img src="/Content/images/login/vk.png" alt="Вконтакте" />
+                </a>
             </p>
         </div>
     </div>

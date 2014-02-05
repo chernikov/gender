@@ -177,6 +177,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ModerateController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogController.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Models\Temp\NodeRevision.cs" />
     <Compile Include="Models\ViewModels\ArticlePublicationView.cs" />
     <Compile Include="Models\ViewModels\ArticleView.cs" />
+    <Compile Include="Models\ViewModels\BlogPostTagsView.cs" />
     <Compile Include="Models\ViewModels\BlogPostView.cs" />
     <Compile Include="Models\ViewModels\BlogView.cs" />
     <Compile Include="Models\ViewModels\BookPublicationView.cs" />
@@ -505,8 +507,11 @@
     <Content Include="CodeTemplates\Scaffolders\Model\ModelTemplate.cs.t4" />
     <Content Include="CodeTemplates\Scaffolders\SelectReference\SelectReference.ps1" />
     <Content Include="CodeTemplates\Scaffolders\SelectReference\SelectReferenceTemplate.cs.t4" />
+    <Content Include="Scripts\admin\blogpost-tags.js" />
     <Content Include="Scripts\admin\common.js" />
     <Content Include="Scripts\admin\distribution.js" />
+    <Content Include="Scripts\ajax-chosen_old.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\common\select-user-email.js" />
     <Content Include="Scripts\admin\edit-user.js" />
     <Content Include="Scripts\admin\create-user.js" />
@@ -2815,6 +2820,11 @@
     <Content Include="Areas\Default\Views\User\SubjectSubscription.cshtml" />
     <Content Include="Areas\Default\Views\User\CommentSubscription.cshtml" />
     <Content Include="Views\Shared\GoogleAnalytics.cshtml" />
+    <Content Include="Areas\Admin\Views\Moderate\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Moderate\Count.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\Posts.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\BlogTags.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutChosenOld.cshtml" />
     <None Include="Properties\PublishProfiles\Gender.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />

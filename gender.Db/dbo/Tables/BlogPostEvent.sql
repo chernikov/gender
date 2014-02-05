@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[BlogPostEvent] (
+    [ID]         INT IDENTITY (1, 1) NOT NULL,
+    [BlogPostID] INT NOT NULL,
+    [EventID]    INT NOT NULL,
+    CONSTRAINT [PK_BlogPostEvent] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_BlogPostEvent_BlogPost] FOREIGN KEY ([BlogPostID]) REFERENCES [dbo].[BlogPost] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_BlogPostEvent_Event] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Event] ([ID]) ON DELETE CASCADE ON UPDATE CASCADE
+);
+

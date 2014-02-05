@@ -67,7 +67,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemoveArticle(article.ID);
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult Redirects(int id)

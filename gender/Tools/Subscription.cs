@@ -47,7 +47,6 @@ namespace gender.Tools
                     UserID = access.User.ID,
                     UpdateType = (int)SubscriptionPart.UpdateTypeEnum.Update,
                     Text = string.Format(template.Template,
-
                         host + access.Material.TypeUrl,
                         access.Material.Url,
                         access.Material.Name,

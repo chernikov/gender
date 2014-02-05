@@ -114,7 +114,7 @@ namespace gender.Areas.Admin.Controllers
             {
                 Repository.RemoveOrganization(organization.ID);
             }
-            return RedirectToAction("Index");
+            return RedirectBack;
         }
 
         public ActionResult Access(int id)
@@ -193,5 +193,12 @@ namespace gender.Areas.Admin.Controllers
             }
             return Json(new { result = "ok" });
         }
+
+        public ActionResult Moderate(int id)
+        {
+            Repository.ModerateOrganization(id);
+            return RedirectBack;
+        }
+
     }
 }

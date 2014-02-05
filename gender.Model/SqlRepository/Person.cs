@@ -82,7 +82,10 @@ namespace gender.Model
             {
                 if (instance.UserID.HasValue)
                 {
-                    RemoveUser(instance.UserID.Value);
+                    if (!RemoveUser(instance.UserID.Value))
+                    {
+                        return false;
+                    }
                 }
                 Db.Persons.DeleteOnSubmit(instance);
                 Db.Persons.Context.SubmitChanges();

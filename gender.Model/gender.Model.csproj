@@ -53,6 +53,7 @@
     <Compile Include="IAccess.cs" />
     <Compile Include="ICommentable.cs" />
     <Compile Include="IMaterial.cs" />
+    <Compile Include="IModerable.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISubscriptionable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

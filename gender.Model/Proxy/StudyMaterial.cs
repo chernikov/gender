@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace gender.Model
-{ 
-    public partial class StudyMaterial : IMaterial
+{
+    public partial class StudyMaterial : IModerable, IMaterial
     {
         public IEnumerable<Person> SubPersons
         {
@@ -115,6 +115,11 @@ namespace gender.Model
             get { return "study-material"; }
         }
 
+        public string ClassName
+        {
+            get { return "StudyMaterial"; }
+        }
+
         public string MaterialType
         {
             get { return "Учебный материал"; }
@@ -125,6 +130,14 @@ namespace gender.Model
             get
             {
                 return StudyMaterialSubscriptions.Select(p => p.User).ToList();
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/study-materials/" + Url;
             }
         }
     }

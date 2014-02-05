@@ -5,7 +5,7 @@ using System.Text;
 
 namespace gender.Model
 {
-    public partial class Publication : IMaterial
+    public partial class Publication : IModerable, IMaterial
     {
         public enum TypeEnum : int
         {
@@ -186,6 +186,11 @@ namespace gender.Model
             get { return "publication"; }
         }
 
+        public string ClassName
+        {
+            get { return "Publication"; }
+        }
+
         public string Name
         {
             get { return Header; }
@@ -201,6 +206,14 @@ namespace gender.Model
             get
             {
                 return PublicationSubscriptions.Select(p => p.User).ToList();
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/publications/" + Url;
             }
         }
     }

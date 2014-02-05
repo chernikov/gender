@@ -24,7 +24,9 @@ namespace gender
                       "~/Scripts/main.js"
                       ));
             bundles.Add(new ScriptBundle("~/bundles/chosen").Include(
-                   "~/Scripts/chosen*", "~/Scripts/ajax-chosen*"));
+                   "~/Scripts/chosen*", "~/Scripts/ajax-chosen.js"));
+            bundles.Add(new ScriptBundle("~/bundles/chosen-old").Include(
+                "~/Scripts/chosen*", "~/Scripts/ajax-chosen_old.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",

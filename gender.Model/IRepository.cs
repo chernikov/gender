@@ -490,6 +490,8 @@ namespace gender.Model
 
         bool RemoveOrganization(int idOrganization);
 
+        bool ModerateOrganization(int idOrganization);
+
         #endregion
 
         #region OrganizationAccess

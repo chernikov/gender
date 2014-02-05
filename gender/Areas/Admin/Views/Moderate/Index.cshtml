@@ -1,0 +1,42 @@
+﻿@model List<gender.Model.IModerable>
+
+@{
+    ViewBag.Title = "Не отмодерировано";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Не отмодерировано</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Тип
+            </th>
+            <th>
+                Наименование
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.MaterialType
+            </td>
+            
+            <td>
+                <a href="@item.DefaultUrl">@item.Name</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Moderate", item.ClassName, new { id = item.ID })" class="btn btn-mini">
+                    Отмодерировать
+                </a>
+                <a href="@Url.Action("Delete", item.ClassName, new { id = item.ID })" class="btn btn-mini btn-danger">
+                    Удалить
+                </a>
+            </td>
+        </tr>
+    }
+</table>

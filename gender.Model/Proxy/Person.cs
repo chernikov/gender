@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace gender.Model
-{ 
-    public partial class Person : IMaterial
+{
+    public partial class Person : IModerable, IMaterial
     {
         public User Author
         {
@@ -224,6 +224,12 @@ namespace gender.Model
             get { return "persons"; }
         }
 
+        public string ClassName
+        {
+            get { return "Person"; }
+        }
+
+
         public string Name
         {
             get { return FullName; }
@@ -247,6 +253,14 @@ namespace gender.Model
             get
             {
                 return SiteUser != null && SiteUser.Blog != null && SiteUser.Blog.BlogPosts.Any();
+            }
+        }
+
+        public string DefaultUrl
+        {
+            get
+            {
+                return "/persons/" + Url;
             }
         }
     }

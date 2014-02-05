@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>gender.Db</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{be521ce3-e7a0-48e8-b2d3-952ea54eea2e}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>gender.Db</RootNamespace>
+    <AssemblyName>gender.Db</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\SubscriptionTemplate.sql" />
+    <Build Include="dbo\Tables\BlogPostEvent.sql" />
+    <Build Include="dbo\Tables\Role.sql" />
+    <Build Include="dbo\Tables\Event.sql" />
+    <Build Include="dbo\Tables\OrganizationAccess.sql" />
+    <Build Include="dbo\Tables\StudyMaterial.sql" />
+    <Build Include="dbo\Tables\OrganizationLike.sql" />
+    <Build Include="dbo\Tables\ArticleRecordRedirect.sql" />
+    <Build Include="dbo\Tables\BlogPostSubscription.sql" />
+    <Build Include="dbo\Tables\PublicationOrganization.sql" />
+    <Build Include="dbo\Tables\DocumentSubscription.sql" />
+    <Build Include="dbo\Tables\OrganizationSubject.sql" />
+    <Build Include="dbo\Tables\ArticleSubject.sql" />
+    <Build Include="dbo\Tables\EventSubscription.sql" />
+    <Build Include="dbo\Tables\ImageSubscription.sql" />
+    <Build Include="dbo\Tables\RecordRedirect.sql" />
+    <Build Include="dbo\Tables\PersonAccess.sql" />
+    <Build Include="dbo\Tables\BlogPostLike.sql" />
+    <Build Include="dbo\Tables\PublicationSubscription.sql" />
+    <Build Include="dbo\Tables\BlogPostRecordRedirect.sql" />
+    <Build Include="dbo\Tables\PersonContact.sql" />
+    <Build Include="dbo\Tables\StudyMaterialSubscription.sql" />
+    <Build Include="dbo\Tables\DocumentRecordRedirect.sql" />
+    <Build Include="dbo\Tables\SubjectSubscription.sql" />
+    <Build Include="dbo\Tables\EventRecordRedirect.sql" />
+    <Build Include="dbo\Tables\PersonRegion.sql" />
+    <Build Include="dbo\Tables\PersonLink.sql" />
+    <Build Include="dbo\Tables\UpdateRecord.sql" />
+    <Build Include="dbo\Tables\ImageRecordRedirect.sql" />
+    <Build Include="dbo\Tables\PersonOrganization.sql" />
+    <Build Include="dbo\Tables\WebLinkSubscription.sql" />
+    <Build Include="dbo\Tables\OrganizationRecordRedirect.sql" />
+    <Build Include="dbo\Tables\Image.sql" />
+    <Build Include="dbo\Tables\UserSocial.sql" />
+    <Build Include="dbo\Tables\PersonRecordRedirect.sql" />
+    <Build Include="dbo\Tables\OrganizationRegion.sql" />
+    <Build Include="dbo\Tables\Contact.sql" />
+    <Build Include="dbo\Tables\PersonSubject.sql" />
+    <Build Include="dbo\Tables\PublicationRecordRedirect.sql" />
+    <Build Include="dbo\Tables\PublicationAccess.sql" />
+    <Build Include="dbo\Tables\StudyMaterialRecordRedirect.sql" />
+    <Build Include="dbo\Tables\OrganizationLink.sql" />
+    <Build Include="dbo\Tables\PublicationComment.sql" />
+    <Build Include="dbo\Tables\WebLinkRecordRedirect.sql" />
+    <Build Include="dbo\Tables\PublicationFile.sql" />
+    <Build Include="dbo\Tables\PublicationLike.sql" />
+    <Build Include="dbo\Tables\PublicationLink.sql" />
+    <Build Include="dbo\Tables\OrganizationContact.sql" />
+    <Build Include="dbo\Tables\PublicationRegion.sql" />
+    <Build Include="dbo\Tables\Subject.sql" />
+    <Build Include="dbo\Tables\PublicationSubject.sql" />
+    <Build Include="dbo\Tables\Redirect.sql" />
+    <Build Include="dbo\Tables\DocumentOrganization.sql" />
+    <Build Include="dbo\Tables\Organization.sql" />
+    <Build Include="dbo\Tables\StudyMaterialAccess.sql" />
+    <Build Include="dbo\Tables\CommentLike.sql" />
+    <Build Include="dbo\Tables\StudyMaterialComment.sql" />
+    <Build Include="dbo\Tables\Setting.sql" />
+    <Build Include="dbo\Tables\StudyMaterialFile.sql" />
+    <Build Include="dbo\Tables\StudyMaterialLike.sql" />
+    <Build Include="dbo\Tables\StudyMaterialLink.sql" />
+    <Build Include="dbo\Tables\File.sql" />
+    <Build Include="dbo\Tables\DocumentLike.sql" />
+    <Build Include="dbo\Tables\StudyMaterialSubject.sql" />
+    <Build Include="dbo\Tables\StudyMaterialRegion.sql" />
+    <Build Include="dbo\Tables\UserEmail.sql" />
+    <Build Include="dbo\Tables\Page.sql" />
+    <Build Include="dbo\Tables\Blog.sql" />
+    <Build Include="dbo\Tables\Article.sql" />
+    <Build Include="dbo\Tables\WebLinkAccess.sql" />
+    <Build Include="dbo\Tables\BlogParser.sql" />
+    <Build Include="dbo\Tables\StudyMaterialPerson.sql" />
+    <Build Include="dbo\Tables\WebLinkRegion.sql" />
+    <Build Include="dbo\Tables\WebLinkComment.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\WebLinkSubject.sql" />
+    <Build Include="dbo\Tables\WebLinkLike.sql" />
+    <Build Include="dbo\Tables\EventFile.sql" />
+    <Build Include="dbo\Tables\DocumentAccess.sql" />
+    <Build Include="dbo\Tables\ImagePerson.sql" />
+    <Build Include="dbo\Tables\BlogPost.sql" />
+    <Build Include="dbo\Tables\Region.sql" />
+    <Build Include="dbo\Tables\DocumentComment.sql" />
+    <Build Include="dbo\Tables\DocumentFile.sql" />
+    <Build Include="dbo\Tables\DocumentLink.sql" />
+    <Build Include="dbo\Tables\DocumentRegion.sql" />
+    <Build Include="dbo\Tables\DocumentSubject.sql" />
+    <Build Include="dbo\Tables\ImageLink.sql" />
+    <Build Include="dbo\Tables\Person.sql" />
+    <Build Include="dbo\Tables\EventAccess.sql" />
+    <Build Include="dbo\Tables\EventComment.sql" />
+    <Build Include="dbo\Tables\BlogPostComment.sql" />
+    <Build Include="dbo\Tables\PublicationPerson.sql" />
+    <Build Include="dbo\Tables\EventLike.sql" />
+    <Build Include="dbo\Tables\ImageLike.sql" />
+    <Build Include="dbo\Tables\EventLink.sql" />
+    <Build Include="dbo\Tables\EventOrganization.sql" />
+    <Build Include="dbo\Tables\EventPerson.sql" />
+    <Build Include="dbo\Tables\BlogPostSubject.sql" />
+    <Build Include="dbo\Tables\EventRegion.sql" />
+    <Build Include="dbo\Tables\Document.sql" />
+    <Build Include="dbo\Tables\EventSubject.sql" />
+    <Build Include="dbo\Tables\StudyMaterialOrganization.sql" />
+    <Build Include="dbo\Tables\Comment.sql" />
+    <Build Include="dbo\Tables\ImageAccess.sql" />
+    <Build Include="dbo\Tables\WebLink.sql" />
+    <Build Include="dbo\Tables\ImageComment.sql" />
+    <Build Include="dbo\Tables\BlogPostRegion.sql" />
+    <Build Include="dbo\Tables\ImageRegion.sql" />
+    <Build Include="dbo\Tables\ImageSubject.sql" />
+    <Build Include="dbo\Tables\BlogPostPerson.sql" />
+    <Build Include="dbo\Tables\Distribution.sql" />
+    <Build Include="dbo\Tables\Invite.sql" />
+    <Build Include="dbo\Tables\UserRole.sql" />
+    <Build Include="dbo\Tables\Publication.sql" />
+    <Build Include="dbo\Tables\Mail.sql" />
+    <Build Include="dbo\Tables\Link.sql" />
+    <Build Include="dbo\Tables\BlogPostOrganization.sql" />
+    <Build Include="dbo\Tables\SubscriptionPart.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gender.Db.publish.xml" />
+  </ItemGroup>
+</Project>

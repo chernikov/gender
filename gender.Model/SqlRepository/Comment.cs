@@ -21,6 +21,11 @@ namespace gender.Model
         {
             if (instance.ID == 0)
             {
+                /*var user = Users.Single(p => p.ID == instance.ID);
+                if (user.Rating < 5)
+                {
+                    instance.IsBanned = true;
+                }*/
                 instance.AddedDate = DateTime.Now;
                 Db.Comments.InsertOnSubmit(instance);
                 Db.Comments.Context.SubmitChanges();
